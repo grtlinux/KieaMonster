@@ -105,6 +105,20 @@ proj-env:
     mo-otk-enc: MO_OTK.enc
     mo-otk-b64: MO_OTK.b64
     
+    step01-flag: false   # 작업폴더를 생성한다.
+    step02-flag: true   # Key 없으면 생성한다. KeyPair
+    step03-flag: false   # Key를 작업폴더에 복사한다.
+    step04-flag: false   # KeyPair에 BASE64 처리
+    step05-flag: false   #
+    step06-flag: false   #
+    step07-flag: false   #
+    step08-flag: false   #
+    step09-flag: false   #
+    step10-flag: false   #
+    step11-flag: false   #
+    step12-flag: false   #
+    step13-flag: false   #
+    
   job:
     name: JOB (air)
   json:

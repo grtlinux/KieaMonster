@@ -1,7 +1,9 @@
 package org.tain.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.tain.utils.StringTools;
 
 import lombok.Data;
 
@@ -36,4 +38,31 @@ public class ProjEnvParamProperties {
 	private String moOtkB64;
 	
 	private String dummy;  // null
+	
+	private String workingPath;
+	private String configPath;
+	
+	private boolean step01Flag;
+	private boolean step02Flag;
+	private boolean step03Flag;
+	private boolean step04Flag;
+	private boolean step05Flag;
+	private boolean step06Flag;
+	private boolean step07Flag;
+	private boolean step08Flag;
+	private boolean step09Flag;
+	private boolean step10Flag;
+	private boolean step11Flag;
+	private boolean step12Flag;
+	private boolean step13Flag;
+	private boolean step14Flag;
+	private boolean step15Flag;
+	
+	@Bean
+	public void init() throws Exception {
+		this.todayPath = String.format("/%s", StringTools.getYYYYMMDD());
+		
+		this.workingPath = this.home + this.base + this.workPath + this.todayPath;
+		this.configPath = this.home + this.base + this.workPath + this.confPath;
+	}
 }

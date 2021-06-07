@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.tain.properties.ProjEnvBaseProperties;
 import org.tain.working.Working;
 
 @SpringBootApplication
@@ -18,10 +19,18 @@ public class KieaMonster90Rsa02Application implements CommandLineRunner {
 	///////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
+	private ProjEnvBaseProperties projEnvBaseProperties;
+	
+	@Autowired
 	private Working working;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		this.working.work01();
+		this.working.printProperties();
+		this.working.stepJob();
+		
+		if (this.projEnvBaseProperties.isTestFlag()) {
+			System.exit(0);
+		}
 	}
 }
