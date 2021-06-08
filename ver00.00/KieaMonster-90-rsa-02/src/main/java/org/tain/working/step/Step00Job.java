@@ -21,39 +21,120 @@ public class Step00Job {
 	private ProjEnvParamProperties projEnvParamProperties;
 	
 	private String imsiKeyPath = null;
+	private String workingPath = null;
 	
 	public void doing() throws Exception {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
 			this.imsiKeyPath = this.projEnvParamProperties.getImsiKeyPath();
+			this.workingPath = this.projEnvParamProperties.getWorkingPath();
 			log.info("KANG-20210405 -----> imsiKeyPath. {}", this.imsiKeyPath);
+			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
 		
+		if (!Boolean.TRUE) getPriKey01();
+		if (!Boolean.TRUE) getPubKey01();
+		
+		if (Boolean.TRUE) doingBase64DecodingOfHwPubKeyB64();
 		if (Boolean.TRUE) doingBase64DecodingOfHwPriKeyB64();
-		if (!Boolean.TRUE) doingBase64DecodingOfHwPubKeyB64();
 		
 		log.info("");
 	}
 	
-	private void doingBase64DecodingOfHwPriKeyB64() throws Exception {
+	private void getPriKey01() throws Exception {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
-		String b64File = null;
-		String binFile = null;
 		if (Boolean.TRUE) {
-			b64File = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPrikeyB64();
-			binFile = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPrikeyBin();
+			String b64File = this.imsiKeyPath + File.separator + "HW_PriKey.b64";
+			log.info("KANG-20210405 -----> {}", b64File);
+			@SuppressWarnings("unused")
+			PrivateKey priKey = null;
+			try {
+				priKey = CipherUtils.getPrivateKeyFromBase64(StringTools.bytesFromFile(b64File));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
+		//Sleep.run(1 * 1000);
+		
 		if (Boolean.TRUE) {
-			byte[] b64Data = StringTools.bytesFromFile(b64File);
-			PrivateKey priKey = CipherUtils.getPrivateKeyFromBase64(b64Data);
-			byte[] binData = priKey.getEncoded();
-			StringTools.bytesToFile(binData, binFile);
-			log.info("KANG-20210405 -----> {} -> {}", b64File, binFile);
-			StringTools.printHex(b64Data);
-			StringTools.printHex(binData);
+			/*
+			String b64File = this.imsiKeyPath + File.separator + "_privateKey.b64.txt";
+			log.info("KANG-20210405 -----> {}", b64File);
+			@SuppressWarnings("unused")
+			PrivateKey priKey = null;
+			try {
+				priKey = CipherUtils.getPrivateKeyFromBase64(StringTools.bytesFromFile(b64File));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			*/
+		}
+		
+		//Sleep.run(1 * 1000);
+		
+		if (Boolean.TRUE) {
+			/*
+			String b64File = this.workingPath + File.separator + "HW_PriKey.b64";
+			log.info("KANG-20210405 -----> {}", b64File);
+			@SuppressWarnings("unused")
+			PrivateKey priKey = null;
+			try {
+				priKey = CipherUtils.getPrivateKeyFromBase64(StringTools.bytesFromFile(b64File));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			*/
+		}
+	}
+	
+	private void getPubKey01() throws Exception {
+		log.info("KANG-20210405 {} {}", CurrentInfo.get());
+		
+		if (Boolean.TRUE) {
+			String b64File = this.imsiKeyPath + File.separator + "HW_PubKey.b64";
+			log.info("KANG-20210405 -----> {}", b64File);
+			@SuppressWarnings("unused")
+			PublicKey pubKey = null;
+			try {
+				pubKey = CipherUtils.getPublicKeyFromBase64(StringTools.bytesFromFile(b64File));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		//Sleep.run(1 * 1000);
+		
+		if (Boolean.TRUE) {
+			/*
+			String b64File = this.imsiKeyPath + File.separator + "MO_PubKey.b64";
+			log.info("KANG-20210405 -----> {}", b64File);
+			@SuppressWarnings("unused")
+			PublicKey pubKey = null;
+			try {
+				pubKey = CipherUtils.getPublicKeyFromBase64(StringTools.bytesFromFile(b64File));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			*/
+		}
+		
+		//Sleep.run(1 * 1000);
+		
+		if (Boolean.TRUE) {
+			/*
+			String b64File = this.imsiKeyPath + File.separator + "_publicKey.b64.txt";
+			log.info("KANG-20210405 -----> {}", b64File);
+			@SuppressWarnings("unused")
+			PublicKey pubKey = null;
+			try {
+				pubKey = CipherUtils.getPublicKeyFromBase64(StringTools.bytesFromFile(b64File));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			*/
 		}
 	}
 	
@@ -71,6 +152,27 @@ public class Step00Job {
 			byte[] b64Data = StringTools.bytesFromFile(b64File);
 			PublicKey pubKey = CipherUtils.getPublicKeyFromBase64(b64Data);
 			byte[] binData = pubKey.getEncoded();
+			StringTools.bytesToFile(binData, binFile);
+			log.info("KANG-20210405 -----> {} -> {}", b64File, binFile);
+			StringTools.printHex(b64Data);
+			StringTools.printHex(binData);
+		}
+	}
+	
+	private void doingBase64DecodingOfHwPriKeyB64() throws Exception {
+		log.info("KANG-20210405 {} {}", CurrentInfo.get());
+		
+		String b64File = null;
+		String binFile = null;
+		if (Boolean.TRUE) {
+			b64File = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPrikeyB64();
+			binFile = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPrikeyBin();
+		}
+		
+		if (Boolean.TRUE) {
+			byte[] b64Data = StringTools.bytesFromFile(b64File);
+			PrivateKey priKey = CipherUtils.getPrivateKeyFromBase64(b64Data);
+			byte[] binData = priKey.getEncoded();
 			StringTools.bytesToFile(binData, binFile);
 			log.info("KANG-20210405 -----> {} -> {}", b64File, binFile);
 			StringTools.printHex(b64Data);

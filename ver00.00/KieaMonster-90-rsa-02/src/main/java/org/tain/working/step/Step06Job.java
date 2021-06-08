@@ -48,8 +48,8 @@ public class Step06Job {
 		Path srcFile = null;
 		Path dstFile = null;
 		if (Boolean.TRUE) {
-			//srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParamProperties.getMoPubkeyB64());
-			srcFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyB64());
+			srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParamProperties.getMoPubkeyB64());
+			//srcFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyB64());
 			dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getMoPubkeyB64());
 			
 			Files.copy(srcFile, dstFile, StandardCopyOption.REPLACE_EXISTING);
