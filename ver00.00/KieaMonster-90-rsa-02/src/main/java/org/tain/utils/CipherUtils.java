@@ -47,6 +47,13 @@ public class CipherUtils {
 		return encrypted;
 	}
 	
+	public static byte[] encryptRSA(byte[] byteText, PublicKey publicKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+		Cipher cipher = Cipher.getInstance("RSA");
+		cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+		byte[] byteEncText = cipher.doFinal(byteText);
+		return byteEncText;
+	}
+	
 	/*
 	 * Private Key로 RAS 복호화를 수행합니다.
 	 */
@@ -57,6 +64,13 @@ public class CipherUtils {
 		byte[] bytePlain = cipher.doFinal(byteEncrypted);
 		String decrypted = new String(bytePlain, "utf-8");
 		return decrypted;
+	}
+	
+	public static byte[] decryptRSA(byte[] byteEncText, PrivateKey privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
+		Cipher cipher = Cipher.getInstance("RSA");
+		cipher.init(Cipher.DECRYPT_MODE, privateKey);
+		byte[] byteText = cipher.doFinal(byteEncText);
+		return byteText;
 	}
 	
 	/*
@@ -81,6 +95,28 @@ public class CipherUtils {
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		
 		X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
+		
+		return keyFactory.generatePublic(keySpecX509);
+	}
+	
+	/*
+	 * Base64 엔코딩된 개인키 문자열로부터 PrivateKey객체를 얻는다.
+	 */
+	public static PrivateKey getPrivateKeyFromBase64(final byte[] byteKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		
+		PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(byteKey));
+		
+		return keyFactory.generatePrivate(keySpecPKCS8);
+	}
+	
+	/*
+	 * Base64 엔코딩된 공용키키 문자열로부터 PublicKey객체를 얻는다.
+	 */
+	public static PublicKey getPublicKeyFromBase64(final byte[] byteKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		
+		X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(byteKey));
 		
 		return keyFactory.generatePublic(keySpecX509);
 	}

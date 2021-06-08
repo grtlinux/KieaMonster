@@ -3,6 +3,7 @@ package org.tain.working;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.properties.ProjEnvParamProperties;
+import org.tain.working.step.Step00Job;
 import org.tain.working.step.Step01Job;
 import org.tain.working.step.Step02Job;
 import org.tain.working.step.Step03Job;
@@ -37,6 +38,7 @@ public class Working {
 	@Autowired
 	private ProjEnvParamProperties projEnvParamProperties;
 	
+	@Autowired private Step00Job step00Job;
 	@Autowired private Step01Job step01Job;
 	@Autowired private Step02Job step02Job;
 	@Autowired private Step03Job step03Job;
@@ -54,6 +56,7 @@ public class Working {
 	@Autowired private Step15Job step15Job;
 	
 	public void stepJob() throws Exception {
+		if (this.projEnvParamProperties.isStep00Flag()) this.step00Job.doing();
 		if (this.projEnvParamProperties.isStep01Flag()) this.step01Job.doing();
 		if (this.projEnvParamProperties.isStep02Flag()) this.step02Job.doing();
 		if (this.projEnvParamProperties.isStep03Flag()) this.step03Job.doing();
