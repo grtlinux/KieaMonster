@@ -91,6 +91,5 @@ public class Step10Job {
 		log.info("KANG-20210405 -----> 1. transfer file: {}", this.moOtkB64File);
 		log.info("KANG-20210405 -----> 2. transfer file: {}", this.moOtkEncFile);
 		log.info("KANG-20210405 -----> 3. transfer file: {}", this.moOtkBinFile);
-		
 	}
 }

@@ -3,6 +3,7 @@ package org.tain.working.step;
 import java.io.File;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,14 +34,84 @@ public class Step00Job {
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
 		
+		if (Boolean.TRUE) doing_testPadding();
+		
+		if (!Boolean.TRUE) doing_HW_PriKey();
+		
 		if (!Boolean.TRUE) getPriKey01();
 		if (!Boolean.TRUE) getPubKey01();
 		
-		if (Boolean.TRUE) doingBase64DecodingOfHwPubKeyB64();
-		if (Boolean.TRUE) doingBase64DecodingOfHwPriKeyB64();
+		if (!Boolean.TRUE) doingBase64DecodingOfHwPubKeyB64();
+		if (!Boolean.TRUE) doingBase64DecodingOfHwPriKeyB64();
 		
 		log.info("");
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	private void doing_testPadding() throws Exception {
+		CipherUtils.testPadding();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	private void doing_HW_PriKey() throws Exception {
+		log.info("KANG-20210405 {} {}", CurrentInfo.get());
+		
+		String binFile = null;
+		String b64File = null;
+		if (Boolean.TRUE) {
+			binFile = this.imsiKeyPath + File.separator + "HW_PriKey.bin";
+			b64File = this.imsiKeyPath + File.separator + "HW_PriKey.b64";
+			log.info("KANG-20210405 -----> {}", binFile);
+			log.info("KANG-20210405 -----> {}", b64File);
+		}
+		
+		byte[] byteBin = null;
+		@SuppressWarnings("unused")
+		byte[] byteB64 = null;
+		if (Boolean.TRUE) {
+			byteBin = StringTools.bytesFromFile(binFile);
+			byteB64 = Base64.getEncoder().encode(byteBin);
+		}
+		
+		PrivateKey priKey = null;
+		if (Boolean.TRUE) {
+			//priKey = CipherUtils.getPrivateKeyFromBase64(byteB64);
+			priKey = CipherUtils.getPrivateKeyFromBase64String(StringTools.stringFromFile(b64File));
+		}
+		
+		String b64OtkFile = null;
+		String encOtkFile = null;
+		String binOtkFile = null;
+		if (Boolean.TRUE) {
+			b64OtkFile = this.imsiKeyPath + File.separator + "MO_OTK.b64";
+			encOtkFile = this.imsiKeyPath + File.separator + "MO_OTK.enc";
+			binOtkFile = this.imsiKeyPath + File.separator + "MO_OTK.bin";
+			log.info("KANG-20210405 -----> {}", b64OtkFile);
+			log.info("KANG-20210405 -----> {}", encOtkFile);
+			log.info("KANG-20210405 -----> {}", binOtkFile);
+		}
+		
+		byte[] byteB64Otk = null;
+		byte[] byteEncOtk = null;
+		byte[] byteBinOtk = null;
+		if (Boolean.TRUE) {
+			byteB64Otk = StringTools.bytesFromFile(b64OtkFile);
+			byteEncOtk = Base64.getDecoder().decode(byteB64Otk);
+			byteBinOtk = CipherUtils.decryptRSA(byteEncOtk, priKey);
+			
+			StringTools.printHex(byteBinOtk);
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
 	private void getPriKey01() throws Exception {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());

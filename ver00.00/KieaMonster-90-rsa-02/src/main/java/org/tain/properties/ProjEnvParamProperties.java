@@ -37,6 +37,11 @@ public class ProjEnvParamProperties {
 	private String moOtkBin;
 	private String moOtkEnc;
 	private String moOtkB64;
+	
+	private String moAf71B64;
+	private String moAf71Gz;
+	private String moAf71Enc;
+	private String moAf71Dat;
 
 	private String dummy;  // null
 

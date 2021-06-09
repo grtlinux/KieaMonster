@@ -107,7 +107,13 @@ proj-env:
     mo-otk-enc: MO_OTK.enc
     mo-otk-b64: MO_OTK.b64
 
+    mo-af71-b64: AF71.b64
+    mo-af71-gz:  AF71.gz
+    mo-af71-enc: AF71.enc
+    mo-af71-dat: AF71.dat
+
     #step00-flag: true   # 기타 작업
+    
     step01-flag: true   # 작업폴더를 생성한다.
     step02-flag: true   # Key 없으면 생성한다. KeyPair
     step03-flag: true   # Key를 작업폴더에 복사한다.
@@ -118,11 +124,12 @@ proj-env:
     step08-flag: true   # FI0071(1000:300:AF71) 요구정보 수신
     step09-flag: true   # FI0072(1000) OTK 수신
     step10-flag: true   # 변환:
-    #step11-flag: true   # 변환:
-    #step12-flag: true   # FI0076(400) 제공정보 송신        
-    #step13-flag: true   # FI0077(1000) OTK 송신        
-    #step14-flag: true   # FI1100(1000) PubKey 에러 수신  
-    #step15-flag: true   # FI1176(400) 제공정보 에러 수신     
+    step11-flag: true   # 변환:
+    
+    #step12-flag: true   # FI0076(400) 제공정보 송신
+    #step13-flag: true   # FI0077(1000) OTK 송신
+    #step14-flag: true   # FI1100(1000) PubKey 에러 수신
+    #step15-flag: true   # FI1176(400) 제공정보 에러 수신
 
 
   job:
