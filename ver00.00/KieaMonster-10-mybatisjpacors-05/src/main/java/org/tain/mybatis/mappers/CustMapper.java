@@ -9,4 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CustMapper {
 
 	List<Map<String,Object>> selectAll(Map<String,Object> mapIn);
+	Map<String,Object> selectByCode(Map<String,Object> mapIn);
 }

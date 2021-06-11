@@ -12,7 +12,7 @@ import org.tain.jpa.repository.TbCustProdRepository;
 import org.tain.mybatis.mappers.CustProdMapper;
 
 @RestController
-@RequestMapping({"/custprod"})
+@RequestMapping({"/rest/custprod"})
 public class CustProdRestController {
 
 	@Autowired

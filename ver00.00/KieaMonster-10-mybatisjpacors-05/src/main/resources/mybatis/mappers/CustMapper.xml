@@ -16,4 +16,16 @@
 		where 1=1
 	</select>
 
+	<select id="selectByCode" parameterType="CamelMap" resultType="CamelMap">
+		select
+			id
+			, code
+			, name
+			, desc
+		from
+			tb_cust
+		where 1=1
+			and code = #{code}
+	</select>
+
 </mapper>
