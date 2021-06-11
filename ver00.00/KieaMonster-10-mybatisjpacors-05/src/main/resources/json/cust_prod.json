@@ -1,0 +1,11 @@
+[
+	{
+		"custCode": "C001",
+		"prodCode": "P001",
+		"prodCount": 5
+	},{
+		"custCode": "C002",
+		"prodCode": "P003",
+		"prodCount": 7
+	}
+]
