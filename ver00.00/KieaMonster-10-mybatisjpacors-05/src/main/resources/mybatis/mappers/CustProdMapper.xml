@@ -33,6 +33,7 @@
 			and c.code = a.prod_code
 	</select>
 
+	<!-- the result of this selectJoin2 is the same result of the above selectJoin1, because of null column -->
 	<select id="selectJoin2" parameterType="CamelMap" resultType="CamelMap">
 		select
 			a.code         as cust_code
