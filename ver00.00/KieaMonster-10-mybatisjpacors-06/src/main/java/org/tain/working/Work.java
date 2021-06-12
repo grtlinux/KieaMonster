@@ -19,7 +19,7 @@ public class Work {
 	private PropertiesWork propertiesWork;
 	
 	private void propertiesWork() throws Exception {
-		this.propertiesWork.working();
+		if (Boolean.TRUE) this.propertiesWork.working();
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -28,6 +28,6 @@ public class Work {
 	private LoadWork loadWork;
 	
 	private void loadWork() throws Exception {
-		this.loadWork.working();
+		if (Boolean.TRUE) this.loadWork.working();
 	}
 }

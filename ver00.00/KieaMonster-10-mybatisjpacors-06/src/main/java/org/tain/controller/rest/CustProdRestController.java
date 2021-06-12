@@ -50,4 +50,52 @@ public class CustProdRestController {
 		}
 		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
 	}
+	
+	@GetMapping({"/join1"})
+	public ResponseEntity<?> selectJoin1(HttpEntity<String> httpEntity) {
+		if (Boolean.TRUE) {
+			HttpHeaders headers = httpEntity.getHeaders();
+			String body = httpEntity.getBody();
+			log.info(">>>>> ip.info: " + IpPrint.get());
+			log.info(">>>>> request.headers: " + headers.toString());
+			log.info(">>>>> request.body: " + body);
+		}
+		
+		List<Map<String,Object>> lst = null;
+		if (Boolean.TRUE) {
+			Map<String,Object> mapIn = new HashMap<>();
+			lst = this.custProdMapper.selectJoin1(mapIn);
+		}
+		
+		MultiValueMap<String,String> headers = null;
+		if (Boolean.TRUE) {
+			headers = new LinkedMultiValueMap<>();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+		}
+		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
+	}
+	
+	@GetMapping({"/join2"})
+	public ResponseEntity<?> selectJoin2(HttpEntity<String> httpEntity) {
+		if (Boolean.TRUE) {
+			HttpHeaders headers = httpEntity.getHeaders();
+			String body = httpEntity.getBody();
+			log.info(">>>>> ip.info: " + IpPrint.get());
+			log.info(">>>>> request.headers: " + headers.toString());
+			log.info(">>>>> request.body: " + body);
+		}
+		
+		List<Map<String,Object>> lst = null;
+		if (Boolean.TRUE) {
+			Map<String,Object> mapIn = new HashMap<>();
+			lst = this.custProdMapper.selectJoin2(mapIn);
+		}
+		
+		MultiValueMap<String,String> headers = null;
+		if (Boolean.TRUE) {
+			headers = new LinkedMultiValueMap<>();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+		}
+		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
+	}
 }

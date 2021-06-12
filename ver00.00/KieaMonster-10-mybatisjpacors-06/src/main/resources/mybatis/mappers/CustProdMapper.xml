@@ -5,6 +5,7 @@
 
 <mapper namespace="org.tain.mybatis.mappers.CustProdMapper">
 
+	<!-- google-search: selectKey -->
 	<select id="selectAll" parameterType="CamelMap" resultType="CamelMap">
 		select
 			id
@@ -14,6 +15,41 @@
 		from
 			tb_cust_prod
 		where 1=1
+	</select>
+	
+	<select id="selectJoin1" parameterType="CamelMap" resultType="CamelMap">
+		select
+			b.code         as cust_code
+			, b.name       as cust_name
+			, c.code       as prod_code
+			, c.name       as prod_name
+			, c.price      as prod_price
+			, a.prod_cnt   as prod_count
+		from
+			tb_cust_prod   as a
+			, tb_cust      as b
+			, tb_prod      as c
+		where 1=1
+			and b.code = a.cust_code
+			and c.code = a.prod_code
+	</select>
+
+	<!-- the result of this selectJoin2 is the same result of the above selectJoin1, because of null column -->
+	<select id="selectJoin2" parameterType="CamelMap" resultType="CamelMap">
+		select
+			a.code         as cust_code
+			, a.name       as cust_name
+			, c.code       as prod_code
+			, c.name       as prod_name
+			, c.price      as prod_price
+			, b.prod_cnt   as prod_count
+		from
+			tb_cust          as a
+			, tb_cust_prod   as b
+			, tb_prod        as c
+		where 1=1
+			and b.cust_code = a.code
+			and c.code = b.prod_code
 	</select>
 	
 </mapper>

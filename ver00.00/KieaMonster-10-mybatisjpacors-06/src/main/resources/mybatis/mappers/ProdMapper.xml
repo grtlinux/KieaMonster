@@ -5,6 +5,7 @@
 
 <mapper namespace="org.tain.mybatis.mappers.ProdMapper">
 
+	<!-- google-search: selectKey -->
 	<select id="selectAll" parameterType="CamelMap" resultType="CamelMap">
 		select
 			id

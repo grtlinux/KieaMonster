@@ -5,6 +5,7 @@
 
 <mapper namespace="org.tain.mybatis.mappers.CustMapper">
 
+	<!-- google-search: selectKey -->
 	<select id="selectAll" parameterType="CamelMap" resultType="CamelMap">
 		select
 			id
@@ -14,6 +15,24 @@
 		from
 			tb_cust
 		where 1=1
+	</select>
+	
+	<!-- google-search: selectKey -->
+	<select id="selectByKey" parameterType="CamelMap" resultType="CamelMap">
+		select
+			id
+			, code
+			, name
+			, desc
+		from
+			tb_cust
+		where 1=1
+	<if test='id != null and id != "" and id != -1'>
+			and id = #{id}
+	</if>
+	<if test='code != null and code != ""'>
+			and code = #{code}
+	</if>
 	</select>
 	
 </mapper>
