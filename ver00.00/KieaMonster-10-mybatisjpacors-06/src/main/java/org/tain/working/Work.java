@@ -1,0 +1,33 @@
+package org.tain.working;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.tain.working.load.LoadWork;
+import org.tain.working.properties.PropertiesWork;
+
+@Component
+public class Work {
+
+	public void working() throws Exception {
+		if (Boolean.TRUE) propertiesWork();
+		if (Boolean.TRUE) loadWork();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	@Autowired
+	private PropertiesWork propertiesWork;
+	
+	private void propertiesWork() throws Exception {
+		this.propertiesWork.working();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	@Autowired
+	private LoadWork loadWork;
+	
+	private void loadWork() throws Exception {
+		this.loadWork.working();
+	}
+}

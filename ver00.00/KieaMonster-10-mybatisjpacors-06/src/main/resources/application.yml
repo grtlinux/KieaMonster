@@ -121,7 +121,7 @@ logging:
 
 proj-env:
   param:
-    base-path: /Users/kang-air/STS/workspace/Zoom-01/src/main/resources/json
+    base-path: /Users/kang-air/STS/GIT/KieaMonster/ver00.00/KieaMonster-10-mybatisjpacors-06/src/main/resources/json
     cust-file:      cust.json
     cust-prod-file: cust_prod.json
     prod-file:      prod.json
