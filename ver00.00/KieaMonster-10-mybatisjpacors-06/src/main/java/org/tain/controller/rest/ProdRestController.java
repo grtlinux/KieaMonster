@@ -11,8 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tain.mybatis.mappers.ProdMapper;
 import org.tain.utils.IpPrint;
@@ -27,6 +29,7 @@ public class ProdRestController {
 	@Autowired
 	private ProdMapper prodMapper;
 	
+	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"", "/list"})
 	public ResponseEntity<?> selectAll(HttpEntity<String> httpEntity) {
 		if (Boolean.TRUE) {
