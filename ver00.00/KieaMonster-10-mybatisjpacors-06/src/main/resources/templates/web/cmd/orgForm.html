@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>orgForm.html</title>
+	<!-- css and script -->
+	<th:block th:replace="layout/css::css1"></th:block>
+	<th:block th:replace="layout/script::script1"></th:block>
+	<!-- /css and script -->
+	<style>
+	#result {
+		resize: vertical;
+	}
+	textarea {
+		font-family: monospace, "맑은 고딕", serif;
+		font-size: 11px;
+		color: #999999;
+	}
+	</style>
+
+</head>
+<body>
+<!-- header -->
+<div th:replace="layout/header::header5"></div>
+<!-- /header -->
+
+<!-- main -->
+<div class="container">
+	<div class="page-header">
+		<h2>Org Detail</h2>
+	</div>
+	<br/>
+	<table class="table">
+		<tr>
+			<th class="col-sm-2" style="padding:13px 0 0 15px;">id</th>
+			<td class="col-sm-10"><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.id}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">org code</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.orgCode}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">org name</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.orgName}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">org desc</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.orgDesc}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">org comment</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.orgComment}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">content</th>
+			<td><input type="text" class="col-md-1 form-control input-sm"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<div class="pull-right">
+		<button th:if="!${itm?.id}" type="button" class="btn btn-primary" id="btnInsert">save</button>
+		<button th:if="!${itm?.id}" type="button" class="btn btn-info" id="btnUpdate">update</button>
+		<button th:if="!${itm?.id}" type="button" class="btn btn-info" id="btnMain">main</button>
+		<a th:if="!${itm?.id}" th:href="@{/}" class="btn btn-info">main</a>
+		<a th:if="${itm?.id}" th:href="@{/}" class="btn btn-info">home</a>
+	</div>
+
+</div>
+<!-- /main -->
+<br/><br/><br/>
+
+<!-- footer -->
+<div th:replace="layout/footer::footer1"></div>
+<!-- /footer -->
+
+</body>
+
+<!-- script: variables -->
+<script th:inline="javascript">
+	var wsUri = /*[[${wsUri}]]*/ 'wsUri';
+	console.log(">>>>> wsUri = " + wsUri);
+	var itm = /*[[${itm}]]*/ 'svrCode';
+	console.log(">>>>> itm = " + itm);
+</script>
+<!-- /script: variables -->
+
+
+<!-- script: button -->
+<script>
+	$('#btnMain').click(function() {
+		console.log('>>>>> btnMain: onClick');
+	});
+</script>
+<!-- /script: button -->
+
+</html>
