@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>brwList.html</title>
+	<!-- css and script -->
+	<th:block th:replace="layout/css::css1"></th:block>
+	<th:block th:replace="layout/script::script1"></th:block>
+	<!-- /css and script -->
+</head>
+<body>
+	<!-- header -->
+	<div th:replace="layout/header::header5"></div>
+	<!-- /header -->
+	
+	<!-- main -->
+	<div class="container">
+		<div class="page-header">
+			<h2>Browser List</h2>
+		</div>
+		<br/>
+		<div id="main">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th class="col-md-1">id</th>
+						<th class="col-md-3">IP Addr</th>
+						<th class="col-md-3">User id</th>
+						<th class="col-md-3">Connect Time</th>
+						<th class="col-md-2">&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="itm : ${lst}">
+						<td th:text="${itm.id}">#</td>
+						<td th:text="${itm.ipAddr}">ipAddr</td>
+						<td th:text="${itm.userId}">userId</td>
+						<td th:text="${itm.createDate}">createDate</td>
+						<td>
+							<div class="pull-right">
+								<a th:href="@{/cmd/brwForm(id=${itm.id})}" style="padding:2px;" class="btn btn-primary btn-sm">detail</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br/>
+		<div class="pull-right">
+			<a th:href="@{/}" class="btn btn-info">home</a>
+		</div>
+		
+		<!-- page --
+		<th:block th:replace="layout/page::page5"></th:block>
+		-- /page -->
+	</div>
+	<br/><br/>
+	<br/><br/>
+	<!-- /main -->
+	
+	<!-- footer -->
+	<div th:replace="layout/footer::footer1"></div>
+	<!-- /footer -->
+	
+</body>
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+
+<!-- script: variables -->
+<script th:inline="javascript">
+	var wsUri = /*[[${wsUri}]]*/ 'wsUri';
+	console.log(">>>>> wsUri = " + wsUri);
+	var lst = /*[[${lst}]]*/ 'svrCode';
+	console.log(">>>>> lst = " + lst);
+</script>
+<!-- /script: variables -->
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+
+<!-- script : main -->
+<script>
+</script>
+<!-- /script : main -->
+
+
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+
+
+<!-- script : GetStreamInfo -->
+<script>
+/*
+	$('#btnGetStreamInfo').click(function() {
+		console.log('Hello btnGetStreamInfo');
+		$('#modal1_reqResType').val("");
+		$('#modal1_jsonInfo').val("");
+	});
+	$('#btnGetJsonInfo').click(function() {
+		console.log('Hello btnGetJsonInfo');
+		$.ajax({
+			url: urlMapper + "/mapper/info/get",
+			type: "POST",
+			data: JSON.stringify({
+				reqResType: $('#modal1_reqResType').val()
+			}),
+			contentType: "application/json",
+			header: {
+				"Authorization": "Basic " + btoa("havi" + ":" + "test")
+			},
+			dataType: "json",
+			success: function(data, status) {
+				//console.log("data = ", data);
+				$('#modal1_reqResType').val(data.reqResType);
+				$('#modal1_jsonInfo').val(data.jsonInfo);
+			},
+			error: function() {
+				alert('FAIL of SAVE1');
+				$('#modal1_jsonInfo').val("");
+			}
+		});
+	});
+	$('#btnCopyJsonInfo').click(function() {
+		console.log('Hello btnCopyJsonInfo');
+		var copyText = document.getElementById("modal1_jsonInfo");
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		document.execCommand("copy");
+	});
+	$('#btnSaveJsonInfo').click(function() {
+		console.log('Hello btnSaveJsonInfo');
+		$.ajax({
+			url: urlMapper + "/mapper/info/save",
+			type: "POST",
+			data: JSON.stringify({
+				reqResType: $('#modal1_reqResType').val(),
+				jsonInfo: $('#modal1_jsonInfo').val()
+			}),
+			contentType: "application/json",
+			header: {
+				"Authorization": "Basic " + btoa("havi" + ":" + "test")
+			},
+			dataType: "json",
+			success: function(data, status) {
+				if (true) alert("status: " + data.status);
+			},
+			error: function() {
+				alert('FAIL of SAVE1');
+			}
+		});
+	});
+	$('#btnCloseGetStreamInfo').click(function() {
+		console.log('Hello btnCloseGetStreamInfo');
+	});
+*/
+</script>
+<!-- /script : GetStreamInfo -->
+
+
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+
+<!-- script -->
+<script>
+/*
+	$('#test-box').focus();
+	$('#test-box').keypress(function(event){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			var next_page = Number($('#page_number').text()) + 1;
+			//alert('You pressed a "enter" key in textbox > ' + 'word/list?page=' + next_page);
+			location.href = _contextPath_ + 'word/list?page=' + next_page;
+		}
+	});
+*/
+</script>
+<!-- /script -->
+
+</html>

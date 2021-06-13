@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>cmdForm.html</title>
+	<!-- css and script -->
+	<th:block th:replace="layout/css::css1"></th:block>
+	<th:block th:replace="layout/script::script1"></th:block>
+	<!-- /css and script -->
+	<style>
+	#result {
+		resize: vertical;
+	}
+	textarea {
+		font-family: monospace, "맑은 고딕", serif;
+		font-size: 11px;
+		color: #999999;
+	}
+	</style>
+
+</head>
+<body>
+<!-- header -->
+<div th:replace="layout/header::header5"></div>
+<!-- /header -->
+
+<!-- main -->
+<div class="container">
+	<div class="page-header">
+		<h2>Command Detail</h2>
+	</div>
+	<br/>
+	<table class="table">
+		<tr>
+			<th class="col-sm-2" style="padding:13px 0 0 15px;">id</th>
+			<td class="col-sm-10"><input id="id" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.id}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">mst type</th>
+			<td><input id="mstType" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.mstType}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">mst code</th>
+			<td><input id="mstCode" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.mstCode}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">cmd code</th>
+			<td><input id="cmdCode" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.cmdCode}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">cmd name</th>
+			<td><input id="cmdName" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.cmdName}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">cmd desc</th>
+			<td><input id="cmdDesc" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.cmdDesc}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">cmd period</th>
+			<td><input id="cmdPeriod" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.cmdPeriod}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">cmd type</th>
+			<td><input id="cmdType" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.cmdType}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">cmd arr</th>
+			<td><input id="cmdArr" type="text" class="col-md-1 form-control input-sm" th:value="${itm?.cmdArr}"/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">content</th>
+			<td><input type="text" class="col-md-1 form-control input-sm"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<div class="pull-right">
+		<button th:if="!${itm?.id}" type="button" class="btn btn-danger" id="btnSave">save</button>
+		<button th:if="${itm?.id}" type="button" class="btn btn-danger" id="btnChange">change</button>
+		<button th:if="${itm?.id}" type="button" class="btn btn-danger" id="btnDelete">delete</button>
+		
+		<button th:if="${itm?.mstType.equals('CMD_SVR')}" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalViewSvr" id="btnViewSvr">viewSvr</button>
+		<button th:if="${itm?.mstType.equals('CMD_GRP')}" type="button" class="btn btn-info" data-toggle="modal" data-target="#modalViewGrp" id="btnViewGrp">viewGrp</button>
+		<a th:href="@{'/cmd/cmdList'}" class="btn btn-info">list</a>
+		<a th:href="@{'/'}" class="btn btn-info">home</a>
+	</div>
+
+</div>
+<!-- /main -->
+<br/><br/><br/>
+
+<!-- footer -->
+<div th:replace="layout/footer::footer1"></div>
+<!-- /footer -->
+
+</body>
+
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- script: variables -->
+<script th:inline="javascript">
+	var wsUri = /*[[${wsUri}]]*/ 'wsUri';
+	console.log(">>>>> wsUri = " + wsUri);
+	var itm = /*[[${itm}]]*/ 'svrCode';
+	console.log(">>>>> itm = " + itm);
+</script>
+<!-- /script: variables -->
+
+
+<!-- script: button -->
+<script>
+	$('#btnViewSvr').click(function() {
+		console.log('>>>>> btnViewSvr: onClick');
+		$("#cmdSvr").val($("#cmdArr").val());
+		//$("#patternSvr").val($("#mstCode").val());
+		//$("#periodSvr").val($("#cmdPeriod").val());
+		return true;
+	});
+	$('#btnViewGrp').click(function() {
+		console.log('>>>>> btnViewGrp: onClick');
+		$("#cmdGrp").val($("#cmdArr").val());
+		//$("#patternSvr").val($("#mstCode").val());
+		//$("#periodGrp").val($("#cmdPeriod").val());
+		return true;
+	});
+</script>
+<!-- /script: button -->
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- 1. Modal dialog : Server -->
+<div class="modal fase" id="modalViewSvr">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+		
+			<!-- Modal Header -->
+			<div class="modal-header bg-success">
+				<h4 class="modal-title">Server Command View</h4>
+				<!-- button type="button" class="close" data-dismiss="modal">&times;</button -->
+			</div>
+			
+			<!-- Modal body -->
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<td class="col-sm-1"> command </td>
+						<td class="col-sm-11">
+							<input id="cmdSvr" type="text" class="col-md-1 form-control input-sm" placeholder="uname -a"/>
+						</td>
+					</tr>
+					<tr class="hide">
+						<td class="col-sm-1"> multi-server </td>
+						<td class="col-sm-11">
+							<select id="multiSvr" name="multiSvr" multiple="multiple" class="form-control">
+								<option th:each="itm : ${lstMapSvr}" th:value="${itm.svrCode}" th:text="${itm.svrCode}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr class="hide">
+						<td class="col-sm-1"> server </td>
+						<td class="col-sm-11">
+							<select id="svrSvr" name="svr" class="form-control">
+								<option th:each="itm : ${lstMapSvr}" th:value="${itm.svrCode}" th:text="${itm.svrCode}" th:selected="${itm.svrCode=='SVR03'}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr class="hide">
+						<td class="col-sm-1"> pattern </td>
+						<td class="col-sm-11">
+							<select id="patternSvr" name="pattern" class="form-control">
+								<option th:each="itm : ${lstMapPttn}" th:value="${itm.cdItm}" th:text="${itm.cdVal}" th:selected="${itm.cdItm=='OVERRIDE'}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-1"> period </td>
+						<td class="col-sm-11">
+							<select id="periodSvr" name="period" class="form-control">
+								<option th:each="itm : ${lstMapPrd}" th:value="${itm.cdItm}" th:text="${itm.cdVal}" th:selected="${itm.cdItm=='10'}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-1"> result </td>
+						<td class="col-sm-11">
+							<textarea id="resultSvr" class="col-md-1 form-control input-sm" rows="7" style="height:300px;"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer bg-success">
+				<button id="btnStartSvr" type="button" class="btn btn-primary" data-dismiss="modal">start</button>
+				<button id="btnStopSvr"  type="button" class="btn btn-primary" data-dismiss="modal" disabled>stop</button>
+				<button id="btnCloseSvr" type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+			</div>
+		
+		</div>
+	</div>
+</div>
+<!-- /1. Modal dialog :  -->
+
+<!-- 1. script :  -->
+<script th:inline="javascript">
+	$('#btnStartSvr').click(function() {
+		console.log('>>>>> btnStartSvr: onClick');
+		$("#btnStartSvr").attr("disabled", true);
+		$("#resultSvr").val('');
+		if (true) $.ajax({
+			url: _contextPath_ + "monitor/cmd/start",
+			type: "POST",
+			data: JSON.stringify({
+				msgCode:   "MC00010",
+				cmdArr:    $("#cmdSvr").val(),
+				cmdPeriod: $("#periodSvr").val(),
+				id:        $("#id").val()
+			}),
+			contentType: "application/json",
+			header: {
+				"Authorization": "Basic " + btoa("havi" + ":" + "test")
+			},
+			dataType: "json",
+			success: function(data, status) {
+				console.log("data = ", data);
+			},
+			error: function() {
+				alert('FAIL of JOB..');
+			}
+		});
+		$("#btnStopSvr").attr("disabled", false);
+		return false;
+	});
+	$('#btnStopSvr').click(function() {
+		console.log('>>>>> btnStopSvr: onClick');
+		$("#btnStopSvr").attr("disabled", true);
+		$("#resultSvr").val('');
+		if (true) $.ajax({
+			url: _contextPath_ + "monitor/cmd/stop",
+			type: "POST",
+			data: JSON.stringify({
+				msgCode: "MC00090",
+				cmdArr:    $("#cmdSvr").val(),
+				cmdPeriod: $("#periodSvr").val(),
+				id:        $("#id").val()
+			}),
+			contentType: "application/json",
+			header: {
+				"Authorization": "Basic " + btoa("havi" + ":" + "test")
+			},
+			dataType: "json",
+			success: function(data, status) {
+				console.log("data = ", data);
+			},
+			error: function() {
+				alert('FAIL of JOB..');
+			}
+		});
+		$("#btnStartSvr").attr("disabled", false);
+		return false;
+	});
+	$('#btnCloseSvr').click(function() {
+		console.log('>>>>> btnCloseSvr: onClick');
+		if ($("#btnStartSvr").is(":disabled") == true)
+			$("#btnStopSvr").trigger("click");
+		return true;
+	});
+</script>
+<!-- /1. script :  -->
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- 2. Modal dialog : Group -->
+<div class="modal fase" id="modalViewGrp">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+		
+			<!-- Modal Header -->
+			<div class="modal-header bg-success">
+				<h4 class="modal-title">Group Command View</h4>
+				<!-- button type="button" class="close" data-dismiss="modal">&times;</button -->
+			</div>
+			
+			<!-- Modal body -->
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<td class="col-sm-1"> command </td>
+						<td class="col-sm-11">
+							<input id="cmdGrp" type="text" class="col-md-1 form-control input-sm" placeholder="uname -a"/>
+						</td>
+					</tr>
+					<tr class="hide">
+						<td class="col-sm-1"> pattern </td>
+						<td class="col-sm-11">
+							<select id="patternGrp" name="pattern" class="form-control">
+								<option th:each="itm : ${lstMapPttn}" th:value="${itm.cdItm}" th:text="${itm.cdVal}" th:selected="${itm.cdItm=='OVERRIDE'}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-1"> period </td>
+						<td class="col-sm-11">
+							<select id="periodGrp" name="period" class="form-control">
+								<option th:each="itm : ${lstMapPrd}" th:value="${itm.cdItm}" th:text="${itm.cdVal}" th:selected="${itm.cdItm=='10'}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-1"> result </td>
+						<td class="col-sm-11">
+							<textarea id="resultGrp" class="col-md-1 form-control input-sm" rows="7" style="height:300px;"></textarea>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer bg-success">
+				<button id="btnStartGrp" type="button" class="btn btn-primary" data-dismiss="modal">start</button>
+				<button id="btnStopGrp"  type="button" class="btn btn-primary" data-dismiss="modal" disabled>stop</button>
+				<button id="btnCloseGrp" type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+			</div>
+		
+		</div>
+	</div>
+</div>
+<!-- 2. Modal dialog :  -->
+
+<!-- 2. script :  -->
+<script th:inline="javascript">
+	$('#btnStartGrp').click(function() {
+		console.log('>>>>> btnStartGrp: onClick');
+		$("#btnStartGrp").attr("disabled", true);
+		$("#resultGrp").val('');
+		if (true) $.ajax({
+			url: _contextPath_ + "monitor/cmd/start",
+			type: "POST",
+			data: JSON.stringify({
+				msgCode:   "MC00010",
+				cmdArr:    $("#cmdGrp").val(),
+				cmdPeriod: $("#periodGrp").val(),
+				id:        $("#id").val()
+			}),
+			contentType: "application/json",
+			header: {
+				"Authorization": "Basic " + btoa("havi" + ":" + "test")
+			},
+			dataType: "json",
+			success: function(data, status) {
+				console.log("data = ", data);
+			},
+			error: function() {
+				alert('FAIL of JOB..');
+			}
+		});
+		$("#btnStopGrp").attr("disabled", false);
+		return false;
+	});
+	$('#btnStopGrp').click(function() {
+		console.log('>>>>> btnStopGrp: onClick');
+		$("#btnStopGrp").attr("disabled", true);
+		$("#resultGrp").val('');
+		if (true) $.ajax({
+			url: _contextPath_ + "monitor/cmd/stop",
+			type: "POST",
+			data: JSON.stringify({
+				msgCode: "MC00090",
+				cmdArr:    $("#cmdGrp").val(),
+				cmdPeriod: $("#periodGrp").val(),
+				id:        $("#id").val()
+			}),
+			contentType: "application/json",
+			header: {
+				"Authorization": "Basic " + btoa("havi" + ":" + "test")
+			},
+			dataType: "json",
+			success: function(data, status) {
+				console.log("data = ", data);
+			},
+			error: function() {
+				alert('FAIL of JOB..');
+			}
+		});
+		$("#btnStartGrp").attr("disabled", false);
+		return false;
+	});
+	$('#btnCloseGrp').click(function() {
+		console.log('>>>>> btnCloseGrp: onClick');
+		if ($("#btnStartGrp").is(":disabled") == true)
+			$("#btnStopGrp").trigger("click");
+		return true;
+	});
+</script>
+<!-- /2. script :  -->
+
+
+
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- script: websocket -->
+<script th:inline="javascript">
+	var ws = new WebSocket(wsUri);
+	ws.onopen = function(event) {
+		console.log("* Server connect...");
+	};
+	ws.onclose = function(event) {
+		console.log("* Server Disconnect...");
+	};
+	ws.onerror = function(event) {
+		console.log("* error...");
+	};
+	ws.onmessage = function(event) {
+		console.log("> " + event.data);
+		var objRes = event.data;  // json string
+		var jsonRes = JSON.parse(objRes);
+		var pattern = $("#patternSvr").val();
+		console.log(">>>>> result: " + jsonRes.cmdResult);
+		console.log(">>>>> pattern: " + pattern);
+		
+		if ($("#mstType").val() == "CMD_SVR") {
+			if (pattern == "OVERRIDE") {
+				$("#resultSvr").val(jsonRes.cmdResult);
+			} else if (pattern == "PREPEND"){
+				$("#resultSvr").prepend(jsonRes.cmdResult);
+			} else {
+				$("#resultSvr").append(jsonRes.cmdResult);
+			}
+		} else {
+			if (pattern == "OVERRIDE") {
+				$("#resultGrp").val(jsonRes.cmdResult);
+			} else if (pattern == "PREPEND"){
+				$("#resultGrp").prepend(jsonRes.cmdResult);
+			} else {
+				$("#resultGrp").append(jsonRes.cmdResult);
+			}
+		}
+		
+		if (true) {
+			var period = $("#periodSvr").val();
+			if (period == 0) {
+				// single command
+				console.log('>>>>> period: ' + period);
+				if ($("#btnStartSvr").is(":disabled") == true) {
+					$("#btnStartSvr").attr("disabled", false);
+					$("#btnStopSvr").attr("disabled", true);
+				}
+			}
+		}
+	};
+	function sendMessage(message) {
+		ws.send(message);
+	}
+	function disconnect() {
+		ws.close();
+	}
+</script>
+<!-- script: websocket -->
+
+
+
+
+
+
+
+
+</html>

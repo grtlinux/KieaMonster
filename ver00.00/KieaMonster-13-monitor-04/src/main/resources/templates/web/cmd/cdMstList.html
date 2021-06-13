@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>codeMstList.html</title>
+	<!-- css and script -->
+	<th:block th:replace="layout/css::css1"></th:block>
+	<th:block th:replace="layout/script::script1"></th:block>
+	<!-- /css and script -->
+</head>
+<body>
+	<!-- header -->
+	<div th:replace="layout/header::header5"></div>
+	<!-- /header -->
+	
+	<!-- main -->
+	<div class="container">
+		<div class="page-header">
+			<h2>Code Mst List</h2>
+		</div>
+		<br/>
+		<div id="main">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th class="col-md-1">id</th>
+						<th class="col-md-3">code mst</th>
+						<th class="col-md-4">desc</th>
+						<th class="col-md-4"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="itm : ${lst}">
+						<td th:text="${itm.id}">#</td>
+						<td th:text="${itm.cdMst}">cd mst</td>
+						<td th:text="${itm.desc}">desc</td>
+						<td>
+							<div class="pull-right">
+								<a th:href="@{'/cmd/cdMstForm'(id=${itm.id})}" style="padding:2px;" class="btn btn-primary btn-sm">detail</a>
+								<a th:href="@{'/cmd/cdItmList/' + ${itm.cdMst}}" style="padding:2px;" class="btn btn-primary btn-sm">items</a>
+								<button type="button" style="padding:2px;" class="btn btn-primary btn-sm" id="btnDelete">delete</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="pull-right">
+			<a th:href="@{'/cmd/cdMstForm'}" class="btn btn-danger">create</a>
+			<a th:href="@{'/'}" class="btn btn-info">home</a>
+		</div>
+		<br/>
+		<!-- page --
+		<th:block th:replace="layout/page::page5"></th:block>
+		-- /page -->
+	</div>
+	<br/><br/>
+	<br/><br/>
+	<!-- /main -->
+	
+	<!-- footer -->
+	<div th:replace="layout/footer::footer1"></div>
+	<!-- /footer -->
+	
+	
+</body>
+
+
+
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+<!-- ================================================================================== -->
+
+<!-- script: variables -->
+<script th:inline="javascript">
+	var wsUri = /*[[${wsUri}]]*/ 'wsUri';
+	console.log(">>>>> wsUri = " + wsUri);
+	var lst = /*[[${lst}]]*/ 'svrCode';
+	console.log(">>>>> lst = " + lst);
+</script>
+<!-- /script: variables -->
+
+
+<!-- script: button -->
+<script>
+	$('#btnMain').click(function() {
+		console.log('>>>>> btnMain: onClick');
+	});
+</script>
+<!-- /script: button -->
+
+
+
+
+
+
+</html>
