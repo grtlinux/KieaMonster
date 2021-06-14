@@ -55,7 +55,7 @@ public class CustProdRestController {
 	}
 	
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
-	@GetMapping({"/join1"})
+	@GetMapping({"/join", "/join1"})
 	public ResponseEntity<?> selectJoin1(HttpEntity<String> httpEntity) {
 		if (Boolean.TRUE) {
 			HttpHeaders headers = httpEntity.getHeaders();
