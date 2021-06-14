@@ -128,15 +128,6 @@ proj-env:
     test-flag: false
     svr-code: TEST03
     async-size: 20
-    
-  param:
-    name: PARAM (default)
-  job:
-    name: JOB (default)
-  json:
-    name: JSON (default)
-  url:
-    name: URL (default)
 
 ---
 # --------------------------------------------------------
@@ -146,13 +137,13 @@ spring.profiles: proj-air
 proj-env:
   param:
     name: PARAM (air)
-    #home: /Users/kangmac
-    home: /Users/kang-air
+    home: /Users/kangmac
+    #home: /Users/kang-air
     base: /KANG/monster/20210320
     info-path: /json/info
     data-path: /json/data
     
-    base-path: /Users/kang-air/STS/GIT/KieaMonster/ver00.00/KieaMonster-11-worker-04/src/main/resources/json
+    base-path: /Users/kangmac/STS/GIT/KieaMonster/ver00.00/KieaMonster-11-worker-04/src/main/resources/json
     cust-file:      cust.json
     cust-prod-file: cust_prod.json
     prod-file:      prod.json
@@ -160,6 +151,22 @@ proj-env:
     name: JOB (air)
   json:
     name: JSON (air)
+    org-info-file: org.json
+    
+    grp-info-file: grp.json
+    grp-svr-info-file: grpsvr.json
+    svr-info-file: svr.json
+    
+    role-info-file: role.json
+    role-usr-info-file: roleusr.json
+    usr-info-file: usr.json
+    
+    cmd-info-file: cmd-*.json
+    
+    cd-mst-info-file: cdmst.json
+    cd-itm-info-file: cditm.json
+    
+    brw-info-file: brw.json
   url:
     name: URL (air)
     ws-wrk-uri: ws://localhost:8092/v0.1/wsWrk
