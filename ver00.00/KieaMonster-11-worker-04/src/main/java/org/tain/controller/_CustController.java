@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping({"/cust"})
 @Slf4j
-public class CustController {
+public class _CustController {
 
 	@Autowired
 	private CustMapper custMapper;
