@@ -2,8 +2,10 @@ package org.tain.data.vo;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class Cmd {
 
 	//private Long id;

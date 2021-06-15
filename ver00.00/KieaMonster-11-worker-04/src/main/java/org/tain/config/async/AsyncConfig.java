@@ -22,7 +22,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class AsyncConfig extends AsyncConfigurerSupport {
 
-	// 
+	// AsyncCmdTask
 	@Bean(name = "async_0101")
 	public Executor _async0101() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -30,6 +30,18 @@ public class AsyncConfig extends AsyncConfigurerSupport {
 		executor.setMaxPoolSize(1);
 		executor.setQueueCapacity(1);
 		executor.setThreadNamePrefix("Async_0101-");
+		executor.initialize();
+		return executor;
+	}
+	
+	// WebSocketClientStarter
+	@Bean(name = "async_0102")
+	public Executor _async0102() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(1);
+		executor.setMaxPoolSize(1);
+		executor.setQueueCapacity(1);
+		executor.setThreadNamePrefix("Async_0102-");
 		executor.initialize();
 		return executor;
 	}
