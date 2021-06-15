@@ -137,13 +137,13 @@ spring.profiles: proj-air
 proj-env:
   param:
     name: PARAM (air)
-    home: /Users/kangmac
-    #home: /Users/kang-air
+    #home: /Users/kangmac
+    home: /Users/kang-air
     base: /KANG/monster/20210320
     info-path: /json/info
     data-path: /json/data
     
-    base-path: /Users/kangmac/STS/GIT/KieaMonster/ver00.00/KieaMonster-11-worker-04/src/main/resources/json
+    base-path: /Users/kang-air/STS/GIT/KieaMonster/ver00.00/KieaMonster-10-mybatisjpacorswsasynchttpclient-07/src/main/resources/json
     cust-file:      cust.json
     cust-prod-file: cust_prod.json
     prod-file:      prod.json
@@ -235,5 +235,4 @@ proj-env:
     name: JSON (real)
   url:
     name: URL (real)
-
 
