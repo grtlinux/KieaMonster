@@ -11,8 +11,8 @@ public class Work {
 
 	public void working() throws Exception {
 		if (Boolean.TRUE) propertiesWork();
-		if (Boolean.TRUE) loadWork();
-		if (Boolean.TRUE) loadTablesWork();
+		if (!Boolean.TRUE) loadWork();  // load.test
+		if (!Boolean.TRUE) loadTablesWork();  // loadTablesWork
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,8 @@ public class Work {
 		if (Boolean.TRUE) this.propertiesWork.working();
 	}
 	
-	///////////////////////////////////////////////////////////////////////////
+	//////////////
+	/////////////////////////////////////////////////////////////
 	
 	@Autowired
 	private TestLoadWork loadWork;

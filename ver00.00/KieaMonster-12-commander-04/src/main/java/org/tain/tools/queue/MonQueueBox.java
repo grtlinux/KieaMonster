@@ -3,6 +3,7 @@ package org.tain.tools.queue;
 import org.springframework.stereotype.Component;
 import org.tain.tools.node.MonJsonNode;
 
+@Deprecated
 @Component("MonQueueBox")
 public class MonQueueBox {
 

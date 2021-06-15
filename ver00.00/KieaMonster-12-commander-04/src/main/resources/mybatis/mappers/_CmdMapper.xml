@@ -5,7 +5,7 @@
 
 <mapper namespace="org.tain.mybatis.mappers.CmdMapper">
 
-	<select id="selectAllCmd" parameterType="CamelMap" resultType="CamelMap">
+	<select id="selectAll" parameterType="CamelMap" resultType="CamelMap">
 		select
 			id
 			, mst_type

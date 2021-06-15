@@ -10,4 +10,9 @@ public class IndexController {
 	public String index() {
 		return "redirect:/home";
 	}
+
+	@GetMapping("/dash1")
+	public String dash1() {
+		return "dash1";
+	}
 }
