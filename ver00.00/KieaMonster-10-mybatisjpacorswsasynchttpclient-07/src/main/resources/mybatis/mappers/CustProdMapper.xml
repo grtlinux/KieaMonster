@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.tain.mybatis.mappers.CustProdMapper">
+
+	<!-- google-search: selectKey -->
+	<select id="selectAll" parameterType="CamelMap" resultType="CamelMap">
+		select
+			id
+			, cust_code
+			, prod_code
+			, prod_cnt
+		from
+			tbl_cust_prod
+		where 1=1
+	</select>
+	
+	<select id="selectJoin1" parameterType="CamelMap" resultType="CamelMap">
+		select
+			b.code         as cust_code
+			, b.name       as cust_name
+			, c.code       as prod_code
+			, c.name       as prod_name
+			, c.price      as prod_price
+			, a.prod_cnt   as prod_count
+			, c.price * a.prod_cnt   as prod_sum
+		from
+			tbl_cust_prod   as a
+			, tbl_cust      as b
+			, tbl_prod      as c
+		where 1=1
+			and b.code = a.cust_code
+			and c.code = a.prod_code
+	</select>
+
+	<!-- the result of this selectJoin2 is the same result of the above selectJoin1, because of null column -->
+	<select id="selectJoin2" parameterType="CamelMap" resultType="CamelMap">
+		select
+			a.code         as cust_code
+			, a.name       as cust_name
+			, c.code       as prod_code
+			, c.name       as prod_name
+			, c.price      as prod_price
+			, b.prod_cnt   as prod_count
+			, c.price * b.prod_cnt   as prod_sum
+		from
+			tbl_cust          as a
+			, tbl_cust_prod   as b
+			, tbl_prod        as c
+		where 1=1
+			and b.cust_code = a.code
+			and c.code = b.prod_code
+	</select>
+	
+</mapper>

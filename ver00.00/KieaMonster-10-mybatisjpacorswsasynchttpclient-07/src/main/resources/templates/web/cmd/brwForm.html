@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>brwForm.html</title>
+	<!-- css and script -->
+	<th:block th:replace="layout/css::css1"></th:block>
+	<th:block th:replace="layout/script::script1"></th:block>
+	<!-- /css and script -->
+	<!--
+		font-family:Verdana, Arial, Helvetica, sans-serif;
+		font-family: inherit;
+		font-size: inherit;
+	-->
+	<style>
+	#result {
+		resize: vertical;
+	}
+	textarea {
+		font-family: monospace, "맑은 고딕", serif;
+		font-size: 11px;
+		color: #999999;
+	}
+	</style>
+</head>
+<body>
+<!-- header -->
+<div th:replace="layout/header::header5"></div>
+<!-- /header -->
+
+<!-- main -->
+<div class="container">
+	<div class="page-header">
+		<h2>Browser Detail</h2>
+	</div>
+	<br/>
+	<table class="table">
+		<tr>
+			<th class="col-sm-2" style="padding:13px 0 0 15px;">id</th>
+			<td class="col-sm-10"><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.id}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">ip addr</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.ipAddr}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">user id</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.userId}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">connect time</th>
+			<td><input type="text" class="col-md-1 form-control input-sm" th:value="${itm.createDate}" readonly/></td>
+		</tr>
+		<tr>
+			<th style="padding:13px 0 0 15px;">content</th>
+			<td><input type="text" class="col-md-1 form-control input-sm"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<!--
+	<div class="pull-left">
+		<a th:href="@{/cmd/brwList}" class="btn btn-info">list</a>
+	</div>
+	-->
+	<div class="pull-right">
+		<a th:href="@{/cmd/brwList}" class="btn btn-info">list</a>
+		<a th:href="@{/}" class="btn btn-info">home</a>
+	</div>
+</div>
+<!-- /main -->
+<br/><br/><br/>
+
+<!-- footer -->
+<div th:replace="layout/footer::footer1"></div>
+<!-- /footer -->
+
+</body>
+
+
+<!-- script: variables -->
+<script th:inline="javascript">
+	var wsUri = /*[[${wsUri}]]*/ 'wsUri';
+	console.log(">>>>> wsUri = " + wsUri);
+	var itm = /*[[${itm}]]*/ 'svrCode';
+	console.log(">>>>> itm = " + itm);
+</script>
+<!-- /script: variables -->
+
+
+<!-- script: button of Send -->
+<script>
+	$('#btnMain').click(function() {
+		console.log('>>>>> btnMain: onClick');
+	});
+</script>
+<!-- /script: button of Send -->
+
+
+
+
+
+</html>
+

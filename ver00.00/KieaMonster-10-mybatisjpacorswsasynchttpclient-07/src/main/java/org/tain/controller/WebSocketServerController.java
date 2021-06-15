@@ -26,7 +26,7 @@ public class WebSocketServerController {
 	
 	@OnMessage
 	public void onMessage(Session session, String message) {
-		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
+		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getInfo());
 		//System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s\n", session.getId(), message);
 	}
 	
