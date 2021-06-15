@@ -19,7 +19,7 @@ public class TaskStarter {
 	public void starter() throws Exception {
 		log.info("KANG-20210615 >>>>> START {} {}", CurrentInfo.get());
 		
-		if (Boolean.TRUE) this.webSocketClientStarter.equals(log);
+		if (Boolean.TRUE) this.webSocketClientStarter.async_0102("WS_CLIENT");
 		
 		log.info("KANG-20210615 >>>>> END   {} {}", CurrentInfo.get());
 	}
