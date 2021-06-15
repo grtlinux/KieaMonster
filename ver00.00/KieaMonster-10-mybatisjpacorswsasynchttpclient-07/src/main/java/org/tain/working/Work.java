@@ -11,8 +11,8 @@ public class Work {
 
 	public void working() throws Exception {
 		if (Boolean.TRUE) propertiesWork();
-		if (Boolean.TRUE) loadWork();  // load.test
-		if (Boolean.TRUE) loadTablesWork();  // loadTablesWork
+		if (!Boolean.TRUE) loadWork();  // load.test
+		if (!Boolean.TRUE) loadTablesWork();  // loadTablesWork
 	}
 	
 	///////////////////////////////////////////////////////////////////////////

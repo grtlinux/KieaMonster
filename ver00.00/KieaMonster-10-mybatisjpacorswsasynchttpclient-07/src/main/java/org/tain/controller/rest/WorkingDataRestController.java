@@ -29,6 +29,32 @@ public class WorkingDataRestController {
 	private WorkingData workingData;
 	
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
+	@GetMapping({"/name"})
+	public ResponseEntity<?> dataName(HttpEntity<String> httpEntity) {
+		if (Boolean.TRUE) {
+			HttpHeaders headers = httpEntity.getHeaders();
+			String body = httpEntity.getBody();
+			log.info(">>>>> ip.info: " + IpPrint.get());
+			log.info(">>>>> request.headers: " + headers.toString());
+			log.info(">>>>> request.body: " + body);
+		}
+		
+		String name = null;
+		if (Boolean.TRUE) {
+			//Map<String,Object> mapIn = new HashMap<>();
+			name = this.workingData.getName();
+			log.info(">>>>> name: {}", name);
+		}
+		
+		MultiValueMap<String,String> headers = null;
+		if (Boolean.TRUE) {
+			headers = new LinkedMultiValueMap<>();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+		}
+		return new ResponseEntity<>(name, headers, HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/info"})
 	public ResponseEntity<?> dataInfo(HttpEntity<String> httpEntity) {
 		if (Boolean.TRUE) {

@@ -14,8 +14,9 @@ import lombok.Data;
 @Data
 public class WorkingData {
 
-	private Map<String,Object> mapCmd = new HashMap<>();
+	private String name = "########## WORKING DATA ############";
 	
+	private Map<String,Object> mapCmd = new HashMap<>();
 	private Info info = new Info();
 	
 	@Bean
