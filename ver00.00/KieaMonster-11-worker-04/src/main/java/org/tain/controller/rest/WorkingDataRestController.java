@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping({"/data"})
 @Slf4j
-public class DataRestController {
+public class WorkingDataRestController {
 
 	@Autowired
 	private WorkingData workingData;
