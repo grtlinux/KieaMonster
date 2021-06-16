@@ -2,8 +2,8 @@ package org.tain.working.http;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.tools.node.MonJsonNode;
-import org.tain.tools.properties.ProjEnvParam;
+import org.tain.utils.CurrentInfo;
+import org.tain.working.http.test.CmdControllerTest;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,9 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 public class HttpWork {
 
 	@Autowired
-	private ProjEnvParam projEnvParam;
+	private CmdControllerTest cmdControllerTest;
 	
 	public void working() throws Exception {
-		if (Boolean.TRUE) log.info(">>>>> {} {}", "- PARAM --", MonJsonNode.getPrettyJson(this.projEnvParam));
+		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Boolean.TRUE) this.cmdControllerTest.cmdList();
+		if (Boolean.TRUE) this.cmdControllerTest.cmdByMstCode();
+		if (Boolean.TRUE) this.cmdControllerTest.cmdByCmdCode();
 	}
 }
