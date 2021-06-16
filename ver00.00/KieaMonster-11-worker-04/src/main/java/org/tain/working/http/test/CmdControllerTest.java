@@ -56,7 +56,7 @@ public class CmdControllerTest {
 	public void cmdByCmdCode() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
-		if (!Boolean.TRUE) {
+		if (Boolean.TRUE) {
 			String httpUrl = null;
 			Map<String,String> mapReq = new HashMap<>();
 			MonJsonNode nodeRes = null;
@@ -67,7 +67,7 @@ public class CmdControllerTest {
 			log.info(">>>>> nodeRes: " + nodeRes.toPrettyString());
 		}
 		
-		if (Boolean.TRUE) {
+		if (!Boolean.TRUE) {
 			String httpUrl = null;
 			Map<String,String> mapReq = new HashMap<>();
 			mapReq.put("cmdCode", "SVR0400");

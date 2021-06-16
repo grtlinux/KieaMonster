@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.tain.data.WorkingData;
+import org.tain.data.vo.Cmd;
 import org.tain.mybatis.mappers.CmdMapper;
+import org.tain.tasks.asynccmd.AsyncCmdTask;
 import org.tain.utils.IpPrint;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,12 @@ public class CmdRestController {
 
 	@Autowired
 	private CmdMapper cmdMapper;
+	
+	@Autowired
+	private AsyncCmdTask asyncCmdTask;
+	
+	@Autowired
+	private WorkingData workingData;
 	
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd/list"})
@@ -105,6 +114,17 @@ public class CmdRestController {
 			mapIn.put("cmdCode", cmdCode);
 			lst = this.cmdMapper.selectByCode(mapIn);
 			log.info(">>>>> itm: {}", lst);
+		}
+		
+		if (Boolean.TRUE) {
+			try {
+				//Cmd cmd = Cmd.builder().cmdPeriod("60").cmdArr("java -version").build();
+				Cmd cmd = Cmd.builder().cmdPeriod("0").cmdArr("java -version").build();
+				//this.workingData.getMapCmd().put(cmdCode, cmd);
+				this.asyncCmdTask.async_0101(cmd);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		MultiValueMap<String,String> headers = null;
