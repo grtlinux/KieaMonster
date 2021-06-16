@@ -9,4 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CmdMapper {
 
 	List<Map<String,Object>> selectAll(Map<String,Object> mapIn);
+	List<Map<String,Object>> selectByCode(Map<String,Object> mapIn);
 }

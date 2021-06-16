@@ -13,7 +13,7 @@ import org.tain.config.websocket.CustomSpringConfig;
 import org.tain.data.WorkingData;
 
 @Controller
-@ServerEndpoint(value = "/websocket", configurator = CustomSpringConfig.class)
+@ServerEndpoint(value = "/wsWrk", configurator = CustomSpringConfig.class)
 public class WebSocketServerController {
 
 	@Autowired

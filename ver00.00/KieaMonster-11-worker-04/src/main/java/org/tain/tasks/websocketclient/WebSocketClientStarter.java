@@ -75,7 +75,7 @@ public class WebSocketClientStarter {
 				try {
 					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingRecvMsg);
 					WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-					String wsUri = this.projEnvUrl.getWsWrkUri();
+					String wsUri = this.projEnvUrl.getWsWrkUri();  // ws://localhost:8092/v0.1/wsWrk
 					this.session = container.connectToServer(webSocketClient, URI.create(wsUri));
 					
 					// couldn't clear queue, because of sendInfoMessage

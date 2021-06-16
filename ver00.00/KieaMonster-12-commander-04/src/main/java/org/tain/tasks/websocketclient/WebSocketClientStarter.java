@@ -47,8 +47,8 @@ public class WebSocketClientStarter {
 			try {
 				while (true) {
 					// get result from the queueSendResult
-					MonJsonNode resultNode = this.workingData.getQueue().get();
-					System.out.println(">>>>> 2. async " + param + ": " + resultNode.toPrettyString());
+					MonJsonNode resultNode = this.workingData.getQueueSendResult().get();
+					System.out.println(">>>>> async_0102 " + param + ": " + resultNode.toPrettyString());
 					
 					// send result
 					this.sendMessage(resultNode.toString());
@@ -79,7 +79,7 @@ public class WebSocketClientStarter {
 					this.session = container.connectToServer(webSocketClient, URI.create(wsUri));
 					
 					// couldn't clear queue, because of sendInfoMessage
-					//this.monQueueBox.clearQueueSendResult();
+					this.workingData.getQueueSendResult().clear();
 					break;
 				} catch (Exception e) {
 					//e.printStackTrace();

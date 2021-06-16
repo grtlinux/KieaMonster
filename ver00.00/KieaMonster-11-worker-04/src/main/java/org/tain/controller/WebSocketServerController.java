@@ -5,15 +5,12 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.tain.config.websocket.CustomSpringConfig;
 import org.tain.data.WorkingData;
 
-@Controller
-@ServerEndpoint(value = "/websocket", configurator = CustomSpringConfig.class)
+//@Controller
+//@ServerEndpoint(value = "/websocket", configurator = CustomSpringConfig.class)
 public class WebSocketServerController {
 
 	@Autowired
