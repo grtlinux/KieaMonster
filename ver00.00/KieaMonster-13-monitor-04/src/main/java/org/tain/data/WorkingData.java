@@ -9,6 +9,7 @@ import javax.websocket.Session;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.tain.data.vo.Brw;
 import org.tain.data.vo.Cmd;
 import org.tain.data.vo.Info;
 import org.tain.tools.node.MonJsonNode;
@@ -28,7 +29,8 @@ public class WorkingData {
 	
 	///////////////////////////////////////////////////////////////////////////
 	//
-	private Map<String,Object> mapCmd = new HashMap<>();
+	private Map<String,Brw> mapBrw = new HashMap<>();
+	private Map<String,Cmd> mapCmd = new HashMap<>();
 	
 	///////////////////////////////////////////////////////////////////////////
 	// Sample Queue

@@ -11,21 +11,21 @@ import org.tain.data.WorkingData;
 public class WebSocketClient {
 
 	private WorkingData workingData;
-	private ParsingRecvMsg parsingRecvMsg;
+	private ParsingOfCommander parsingOfCommander;
 	
-	public WebSocketClient(WorkingData workingData, ParsingRecvMsg parsingRecvMsg) {
+	public WebSocketClient(WorkingData workingData, ParsingOfCommander parsingOfCommander) {
 		this.workingData = workingData;
-		this.parsingRecvMsg = parsingRecvMsg;
+		this.parsingOfCommander = parsingOfCommander;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	@OnMessage
-	public void onMessage(String recvMsg) {
-		System.out.printf(">>>>> [OnMessage] (%s) message: %s\n", this.workingData.getName(), recvMsg);
+	public void onMessage(String message) {
+		System.out.printf(">>>>> [OnMessage] (%s) message: %s\n", this.workingData.getName(), message);
 		
 		if (Boolean.TRUE) {
-			this.parsingRecvMsg.parsing(recvMsg);
+			this.parsingOfCommander.parsing(message);
 		}
 	}
 	

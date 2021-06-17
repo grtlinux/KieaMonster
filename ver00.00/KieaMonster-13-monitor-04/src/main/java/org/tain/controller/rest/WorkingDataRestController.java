@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.tain.data.WorkingData;
+import org.tain.data.vo.Cmd;
 import org.tain.data.vo.Info;
 import org.tain.utils.IpPrint;
 
@@ -91,7 +92,7 @@ public class WorkingDataRestController {
 			log.info(">>>>> request.body: " + body);
 		}
 		
-		Map<String,Object> mapCmd = null;
+		Map<String,Cmd> mapCmd = null;
 		if (Boolean.TRUE) {
 			//Map<String,Object> mapIn = new HashMap<>();
 			mapCmd = this.workingData.getMapCmd();

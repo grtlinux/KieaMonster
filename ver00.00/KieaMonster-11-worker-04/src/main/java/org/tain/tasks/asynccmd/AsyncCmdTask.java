@@ -73,14 +73,12 @@ public class AsyncCmdTask {
 				MonJsonNode nodeResult = new MonJsonNode("{}");
 				if (Boolean.TRUE) {
 					//nodeResult.put("svrCode", cmd.getSvrCode());
-					nodeResult.put("msgCode", "CMD_RET");
-					//nodeResult.put("cmdCode", cmd.getCmdCode());
-					//nodeResult.put("cmdName", cmd.getCmdName());
-					//nodeResult.put("cmdDesc", cmd.getCmdDesc());
+					nodeResult.put("msgKey", "RET000");
+					nodeResult.put("msgType", "RET");
+					nodeResult.put("mstCode", cmd.getMstCode());
+					nodeResult.put("cmdCode", cmd.getCmdCode());
 					nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
-					//nodeResult.put("cmdType", cmd.getCmdType());
 					nodeResult.put("cmdArr", cmd.getCmdArr());
-					//nodeResult.put("cmdDttm", LocalDateTime.now());
 				}
 				
 				StringBuffer sb = null;
@@ -117,7 +115,7 @@ public class AsyncCmdTask {
 				}
 				
 				if (Boolean.TRUE) {
-					this.workingData.getQueueSendResult().set(nodeResult);
+					this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
 					if (Boolean.TRUE) System.out.println(">>>>> setQueue.nodeResult: " + nodeResult.toPrettyString());
 				}
 				
@@ -140,14 +138,12 @@ public class AsyncCmdTask {
 			MonJsonNode nodeResult = new MonJsonNode("{}");
 			if (Boolean.TRUE) {
 				//nodeResult.put("svrCode", cmd.getSvrCode());
-				nodeResult.put("msgCode", "CMD_RET");
-				//nodeResult.put("cmdCode", cmd.getCmdCode());
-				//nodeResult.put("cmdName", cmd.getCmdName());
-				//nodeResult.put("cmdDesc", cmd.getCmdDesc());
+				nodeResult.put("msgKey", "RET000");
+				nodeResult.put("msgType", "RET");
+				nodeResult.put("mstCode", cmd.getMstCode());
+				nodeResult.put("cmdCode", cmd.getCmdCode());
 				nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
-				//nodeResult.put("cmdType", cmd.getCmdType());
 				nodeResult.put("cmdArr", cmd.getCmdArr());
-				//nodeResult.put("cmdDttm", LocalDateTime.now());
 			}
 			
 			if (Boolean.TRUE) {
@@ -159,7 +155,7 @@ public class AsyncCmdTask {
 				while ((line = br.readLine()) != null && this.flagKeep) {
 					nodeResult.put("cmdResult", line + "\n");
 					if (Boolean.TRUE) {
-						this.workingData.getQueueSendResult().set(nodeResult);
+						this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
 					}
 				}
 				

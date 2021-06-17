@@ -25,13 +25,14 @@ public class CmdWebSocketServerController {
 	
 	@OnOpen
 	public void onOpen(Session session) {
-		System.out.println(">>>>> [OnOpen] session.getId(): " + session.getId());
+		System.out.println(">>>>> [wsCmd.OnOpen] session.getId(): " + session.getId());
 		this.workingData.getCmdSessions().add(session);
 	}
 	
 	@OnMessage
 	public void onMessage(Session session, String message) {
-		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
+		//System.out.printf(">>>>> [wsCmd.OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
+		System.out.printf(">>>>> [wsCmd.OnMessage] session.getId(): %s, message: %s\n", session.getId(), message);
 		if (Boolean.TRUE) {
 			this.parsingOfCommander.parsing(session, message);
 		}
@@ -39,26 +40,26 @@ public class CmdWebSocketServerController {
 	
 	@OnError
 	public void onError(Session session, Throwable t) {
-		System.out.println(">>>>> [OnError] session.getId(): " + session.getId());
+		System.out.println(">>>>> [wsCmd.OnError] session.getId(): " + session.getId());
 		t.printStackTrace();
 	}
 	
 	@OnClose
 	public void onClose(Session session) {
-		System.out.println(">>>>> [OnClose] session.getId(): " + session.getId());
+		System.out.println(">>>>> [wsCmd.OnClose] session.getId(): " + session.getId());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void broadCast(String message) {
-		System.out.println(">>>>> [broadCast]: ");
+		System.out.println(">>>>> [wsCmd.broadCast]: ");
 		this.workingData.getCmdSessions().forEach(session -> {
 			this.sendMessage(session, message);
 		});
 	}
 	
 	public void sendMessage(Session session, String message) {
-		System.out.println(">>>>> [sendMessage]: " + session.getId());
+		System.out.println(">>>>> [wsCmd.sendMessage]: " + session.getId());
 		try {
 			session.getBasicRemote().sendText(message);
 		} catch (Exception e) {

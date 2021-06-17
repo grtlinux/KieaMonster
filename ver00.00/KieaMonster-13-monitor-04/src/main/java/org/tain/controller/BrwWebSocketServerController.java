@@ -25,13 +25,14 @@ public class BrwWebSocketServerController {
 	
 	@OnOpen
 	public void onOpen(Session session) {
-		System.out.println(">>>>> [OnOpen] session.getId(): " + session.getId());
+		System.out.println(">>>>> [wsBrw.OnOpen] session.getId(): " + session.getId());
 		this.workingData.getBrwSessions().add(session);
 	}
 	
 	@OnMessage
 	public void onMessage(Session session, String message) {
-		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
+		//System.out.printf(">>>>> [wsBrw.OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
+		System.out.printf(">>>>> [wsBrw.OnMessage] session.getId(): %s, message: %s\n", session.getId(), message);
 		if (Boolean.TRUE) {
 			this.parsingOfBrowser.parsing(session, message);
 		}
@@ -39,26 +40,30 @@ public class BrwWebSocketServerController {
 	
 	@OnError
 	public void onError(Session session, Throwable t) {
-		System.out.println(">>>>> [OnError] session.getId(): " + session.getId());
+		System.out.println(">>>>> [wsBrw.OnError] session.getId(): " + session.getId());
+		this.workingData.getBrwSessions().remove(session);
+		this.workingData.getMapBrw().remove(session.getId());
 		t.printStackTrace();
 	}
 	
 	@OnClose
 	public void onClose(Session session) {
-		System.out.println(">>>>> [OnClose] session.getId(): " + session.getId());
+		System.out.println(">>>>> [wsBrw.OnClose] session.getId(): " + session.getId());
+		this.workingData.getBrwSessions().remove(session);
+		this.workingData.getMapBrw().remove(session.getId());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void broadCast(String message) {
-		System.out.println(">>>>> [broadCast]: ");
+		System.out.println(">>>>> [wsBrw.broadCast]: ");
 		this.workingData.getBrwSessions().forEach(session -> {
 			this.sendMessage(session, message);
 		});
 	}
 	
 	public void sendMessage(Session session, String message) {
-		System.out.println(">>>>> [sendMessage]: " + session.getId());
+		System.out.printf(">>>>> [wsBrw.sendMessage]: %s, message: %s\n", session.getId(), message);
 		try {
 			session.getBasicRemote().sendText(message);
 		} catch (Exception e) {

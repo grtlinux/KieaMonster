@@ -37,6 +37,7 @@ public class CmdRestController {
 	@Autowired
 	private AsyncCmdTask asyncCmdTask;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
@@ -97,6 +98,10 @@ public class CmdRestController {
 		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd/{cmdCode}"})
 	public ResponseEntity<?> selectByCode(@PathVariable("cmdCode") String cmdCode, HttpEntity<String> httpEntity) {
@@ -116,15 +121,28 @@ public class CmdRestController {
 			log.info(">>>>> itm: {}", lst);
 		}
 		
+		Cmd cmd = null;
+		if (Boolean.TRUE) {
+			cmd = Cmd.builder().mstCode("SVR04").cmdCode("SVR0400").cmdPeriod("0").cmdArr("java -version").build();
+		}
+		
 		if (Boolean.TRUE) {
 			try {
-				//Cmd cmd = Cmd.builder().cmdPeriod("60").cmdArr("java -version").build();
-				Cmd cmd = Cmd.builder().cmdPeriod("0").cmdArr("java -version").build();
-				//this.workingData.getMapCmd().put(cmdCode, cmd);
 				this.asyncCmdTask.async_0101(cmd);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		Map<String,Object> mapRes = null;
+		if (Boolean.TRUE) {
+			mapRes = new HashMap<>();
+			mapRes.put("msgKey", "WRK001");
+			mapRes.put("msgType", "RES");
+			mapRes.put("cmdCode", "SVR0400");
+			mapRes.put("sessId", "");
+			mapRes.put("resCode", "000");
+			mapRes.put("resMsg", "SUCCESS");
 		}
 		
 		MultiValueMap<String,String> headers = null;
@@ -132,6 +150,6 @@ public class CmdRestController {
 			headers = new LinkedMultiValueMap<>();
 			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
 		}
-		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
+		return new ResponseEntity<>(mapRes, headers, HttpStatus.OK);
 	}
 }

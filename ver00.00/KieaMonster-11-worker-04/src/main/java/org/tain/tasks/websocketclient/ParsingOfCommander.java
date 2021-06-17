@@ -10,8 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class ParsingRecvMsg {
+public class ParsingOfCommander {
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
@@ -24,6 +25,7 @@ public class ParsingRecvMsg {
 				node = new MonJsonNode(recvMsg);
 				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), node.toPrettyString());
 				
+				/*
 				String msgCode = node.getText("msgCode");
 				switch (msgCode) {
 				case "GET_CMDS":
@@ -34,6 +36,7 @@ public class ParsingRecvMsg {
 					throw new Exception("ERROR: couldn't parse the msgCode [" + msgCode + "]");
 					//break;
 				}
+				*/
 			} catch (Exception e) {
 				//e.printStackTrace();
 				log.error("KANG-20210405 >>>>> error message: {} at {}", e.getMessage(), CurrentInfo.get());

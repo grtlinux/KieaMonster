@@ -25,7 +25,7 @@ public class WebSocketClientStarter {
 	private WorkingData workingData;
 	
 	@Autowired
-	private ParsingRecvMsg parsingRecvMsg;
+	private ParsingOfCommander parsingOfCommander;
 	
 	@Autowired
 	private ProjEnvUrl projEnvUrl;
@@ -47,7 +47,7 @@ public class WebSocketClientStarter {
 			try {
 				while (true) {
 					// get result from the queueSendResult
-					MonJsonNode resultNode = this.workingData.getQueueSendResult().get();
+					MonJsonNode resultNode = this.workingData.getQueueFromAsyncToCommander().get();
 					System.out.println(">>>>> async_0102 " + param + ": " + resultNode.toPrettyString());
 					
 					// send result
@@ -73,13 +73,13 @@ public class WebSocketClientStarter {
 			Sleep.run(2 * 1000);
 			for (int i=0; ; i++) {
 				try {
-					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingRecvMsg);
+					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingOfCommander);
 					WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 					String wsUri = this.projEnvUrl.getWsWrkUri();  // ws://localhost:8092/v0.1/wsWrk
 					this.session = container.connectToServer(webSocketClient, URI.create(wsUri));
 					
 					// couldn't clear queue, because of sendInfoMessage
-					this.workingData.getQueueSendResult().clear();
+					this.workingData.getQueueFromAsyncToCommander().clear();
 					break;
 				} catch (Exception e) {
 					//e.printStackTrace();

@@ -10,9 +10,9 @@ public class Cmd {
 
 	//private Long id;
 	
-	//private String svrCode;
+	private String mstCode;
 	
-	//private String cmdCode;
+	private String cmdCode;
 	
 	//private String cmdName;
 	
@@ -26,9 +26,13 @@ public class Cmd {
 	
 	@Builder
 	public Cmd(
+			String mstCode,
+			String cmdCode,
 			String cmdPeriod,
 			String cmdArr
 			) {
+		this.mstCode = mstCode;
+		this.cmdCode = cmdCode;
 		this.cmdPeriod = cmdPeriod;
 		this.cmdArr = cmdArr;
 	}

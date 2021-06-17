@@ -5,6 +5,8 @@ import javax.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.controller.BrwWebSocketServerController;
+import org.tain.controller.CmdWebSocketServerController;
+import org.tain.data.WorkingData;
 import org.tain.tools.node.MonJsonNode;
 import org.tain.utils.CurrentInfo;
 
@@ -14,8 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ParsingOfCommander {
 
-	//@Autowired
-	//private WorkingData workingData;
+	@SuppressWarnings("unused")
+	@Autowired
+	private WorkingData workingData;
+	
+	@SuppressWarnings("unused")
+	@Autowired
+	private CmdWebSocketServerController cmdWebSocketServerController;
 	
 	@Autowired
 	private BrwWebSocketServerController brwWebSocketServerController;
@@ -24,26 +31,13 @@ public class ParsingOfCommander {
 		log.info("KANG-20210615 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			MonJsonNode node = null;
+			MonJsonNode retNode = null;
 			try {
-				node = new MonJsonNode(message);
-				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), node.toPrettyString());
+				retNode = new MonJsonNode(message);
+				log.info("KANG-20210405 >>>>> reqNode = {}", retNode.toPrettyString());
 				
-				//this.workingData.getQueueFromCommanderToBrowser().set(node);
 				this.brwWebSocketServerController.broadCast(message);
 				
-				/*
-				String msgCode = node.getText("msgCode");
-				switch (msgCode) {
-				case "GET_CMDS":
-					// transfer to SplitCommandsTask
-					this.workingData.getQueue().set(node);
-					break;
-				default:
-					throw new Exception("ERROR: couldn't parse the msgCode [" + msgCode + "]");
-					//break;
-				}
-				*/
 			} catch (Exception e) {
 				//e.printStackTrace();
 				log.error("KANG-20210405 >>>>> error message: {} at {}", e.getMessage(), CurrentInfo.get());
