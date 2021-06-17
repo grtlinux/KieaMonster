@@ -28,12 +28,20 @@ public class WorkingData {
 	
 	///////////////////////////////////////////////////////////////////////////
 	// Sample Queue
-	private MonQueue<MonJsonNode> queue = new MonQueue<>();
+	//private MonQueue<MonJsonNode> queue = new MonQueue<>();
 	
 	// SendResult Queue
-	private MonQueue<MonJsonNode> queueSendResult = new MonQueue<>();
+	//private MonQueue<MonJsonNode> queueSendResult = new MonQueue<>();
+	
+	// Queue From Worker To Monitor
+	private MonQueue<MonJsonNode> queueFromWorkerToMonitor = new MonQueue<>();
+	
+	// Queue From Monitor To Worker
+	private MonQueue<MonJsonNode> queueFromMonitorToWorker = new MonQueue<>();
 	
 	///////////////////////////////////////////////////////////////////////////
+	
+	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	

@@ -14,10 +14,12 @@ import org.tain.utils.Sleep;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Deprecated
 @Component
 @Slf4j
 public class AsyncCmdTask {
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
@@ -116,7 +118,7 @@ public class AsyncCmdTask {
 				}
 				
 				if (Boolean.TRUE) {
-					this.workingData.getQueueSendResult().set(nodeResult);
+					//this.workingData.getQueueSendResult().set(nodeResult);
 					if (Boolean.TRUE) System.out.println(">>>>> setQueue.nodeResult: " + nodeResult.toPrettyString());
 				}
 				
@@ -158,7 +160,7 @@ public class AsyncCmdTask {
 				while ((line = br.readLine()) != null && this.flagKeep) {
 					nodeResult.put("cmdResult", line + "\n");
 					if (Boolean.TRUE) {
-						this.workingData.getQueueSendResult().set(nodeResult);
+						//this.workingData.getQueueSendResult().set(nodeResult);
 					}
 				}
 				

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.tain.config.websocket.CustomSpringConfig;
 import org.tain.data.WorkingData;
+import org.tain.data.parser.ParsingOfWorker;
 
 @Controller
 @ServerEndpoint(value = "/wsWrk", configurator = CustomSpringConfig.class)
@@ -18,6 +19,9 @@ public class WebSocketServerController {
 
 	@Autowired
 	private WorkingData workingData;
+	
+	@Autowired
+	private ParsingOfWorker parsingOfWorker;
 	
 	@OnOpen
 	public void onOpen(Session session) {
@@ -27,7 +31,9 @@ public class WebSocketServerController {
 	@OnMessage
 	public void onMessage(Session session, String message) {
 		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
-		//System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s\n", session.getId(), message);
+		if (Boolean.TRUE) {
+			this.parsingOfWorker.parsing(message);
+		}
 	}
 	
 	@OnError

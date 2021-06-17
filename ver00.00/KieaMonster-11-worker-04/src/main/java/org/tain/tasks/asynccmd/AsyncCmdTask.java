@@ -50,6 +50,7 @@ public class AsyncCmdTask {
 		}
 		
 		if (Boolean.TRUE) {
+			Sleep.run(1 * 1000);
 			System.out.println("+---------------------------------------------+");
 			System.out.println("|                                             |");
 			System.out.println("|       Stop of the Async                     |");
