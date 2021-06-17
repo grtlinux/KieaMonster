@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.tain.data.WorkingData;
 import org.tain.data.vo.Cmd;
 import org.tain.mybatis.mappers.CmdMapper;
-import org.tain.tasks.asynccmd.AsyncCmdTask;
 import org.tain.utils.IpPrint;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +33,8 @@ public class CmdRestController {
 	@Autowired
 	private CmdMapper cmdMapper;
 	
-	@Autowired
-	private AsyncCmdTask asyncCmdTask;
+	//@Autowired
+	//private AsyncCmdTask asyncCmdTask;
 	
 	@Autowired
 	private WorkingData workingData;
@@ -121,7 +120,7 @@ public class CmdRestController {
 				//Cmd cmd = Cmd.builder().cmdPeriod("60").cmdArr("java -version").build();
 				Cmd cmd = Cmd.builder().cmdPeriod("0").cmdArr("java -version").build();
 				//this.workingData.getMapCmd().put(cmdCode, cmd);
-				this.asyncCmdTask.async_0101(cmd);
+				//this.asyncCmdTask.async_0101(cmd);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
