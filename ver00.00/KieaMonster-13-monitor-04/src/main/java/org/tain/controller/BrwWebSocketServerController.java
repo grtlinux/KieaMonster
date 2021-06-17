@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.tain.config.websocket.CustomSpringConfig;
 import org.tain.data.WorkingData;
-import org.tain.data.parser.ParsingOfCommander;
+import org.tain.data.parser.ParsingOfBrowser;
 
 @Controller
 @ServerEndpoint(value = "/wsBrw", configurator = CustomSpringConfig.class)
@@ -21,18 +21,19 @@ public class BrwWebSocketServerController {
 	private WorkingData workingData;
 	
 	@Autowired
-	private ParsingOfCommander parsingOfCommander;
+	private ParsingOfBrowser parsingOfBrowser;
 	
 	@OnOpen
 	public void onOpen(Session session) {
 		System.out.println(">>>>> [OnOpen] session.getId(): " + session.getId());
+		this.workingData.getBrwSessions().add(session);
 	}
 	
 	@OnMessage
 	public void onMessage(Session session, String message) {
 		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
 		if (Boolean.TRUE) {
-			this.parsingOfCommander.parsing(message);
+			this.parsingOfBrowser.parsing(session, message);
 		}
 	}
 	
@@ -50,10 +51,18 @@ public class BrwWebSocketServerController {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void broadCast(String message) {
-		
+		System.out.println(">>>>> [broadCast]: ");
+		this.workingData.getBrwSessions().forEach(session -> {
+			this.sendMessage(session, message);
+		});
 	}
 	
 	public void sendMessage(Session session, String message) {
-		
+		System.out.println(">>>>> [sendMessage]: " + session.getId());
+		try {
+			session.getBasicRemote().sendText(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

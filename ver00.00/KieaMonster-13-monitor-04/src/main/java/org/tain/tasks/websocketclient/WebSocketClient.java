@@ -13,6 +13,7 @@ import org.tain.data.parser.ParsingOfBrowser;
 public class WebSocketClient {
 
 	private WorkingData workingData;
+	@SuppressWarnings("unused")
 	private ParsingOfBrowser parsingOfMonitor;
 	
 	public WebSocketClient(WorkingData workingData, ParsingOfBrowser parsingOfMonitor) {
@@ -27,7 +28,7 @@ public class WebSocketClient {
 		System.out.printf(">>>>> [OnMessage] (%s) message: %s\n", this.workingData.getName(), message);
 		
 		if (Boolean.TRUE) {
-			this.parsingOfMonitor.parsing(message);
+			//this.parsingOfMonitor.parsing(message);
 		}
 	}
 	

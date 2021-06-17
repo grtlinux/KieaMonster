@@ -1,5 +1,7 @@
 package org.tain.data.parser;
 
+import javax.websocket.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.data.WorkingData;
@@ -15,7 +17,7 @@ public class ParsingOfCommander {
 	@Autowired
 	private WorkingData workingData;
 	
-	public void parsing(String message) {
+	public void parsing(Session session, String message) {
 		log.info("KANG-20210615 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {

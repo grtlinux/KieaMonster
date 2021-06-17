@@ -2,6 +2,10 @@ package org.tain.data;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import javax.websocket.Session;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -30,9 +34,6 @@ public class WorkingData {
 	// Sample Queue
 	//private MonQueue<MonJsonNode> queue = new MonQueue<>();
 	
-	// SendResult Queue
-	//private MonQueue<MonJsonNode> queueSendResult = new MonQueue<>();
-	
 	// Queue From Worker To Monitor
 	private MonQueue<MonJsonNode> queueFromWorkerToMonitor = new MonQueue<>();
 	
@@ -40,8 +41,10 @@ public class WorkingData {
 	private MonQueue<MonJsonNode> queueFromMonitorToWorker = new MonQueue<>();
 	
 	///////////////////////////////////////////////////////////////////////////
+	// Session
+	private Set<Session> wrkSessions = new CopyOnWriteArraySet<>();
 	
-	
+	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	

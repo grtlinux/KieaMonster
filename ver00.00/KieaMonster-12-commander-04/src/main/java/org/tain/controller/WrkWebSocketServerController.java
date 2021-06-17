@@ -15,7 +15,7 @@ import org.tain.data.parser.ParsingOfWorker;
 
 @Controller
 @ServerEndpoint(value = "/wsWrk", configurator = CustomSpringConfig.class)
-public class WebSocketServerController {
+public class WrkWebSocketServerController {
 
 	@Autowired
 	private WorkingData workingData;
@@ -26,6 +26,7 @@ public class WebSocketServerController {
 	@OnOpen
 	public void onOpen(Session session) {
 		System.out.println(">>>>> [OnOpen] session.getId(): " + session.getId());
+		this.workingData.getWrkSessions().add(session);
 	}
 	
 	@OnMessage
@@ -50,10 +51,18 @@ public class WebSocketServerController {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void broadCast(String message) {
-		
+		System.out.println(">>>>> [broadCast]: ");
+		this.workingData.getWrkSessions().forEach(session -> {
+			this.sendMessage(session, message);
+		});
 	}
 	
 	public void sendMessage(Session session, String message) {
-		
+		System.out.println(">>>>> [sendMessage]: " + session.getId());
+		try {
+			session.getBasicRemote().sendText(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

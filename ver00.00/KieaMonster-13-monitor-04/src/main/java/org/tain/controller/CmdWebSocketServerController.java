@@ -26,13 +26,14 @@ public class CmdWebSocketServerController {
 	@OnOpen
 	public void onOpen(Session session) {
 		System.out.println(">>>>> [OnOpen] session.getId(): " + session.getId());
+		this.workingData.getCmdSessions().add(session);
 	}
 	
 	@OnMessage
 	public void onMessage(Session session, String message) {
 		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
 		if (Boolean.TRUE) {
-			this.parsingOfCommander.parsing(message);
+			this.parsingOfCommander.parsing(session, message);
 		}
 	}
 	
@@ -50,10 +51,18 @@ public class CmdWebSocketServerController {
 	///////////////////////////////////////////////////////////////////////////
 	
 	public void broadCast(String message) {
-		
+		System.out.println(">>>>> [broadCast]: ");
+		this.workingData.getCmdSessions().forEach(session -> {
+			this.sendMessage(session, message);
+		});
 	}
 	
 	public void sendMessage(Session session, String message) {
-		
+		System.out.println(">>>>> [sendMessage]: " + session.getId());
+		try {
+			session.getBasicRemote().sendText(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
