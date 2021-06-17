@@ -4,7 +4,7 @@ import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.data.WorkingData;
+import org.tain.controller.BrwWebSocketServerController;
 import org.tain.tools.node.MonJsonNode;
 import org.tain.utils.CurrentInfo;
 
@@ -14,8 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ParsingOfCommander {
 
+	//@Autowired
+	//private WorkingData workingData;
+	
 	@Autowired
-	private WorkingData workingData;
+	private BrwWebSocketServerController brwWebSocketServerController;
 	
 	public void parsing(Session session, String message) {
 		log.info("KANG-20210615 >>>>> {} {}", CurrentInfo.get());
@@ -26,7 +29,9 @@ public class ParsingOfCommander {
 				node = new MonJsonNode(message);
 				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), node.toPrettyString());
 				
-				this.workingData.getQueueFromCommanderToBrowser().set(node);
+				//this.workingData.getQueueFromCommanderToBrowser().set(node);
+				this.brwWebSocketServerController.broadCast(message);
+				
 				/*
 				String msgCode = node.getText("msgCode");
 				switch (msgCode) {

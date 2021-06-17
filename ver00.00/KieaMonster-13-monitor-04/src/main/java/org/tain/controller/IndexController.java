@@ -15,4 +15,9 @@ public class IndexController {
 	public String dash1() {
 		return "dash1";
 	}
+
+	@GetMapping("/ws")
+	public String ws() {
+		return "ws/ws";
+	}
 }
