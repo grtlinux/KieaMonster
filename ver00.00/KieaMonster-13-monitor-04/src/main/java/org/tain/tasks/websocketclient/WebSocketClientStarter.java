@@ -1,34 +1,32 @@
 package org.tain.tasks.websocketclient;
 
-import java.net.URI;
-
-import javax.websocket.ContainerProvider;
 import javax.websocket.Session;
-import javax.websocket.WebSocketContainer;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.tain.data.WorkingData;
-import org.tain.tools.node.MonJsonNode;
-import org.tain.tools.properties.ProjEnvUrl;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Sleep;
 
 import lombok.extern.slf4j.Slf4j;
 
+@Deprecated
 @Component
 @Slf4j
 public class WebSocketClientStarter {
 
+	/*
 	@Autowired
 	private WorkingData workingData;
 	
 	@Autowired
-	private ParsingRecvMsg parsingRecvMsg;
+	private ParsingOfBrowser parsingOfBrowser;
+	
+	@Autowired
+	private ParsingOfCommander parsingOfCommander;
 	
 	@Autowired
 	private ProjEnvUrl projEnvUrl;
+	*/
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
@@ -46,12 +44,14 @@ public class WebSocketClientStarter {
 			// send results to the commander
 			try {
 				while (true) {
+					/*
 					// get result from the queueSendResult
-					MonJsonNode resultNode = this.workingData.getQueue().get();
-					System.out.println(">>>>> 2. async " + param + ": " + resultNode.toPrettyString());
+					MonJsonNode resultNode = this.workingData.getQueueFromWorkerToMonitor().get();
+					System.out.println(">>>>> async_0102 " + param + ": " + resultNode.toPrettyString());
 					
 					// send result
 					this.sendMessage(resultNode.toString());
+					*/
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -73,14 +73,16 @@ public class WebSocketClientStarter {
 			Sleep.run(2 * 1000);
 			for (int i=0; ; i++) {
 				try {
-					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingRecvMsg);
+					/*
+					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingOfBrowser);
 					WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-					String wsUri = this.projEnvUrl.getWsWrkUri();
+					String wsUri = this.projEnvUrl.getWsCmdUri();
 					this.session = container.connectToServer(webSocketClient, URI.create(wsUri));
 					
-					// couldn't clear queue, because of sendInfoMessage
-					//this.monQueueBox.clearQueueSendResult();
+					// couldn't clear queue
+					this.workingData.getQueueFromWorkerToMonitor().clear();
 					break;
+					*/
 				} catch (Exception e) {
 					//e.printStackTrace();
 					System.out.println(">>>>> connection failed. -> " + e.getMessage());
@@ -89,7 +91,7 @@ public class WebSocketClientStarter {
 				Sleep.run(10 * 1000);
 			}
 			
-			System.out.println(">>>>> Start MonWebSocketClient.....sessionId: " + this.session.getId());
+			//System.out.println(">>>>> Start MonWebSocketClient.....sessionId: " + this.session.getId());
 		}
 	}
 	

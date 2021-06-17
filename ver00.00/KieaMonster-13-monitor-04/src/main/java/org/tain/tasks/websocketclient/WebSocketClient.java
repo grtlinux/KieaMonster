@@ -6,26 +6,28 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 
 import org.tain.data.WorkingData;
+import org.tain.data.parser.ParsingOfBrowser;
 
+@Deprecated
 @ClientEndpoint
 public class WebSocketClient {
 
 	private WorkingData workingData;
-	private ParsingRecvMsg parsingRecvMsg;
+	private ParsingOfBrowser parsingOfMonitor;
 	
-	public WebSocketClient(WorkingData workingData, ParsingRecvMsg parsingRecvMsg) {
+	public WebSocketClient(WorkingData workingData, ParsingOfBrowser parsingOfMonitor) {
 		this.workingData = workingData;
-		this.parsingRecvMsg = parsingRecvMsg;
+		this.parsingOfMonitor = parsingOfMonitor;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	
 	@OnMessage
-	public void onMessage(String recvMsg) {
-		System.out.printf(">>>>> [OnMessage] (%s) message: %s\n", this.workingData.getName(), recvMsg);
+	public void onMessage(String message) {
+		System.out.printf(">>>>> [OnMessage] (%s) message: %s\n", this.workingData.getName(), message);
 		
 		if (Boolean.TRUE) {
-			this.parsingRecvMsg.parsing(recvMsg);
+			this.parsingOfMonitor.parsing(message);
 		}
 	}
 	

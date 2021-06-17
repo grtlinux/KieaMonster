@@ -11,13 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.tain.config.websocket.CustomSpringConfig;
 import org.tain.data.WorkingData;
+import org.tain.data.parser.ParsingOfCommander;
 
 @Controller
-@ServerEndpoint(value = "/websocket", configurator = CustomSpringConfig.class)
-public class WebSocketServerController {
+@ServerEndpoint(value = "/wsBrw", configurator = CustomSpringConfig.class)
+public class BrwWebSocketServerController {
 
 	@Autowired
 	private WorkingData workingData;
+	
+	@Autowired
+	private ParsingOfCommander parsingOfCommander;
 	
 	@OnOpen
 	public void onOpen(Session session) {
@@ -27,7 +31,9 @@ public class WebSocketServerController {
 	@OnMessage
 	public void onMessage(Session session, String message) {
 		System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
-		//System.out.printf(">>>>> [OnMessage] session.getId(): %s, message: %s\n", session.getId(), message);
+		if (Boolean.TRUE) {
+			this.parsingOfCommander.parsing(message);
+		}
 	}
 	
 	@OnError
