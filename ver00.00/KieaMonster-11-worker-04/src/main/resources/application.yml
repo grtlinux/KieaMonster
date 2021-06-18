@@ -127,7 +127,7 @@ proj-env:
     #test-flag: true
     test-flag: false
     svr-code: TEST03
-    async-size: 20
+    async-size: 10
 
 ---
 # --------------------------------------------------------

@@ -26,6 +26,8 @@ public class Cmd {
 	
 	private String cmdArr;
 	
+	private boolean flgAlive;
+	
 	// Cmd.builder().mstCode("")....build();
 	@Builder
 	public Cmd(
@@ -33,12 +35,14 @@ public class Cmd {
 			String mstType,
 			String cmdCode,
 			String cmdPeriod,
-			String cmdArr
+			String cmdArr,
+			boolean flgAalive
 			) {
 		this.mstCode = mstCode;
 		this.mstType = mstType;
 		this.cmdCode = cmdCode;
 		this.cmdPeriod = cmdPeriod;
 		this.cmdArr = cmdArr;
+		this.flgAlive = flgAalive;
 	}
 }

@@ -37,7 +37,6 @@ public class CmdRestController {
 	@Autowired
 	private AsyncCmdTask asyncCmdTask;
 	
-	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
@@ -154,6 +153,112 @@ public class CmdRestController {
 			mapRes.put("sessId", "");
 			mapRes.put("resCode", "000");
 			mapRes.put("resMsg", "SUCCESS");
+		}
+		
+		MultiValueMap<String,String> headers = null;
+		if (Boolean.TRUE) {
+			headers = new LinkedMultiValueMap<>();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+		}
+		return new ResponseEntity<>(mapRes, headers, HttpStatus.OK);
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	// START
+	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
+	@GetMapping({"/cmd/{cmdCode}/start"})
+	public ResponseEntity<?> startCommand(@PathVariable("cmdCode") String cmdCode, HttpEntity<String> httpEntity) {
+		if (Boolean.TRUE) {
+			HttpHeaders headers = httpEntity.getHeaders();
+			String body = httpEntity.getBody();
+			log.info(">>>>> ip.info: " + IpPrint.get());
+			log.info(">>>>> request.headers: " + headers.toString());
+			log.info(">>>>> request.body: " + body);
+		}
+		
+		List<Map<String,Object>> lst = null;
+		if (Boolean.TRUE) {
+			// get cmd info
+			Map<String,Object> mapIn = new HashMap<>();
+			mapIn.put("cmdCode", cmdCode);
+			lst = this.cmdMapper.selectByCode(mapIn);
+			log.info(">>>>> itm: {}", lst);
+		}
+		
+		Cmd cmd = null;
+		if (Boolean.TRUE) {
+			cmd = Cmd.builder()
+					.mstCode((String) lst.get(0).get("mstCode"))
+					.mstType((String) lst.get(0).get("mstType"))
+					.cmdCode((String) lst.get(0).get("cmdCode"))
+					.cmdPeriod((String) lst.get(0).get("cmdPeriod"))
+					.cmdArr((String) lst.get(0).get("cmdArr"))
+					.flgAalive(true)
+					.build();
+			
+			this.workingData.getMapCmd().put(cmdCode, cmd);
+		}
+		
+		if (Boolean.TRUE) {
+			// run async of cmd
+			try {
+				this.asyncCmdTask.async_0101(cmd);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Map<String,Object> mapRes = null;
+		if (Boolean.TRUE) {
+			// make return info
+			mapRes = new HashMap<>();
+			mapRes.put("msgKey", "WRK001");
+			mapRes.put("msgType", "RES");
+			mapRes.put("cmdCode", cmd.getCmdCode());
+			mapRes.put("sessId", "");
+			mapRes.put("resCode", "000");
+			mapRes.put("resMsg", "SUCCESS OF START");
+		}
+		
+		MultiValueMap<String,String> headers = null;
+		if (Boolean.TRUE) {
+			headers = new LinkedMultiValueMap<>();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+		}
+		return new ResponseEntity<>(mapRes, headers, HttpStatus.OK);
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	// STOP
+	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
+	@GetMapping({"/cmd/{cmdCode}/stop"})
+	public ResponseEntity<?> stopCommand(@PathVariable("cmdCode") String cmdCode, HttpEntity<String> httpEntity) {
+		if (Boolean.TRUE) {
+			HttpHeaders headers = httpEntity.getHeaders();
+			String body = httpEntity.getBody();
+			log.info(">>>>> ip.info: " + IpPrint.get());
+			log.info(">>>>> request.headers: " + headers.toString());
+			log.info(">>>>> request.body: " + body);
+		}
+		
+		Cmd cmd = null;
+		if (Boolean.TRUE) {
+			cmd = (Cmd) this.workingData.getMapCmd().get(cmdCode);
+			cmd.setFlgAlive(false);
+		}
+		
+		Map<String,Object> mapRes = null;
+		if (Boolean.TRUE) {
+			// make return info
+			mapRes = new HashMap<>();
+			mapRes.put("msgKey", "WRK001");
+			mapRes.put("msgType", "RES");
+			mapRes.put("cmdCode", cmd.getCmdCode());
+			mapRes.put("sessId", "");
+			mapRes.put("resCode", "000");
+			mapRes.put("resMsg", "SUCCESS OF STOP");
 		}
 		
 		MultiValueMap<String,String> headers = null;

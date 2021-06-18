@@ -2,11 +2,13 @@ package org.tain.config.async;
 
 import java.util.concurrent.Executor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.tain.tools.properties.ProjEnvBase;
 
 /*
  * CorePoolSize: 기본 쓰레드 갯수
@@ -22,13 +24,17 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class AsyncConfig extends AsyncConfigurerSupport {
 
+	@Autowired
+	private ProjEnvBase projEnvBase;
+	
 	// AsyncCmdTask
 	@Bean(name = "async_0101")
 	public Executor _async0101() {
+		int asyncSize = this.projEnvBase.getAsyncSize();
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(1);
-		executor.setMaxPoolSize(1);
-		executor.setQueueCapacity(1);
+		executor.setCorePoolSize(asyncSize);
+		executor.setMaxPoolSize(asyncSize);
+		executor.setQueueCapacity(asyncSize);
 		executor.setThreadNamePrefix("Async_0101-");
 		executor.initialize();
 		return executor;
@@ -37,10 +43,11 @@ public class AsyncConfig extends AsyncConfigurerSupport {
 	// WebSocketClientStarter
 	@Bean(name = "async_0102")
 	public Executor _async0102() {
+		int asyncSize = 1;
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(1);
-		executor.setMaxPoolSize(1);
-		executor.setQueueCapacity(1);
+		executor.setCorePoolSize(asyncSize);
+		executor.setMaxPoolSize(asyncSize);
+		executor.setQueueCapacity(asyncSize);
 		executor.setThreadNamePrefix("Async_0102-");
 		executor.initialize();
 		return executor;

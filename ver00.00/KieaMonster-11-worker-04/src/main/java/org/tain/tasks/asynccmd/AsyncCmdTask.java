@@ -22,14 +22,6 @@ public class AsyncCmdTask {
 	private WorkingData workingData;
 	
 	///////////////////////////////////////////////////////////////////////////
-	
-	private boolean flagKeep = true;
-	
-	public void stopAsync() {
-		this.flagKeep = false;
-	}
-	
-	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
@@ -47,7 +39,6 @@ public class AsyncCmdTask {
 		}
 		
 		if (Boolean.TRUE) {
-			this.flagKeep = true;
 			int period = Integer.parseInt(cmd.getCmdPeriod());
 			if (period < 0) {
 				cmdKeepSingle(cmd);
@@ -58,6 +49,7 @@ public class AsyncCmdTask {
 		
 		if (Boolean.TRUE) {
 			// update table to set stop-flag
+			this.workingData.getMapCmd().remove(cmd.getCmdCode());
 		}
 		
 		if (Boolean.TRUE) {
@@ -97,7 +89,7 @@ public class AsyncCmdTask {
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
 				String line = null;
-				while ((line = br.readLine()) != null && this.flagKeep) {
+				while ((line = br.readLine()) != null && cmd.isFlgAlive()) {
 					nodeResult.put("cmdResult", line + "\n");
 					if (Boolean.TRUE) {
 						this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
@@ -123,7 +115,7 @@ public class AsyncCmdTask {
 			int period = Integer.parseInt(cmd.getCmdPeriod());
 			
 			// spring async kill thread
-			for (int idx=0; this.flagKeep; idx++) {
+			for (int idx=0; cmd.isFlgAlive(); idx++) {
 				log.info(">>>>> cmd: {} {}", cmd, idx);
 				MonJsonNode nodeResult = new MonJsonNode("{}");
 				if (Boolean.TRUE) {
