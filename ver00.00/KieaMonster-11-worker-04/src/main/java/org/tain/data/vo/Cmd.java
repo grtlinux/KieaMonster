@@ -12,7 +12,11 @@ public class Cmd {
 	
 	private String mstCode;
 	
+	private String mstType;
+	
 	private String cmdCode;
+	
+	//private String cmdType;
 	
 	//private String cmdName;
 	
@@ -20,18 +24,19 @@ public class Cmd {
 	
 	private String cmdPeriod;
 	
-	//private String cmdType;
-	
 	private String cmdArr;
 	
+	// Cmd.builder().mstCode("")....build();
 	@Builder
 	public Cmd(
 			String mstCode,
+			String mstType,
 			String cmdCode,
 			String cmdPeriod,
 			String cmdArr
 			) {
 		this.mstCode = mstCode;
+		this.mstType = mstType;
 		this.cmdCode = cmdCode;
 		this.cmdPeriod = cmdPeriod;
 		this.cmdArr = cmdArr;

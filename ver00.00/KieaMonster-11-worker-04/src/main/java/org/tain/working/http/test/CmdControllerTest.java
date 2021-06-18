@@ -22,6 +22,8 @@ public class CmdControllerTest {
 	@Autowired
 	private ProjEnvUrl projEnvUrl;
 	
+	///////////////////////////////////////////////////////////////////////////
+	//
 	public void cmdList() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
@@ -37,6 +39,8 @@ public class CmdControllerTest {
 		}
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	//
 	public void cmdByMstCode() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		
@@ -53,6 +57,8 @@ public class CmdControllerTest {
 		}
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	//
 	public void cmdByCmdCode() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());
 		

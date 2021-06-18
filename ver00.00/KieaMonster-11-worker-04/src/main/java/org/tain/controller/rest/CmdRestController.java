@@ -41,6 +41,10 @@ public class CmdRestController {
 	@Autowired
 	private WorkingData workingData;
 	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd/list"})
 	public ResponseEntity<?> selectAll(HttpEntity<String> httpEntity) {
@@ -67,6 +71,10 @@ public class CmdRestController {
 		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd"})
 	public ResponseEntity<?> selectByMstCode(
@@ -101,7 +109,7 @@ public class CmdRestController {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
-	
+	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd/{cmdCode}"})
 	public ResponseEntity<?> selectByCode(@PathVariable("cmdCode") String cmdCode, HttpEntity<String> httpEntity) {
@@ -115,6 +123,7 @@ public class CmdRestController {
 		
 		List<Map<String,Object>> lst = null;
 		if (Boolean.TRUE) {
+			// get cmd info
 			Map<String,Object> mapIn = new HashMap<>();
 			mapIn.put("cmdCode", cmdCode);
 			lst = this.cmdMapper.selectByCode(mapIn);
@@ -123,10 +132,11 @@ public class CmdRestController {
 		
 		Cmd cmd = null;
 		if (Boolean.TRUE) {
-			cmd = Cmd.builder().mstCode("SVR04").cmdCode("SVR0400").cmdPeriod("0").cmdArr("java -version").build();
+			cmd = Cmd.builder().mstCode("SVR04").mstType("CMD_SVR").cmdCode("SVR0400").cmdPeriod("0").cmdArr("java -version").build();
 		}
 		
 		if (Boolean.TRUE) {
+			// run async of cmd
 			try {
 				this.asyncCmdTask.async_0101(cmd);
 			} catch (Exception e) {
@@ -136,10 +146,11 @@ public class CmdRestController {
 		
 		Map<String,Object> mapRes = null;
 		if (Boolean.TRUE) {
+			// make return info
 			mapRes = new HashMap<>();
 			mapRes.put("msgKey", "WRK001");
 			mapRes.put("msgType", "RES");
-			mapRes.put("cmdCode", "SVR0400");
+			mapRes.put("cmdCode", cmd.getCmdCode());
 			mapRes.put("sessId", "");
 			mapRes.put("resCode", "000");
 			mapRes.put("resMsg", "SUCCESS");

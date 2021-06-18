@@ -22,52 +22,23 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSocketClientStarter {
 
 	@Autowired
+	private ProjEnvUrl projEnvUrl;
+	
+	private Session session;
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	@Autowired
 	private WorkingData workingData;
 	
 	@Autowired
 	private ParsingOfCommander parsingOfCommander;
 	
-	@Autowired
-	private ProjEnvUrl projEnvUrl;
-	
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	
 	@Async(value = "async_0102")
 	public void async_0102(String param) throws Exception {
 		log.info("KANG-20210615 >>>>> async_0102 START {} {}", param, CurrentInfo.get());
-		
-		if (Boolean.TRUE) {
-			this.tryToConnect();
-		}
-		
-		if (Boolean.TRUE) {
-			// send results to the commander
-			try {
-				while (true) {
-					// get result from the queueSendResult
-					MonJsonNode resultNode = this.workingData.getQueueFromAsyncToCommander().get();
-					System.out.println(">>>>> async_0102 " + param + ": " + resultNode.toPrettyString());
-					
-					// send result
-					this.sendMessage(resultNode.toString());
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				this.session.close();
-			}
-		}
-		// retry to connect
-	}
-	
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	
-	private void tryToConnect() throws Exception {
-		log.info("KANG-20200721 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
 			Sleep.run(2 * 1000);
@@ -89,19 +60,34 @@ public class WebSocketClientStarter {
 				Sleep.run(10 * 1000);
 			}
 			
-			System.out.println(">>>>> Start MonWebSocketClient.....sessionId: " + this.session.getId());
+			System.out.println(">>>>> Start WebSocketClient.....sessionId: " + this.session.getId());
 		}
+		
+		if (Boolean.TRUE) {
+			// send results to the commander
+			try {
+				while (true) {
+					// get result from the queueSendResult
+					MonJsonNode resultNode = this.workingData.getQueueFromAsyncToCommander().get();
+					System.out.println(">>>>> async_0102 " + param + ": " + resultNode.toPrettyString());
+					
+					// send result
+					this.sendMessage(resultNode.toString());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				this.session.close();
+			}
+		}
+		// retry to connect
+		
+		log.info("KANG-20210615 >>>>> async_0102 END   {} {}", param, CurrentInfo.get());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
-	
-	private Session session;
-	
-	public void recvMessage(String message) throws Exception {
-		System.out.println("[recvMessage] message: " + message);
-	}
 	
 	public void sendMessage(String message) throws Exception {
 		System.out.println("[sendMessage] message: " + message);

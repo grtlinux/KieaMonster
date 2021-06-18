@@ -30,10 +30,21 @@ public class AsyncCmdTask {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 	
 	@Async(value = "async_0101")
 	public void async_0101(Cmd cmd) throws Exception {
 		log.info("KANG-20210615 >>>>> async_0101 START {} {}", cmd, CurrentInfo.get());
+		
+		if (Boolean.TRUE) {
+			System.out.println("+---------------------------------------------+");
+			System.out.println("|                                             |");
+			System.out.println("|       START of the Asyn                     |");
+			System.out.println("|                                             |");
+			System.out.println(">>>>> " + cmd);
+			System.out.println("+---------------------------------------------+");
+		}
 		
 		if (Boolean.TRUE) {
 			this.flagKeep = true;
@@ -53,9 +64,53 @@ public class AsyncCmdTask {
 			Sleep.run(1 * 1000);
 			System.out.println("+---------------------------------------------+");
 			System.out.println("|                                             |");
-			System.out.println("|       Stop of the Async                     |");
+			System.out.println("|       STOP of the Async                     |");
 			System.out.println("|                                             |");
+			System.out.println(">>>>> " + cmd);
 			System.out.println("+---------------------------------------------+");
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	private void cmdKeepSingle(Cmd cmd) throws Exception {
+		log.info("KANG-20200721 >>>>> {} {}", CurrentInfo.get());
+		
+		if (Boolean.TRUE) {
+			// spring async kill thread
+			log.info(">>>>> cmd: {} {}", cmd);
+			
+			MonJsonNode nodeResult = new MonJsonNode("{}");
+			if (Boolean.TRUE) {
+				//nodeResult.put("svrCode", cmd.getSvrCode());
+				nodeResult.put("msgKey", "RET000");
+				nodeResult.put("msgType", "RET");
+				nodeResult.put("mstCode", cmd.getMstCode());
+				nodeResult.put("cmdCode", cmd.getCmdCode());
+				nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
+				nodeResult.put("cmdArr", cmd.getCmdArr());
+			}
+			
+			if (Boolean.TRUE) {
+				// run process and get the result
+				Process process = Runtime.getRuntime().exec(cmd.getCmdArr());
+				
+				BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
+				String line = null;
+				while ((line = br.readLine()) != null && this.flagKeep) {
+					nodeResult.put("cmdResult", line + "\n");
+					if (Boolean.TRUE) {
+						this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
+						if (Boolean.TRUE) System.out.println(">>>>> queue.set.nodeResult: " + nodeResult.toPrettyString());
+					}
+				}
+				
+				if (Boolean.TRUE) {
+					@SuppressWarnings("unused")
+					int exitVal = process.waitFor();
+					process.destroy();
+				}
+			}
 		}
 	}
 	
@@ -116,7 +171,7 @@ public class AsyncCmdTask {
 				
 				if (Boolean.TRUE) {
 					this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
-					if (Boolean.TRUE) System.out.println(">>>>> setQueue.nodeResult: " + nodeResult.toPrettyString());
+					if (Boolean.TRUE) System.out.println(">>>>> queue.set.nodeResult: " + nodeResult.toPrettyString());
 				}
 				
 				// if period == 0, then to single command
@@ -125,42 +180,6 @@ public class AsyncCmdTask {
 				
 				// sleep, wait for period
 				Sleep.run(Integer.parseInt(cmd.getCmdPeriod()) * 1000);
-			}
-		}
-	}
-	
-	private void cmdKeepSingle(Cmd cmd) throws Exception {
-		log.info("KANG-20200721 >>>>> {} {}", CurrentInfo.get());
-		
-		if (Boolean.TRUE) {
-			// spring async kill thread
-			log.info(">>>>> cmd: {} {}", cmd);
-			MonJsonNode nodeResult = new MonJsonNode("{}");
-			if (Boolean.TRUE) {
-				//nodeResult.put("svrCode", cmd.getSvrCode());
-				nodeResult.put("msgKey", "RET000");
-				nodeResult.put("msgType", "RET");
-				nodeResult.put("mstCode", cmd.getMstCode());
-				nodeResult.put("cmdCode", cmd.getCmdCode());
-				nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
-				nodeResult.put("cmdArr", cmd.getCmdArr());
-			}
-			
-			if (Boolean.TRUE) {
-				// run process and get the result
-				Process process = Runtime.getRuntime().exec(cmd.getCmdArr());
-				
-				BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
-				String line = null;
-				while ((line = br.readLine()) != null && this.flagKeep) {
-					nodeResult.put("cmdResult", line + "\n");
-					if (Boolean.TRUE) {
-						this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
-					}
-				}
-				
-				process.waitFor();
-				process.destroy();
 			}
 		}
 	}

@@ -16,13 +16,13 @@ public class ParsingOfCommander {
 	@Autowired
 	private WorkingData workingData;
 	
-	public void parsing(String recvMsg) {
+	public void parsing(String message) {
 		log.info("KANG-20210615 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
 			MonJsonNode node = null;
 			try {
-				node = new MonJsonNode(recvMsg);
+				node = new MonJsonNode(message);
 				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), node.toPrettyString());
 				
 				/*
