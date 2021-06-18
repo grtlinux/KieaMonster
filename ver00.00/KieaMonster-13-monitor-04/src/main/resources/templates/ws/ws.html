@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>WebSocket First</title>
+	<link rel="shortcut icon" href="#">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -15,7 +16,7 @@
 			<input type="button" value="Send" onclick="sendMessage()">
 			<input type="button" value="Disconnect" onclick="disconnect()">
 		</form>
-	</div>
+	</div><br/>
 	<div class="row">
 		<textarea rows="10" cols="80" id="messageTextArea"></textarea>
 	</div>
@@ -48,6 +49,10 @@
 		switch (objData.msgKey) {
 		case 'BRW001':
 			$("#messageTextArea").val(JSON.stringify(objData, null, 2));
+			break;
+		case 'RET000':
+			var cmdResult = objData.cmdResult;
+			$("#messageTextArea").val(cmdResult);
 			break;
 		default:
 			break;

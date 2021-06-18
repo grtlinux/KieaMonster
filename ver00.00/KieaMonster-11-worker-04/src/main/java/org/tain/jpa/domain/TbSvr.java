@@ -42,6 +42,9 @@ public class TbSvr {
 	@Column(name = "svr_name", length = 64)
 	private String svrName;
 	
+	@Column(name = "svr_url", length = 256)
+	private String svrUrl;
+	
 	@Column(name = "svr_desc", length = 1024)
 	private String svrDesc;
 	
@@ -56,11 +59,13 @@ public class TbSvr {
 	public TbSvr(
 			String svrCode,
 			String svrName,
+			String svrUrl,
 			String svrDesc,
 			String svrComment
 			) {
 		this.svrCode = svrCode;
 		this.svrName = svrName;
+		this.svrUrl = svrUrl;
 		this.svrDesc = svrDesc;
 		this.svrComment = svrComment;
 	}

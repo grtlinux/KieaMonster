@@ -33,12 +33,12 @@ public class CmdRestController {
 	@Autowired
 	private CmdMapper cmdMapper;
 	
-	//@Autowired
-	//private AsyncCmdTask asyncCmdTask;
-	
+	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
+	///////////////////////////////////////////////////////////////////////////
+	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd/list"})
 	public ResponseEntity<?> selectAll(HttpEntity<String> httpEntity) {
@@ -65,6 +65,8 @@ public class CmdRestController {
 		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd"})
 	public ResponseEntity<?> selectByMstCode(
@@ -96,6 +98,8 @@ public class CmdRestController {
 		return new ResponseEntity<>(lst, headers, HttpStatus.OK);
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
 	@GetMapping({"/cmd/{cmdCode}"})
 	public ResponseEntity<?> selectByCode(@PathVariable("cmdCode") String cmdCode, HttpEntity<String> httpEntity) {
@@ -118,6 +122,7 @@ public class CmdRestController {
 		if (Boolean.TRUE) {
 			try {
 				//Cmd cmd = Cmd.builder().cmdPeriod("60").cmdArr("java -version").build();
+				@SuppressWarnings("unused")
 				Cmd cmd = Cmd.builder().cmdPeriod("0").cmdArr("java -version").build();
 				//this.workingData.getMapCmd().put(cmdCode, cmd);
 				//this.asyncCmdTask.async_0101(cmd);

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.tain.data.WorkingData;
-import org.tain.data.vo.Cmd;
 import org.tain.mybatis.mappers.CmdMapper;
 import org.tain.utils.IpPrint;
 
@@ -36,6 +35,7 @@ public class CmdRestController {
 	//@Autowired
 	//private AsyncCmdTask asyncCmdTask;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
@@ -118,7 +118,7 @@ public class CmdRestController {
 		if (Boolean.TRUE) {
 			try {
 				//Cmd cmd = Cmd.builder().cmdPeriod("60").cmdArr("java -version").build();
-				Cmd cmd = Cmd.builder().cmdPeriod("0").cmdArr("java -version").build();
+				//Cmd cmd = Cmd.builder().cmdPeriod("0").cmdArr("java -version").build();
 				//this.workingData.getMapCmd().put(cmdCode, cmd);
 				//this.asyncCmdTask.async_0101(cmd);
 			} catch (Exception e) {
