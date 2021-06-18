@@ -5,7 +5,6 @@ import javax.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.controller.BrwWebSocketServerController;
-import org.tain.controller.CmdWebSocketServerController;
 import org.tain.data.WorkingData;
 import org.tain.tools.node.MonJsonNode;
 import org.tain.utils.CurrentInfo;
@@ -20,10 +19,6 @@ public class ParsingOfCommander {
 	@Autowired
 	private WorkingData workingData;
 	
-	@SuppressWarnings("unused")
-	@Autowired
-	private CmdWebSocketServerController cmdWebSocketServerController;
-	
 	@Autowired
 	private BrwWebSocketServerController brwWebSocketServerController;
 	
@@ -31,12 +26,19 @@ public class ParsingOfCommander {
 		log.info("KANG-20210615 >>>>> {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			MonJsonNode retNode = null;
+			MonJsonNode node = null;
 			try {
-				retNode = new MonJsonNode(message);
-				log.info("KANG-20210405 >>>>> reqNode = {}", retNode.toPrettyString());
+				node = new MonJsonNode(message);
+				String msgKey = node.getText("msgKey");
+				log.info("KANG-20210405 >>>>> {} node = {}", msgKey, node.toPrettyString());
 				
-				this.brwWebSocketServerController.broadCast(message);
+				switch (msgKey) {
+				default:
+					//throw new Exception("ERROR: couldn't parse the msgCode [" + msgCode + "]");
+					this.brwWebSocketServerController.broadCast(message);
+					break;
+				}
+				
 				
 			} catch (Exception e) {
 				//e.printStackTrace();

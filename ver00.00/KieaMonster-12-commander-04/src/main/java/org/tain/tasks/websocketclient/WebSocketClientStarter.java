@@ -23,27 +23,46 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSocketClientStarter {
 
 	@Autowired
+	private ProjEnvUrl projEnvUrl;
+	
+	private Session session;
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	
+	@Autowired
 	private WorkingData workingData;
 	
 	@Autowired
 	private ParsingOfMonitor parsingOfMonitor;
-	
-	//@Autowired
-	//private ParsingOfWorker parsingOfWorker;
-	
-	@Autowired
-	private ProjEnvUrl projEnvUrl;
-	
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
 	
 	@Async(value = "async_0102")
 	public void async_0102(String param) throws Exception {
 		log.info("KANG-20210615 >>>>> async_0102 START {} {}", param, CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.tryToConnect();
+			// try to connect to the websocket server
+			Sleep.run(2 * 1000);
+			for (int i=0; ; i++) {
+				try {
+					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingOfMonitor);
+					WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+					String wsUri = this.projEnvUrl.getWsCmdUri();  // ws://localhost:8093/v0.1/wsCmd
+					this.session = container.connectToServer(webSocketClient, URI.create(wsUri));
+					
+					// couldn't clear queue
+					this.workingData.getQueueFromWorkerToMonitor().clear();
+					break;
+				} catch (Exception e) {
+					//e.printStackTrace();
+					System.out.println(">>>>> connection failed. -> " + e.getMessage());
+				}
+				System.out.println(">>>>> try to connect again....." + i);
+				Sleep.run(10 * 1000);
+			}
+			
+			System.out.println(">>>>> Start MonWebSocketClient.....sessionId: " + this.session.getId());
 		}
 		
 		if (Boolean.TRUE) {
@@ -64,48 +83,13 @@ public class WebSocketClientStarter {
 			}
 		}
 		// retry to connect
-	}
-	
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-	
-	private void tryToConnect() throws Exception {
-		log.info("KANG-20200721 >>>>> {} {}", CurrentInfo.get());
 		
-		if (Boolean.TRUE) {
-			Sleep.run(2 * 1000);
-			for (int i=0; ; i++) {
-				try {
-					WebSocketClient webSocketClient = new WebSocketClient(this.workingData, this.parsingOfMonitor);
-					WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-					String wsUri = this.projEnvUrl.getWsCmdUri();
-					this.session = container.connectToServer(webSocketClient, URI.create(wsUri));
-					
-					// couldn't clear queue
-					this.workingData.getQueueFromWorkerToMonitor().clear();
-					break;
-				} catch (Exception e) {
-					//e.printStackTrace();
-					System.out.println(">>>>> connection failed. -> " + e.getMessage());
-				}
-				System.out.println(">>>>> try to connect again....." + i);
-				Sleep.run(10 * 1000);
-			}
-			
-			System.out.println(">>>>> Start MonWebSocketClient.....sessionId: " + this.session.getId());
-		}
+		log.info("KANG-20210615 >>>>> async_0102 END   {} {}", param, CurrentInfo.get());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
-	
-	private Session session;
-	
-	public void recvMessage(String message) throws Exception {
-		System.out.println("[recvMessage] message: " + message);
-	}
 	
 	public void sendMessage(String message) throws Exception {
 		System.out.println("[sendMessage] message: " + message);

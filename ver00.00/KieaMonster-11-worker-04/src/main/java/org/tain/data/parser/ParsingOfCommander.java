@@ -23,12 +23,14 @@ public class ParsingOfCommander {
 			MonJsonNode node = null;
 			try {
 				node = new MonJsonNode(message);
-				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), node.toPrettyString());
 				
 				String msgKey = node.getText("msgKey");
+				log.info("KANG-20210405 >>>>> {} node = {}", msgKey, node.toPrettyString());
+				
 				switch (msgKey) {
 				default:
 					throw new Exception("ERROR: couldn't parse the msgKey [" + msgKey + "]");
+					//this.workingData.getQueueFromMonitorToWorker().set(node);
 					//break;
 				}
 			} catch (Exception e) {

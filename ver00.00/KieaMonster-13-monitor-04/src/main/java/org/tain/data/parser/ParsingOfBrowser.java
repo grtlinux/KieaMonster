@@ -30,9 +30,10 @@ public class ParsingOfBrowser {
 			MonJsonNode resNode = null;
 			try {
 				reqNode = new MonJsonNode(message);
-				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), reqNode.toPrettyString());
 				
 				String msgKey = reqNode.getText("msgKey");
+				log.info("KANG-20210405 >>>>> {} reqNode = {}", msgKey, reqNode.toPrettyString());
+				
 				switch (msgKey) {
 				case "BRW001":  // 브라우져 접속 초기 요청
 					if (Boolean.TRUE) {

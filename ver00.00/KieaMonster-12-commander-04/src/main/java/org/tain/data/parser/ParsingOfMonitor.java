@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ParsingOfMonitor {
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private WorkingData workingData;
 	
@@ -22,21 +23,16 @@ public class ParsingOfMonitor {
 			MonJsonNode node = null;
 			try {
 				node = new MonJsonNode(message);
-				log.info("KANG-20210405 >>>>> {} reqNode = {}", CurrentInfo.get(), node.toPrettyString());
 				
-				this.workingData.getQueueFromMonitorToWorker().set(node);
-				/*
-				String msgCode = node.getText("msgCode");
-				switch (msgCode) {
-				case "GET_CMDS":
-					// transfer to SplitCommandsTask
-					this.workingData.getQueue().set(node);
-					break;
+				String msgKey = node.getText("msgKey");
+				log.info("KANG-20210405 >>>>> {} node = {}", msgKey, node.toPrettyString());
+				
+				switch (msgKey) {
 				default:
-					throw new Exception("ERROR: couldn't parse the msgCode [" + msgCode + "]");
+					throw new Exception("ERROR: couldn't parse the msgKey [" + msgKey + "]");
+					//this.workingData.getQueueFromMonitorToWorker().set(node);
 					//break;
 				}
-				*/
 			} catch (Exception e) {
 				//e.printStackTrace();
 				log.error("KANG-20210405 >>>>> error message: {} at {}", e.getMessage(), CurrentInfo.get());

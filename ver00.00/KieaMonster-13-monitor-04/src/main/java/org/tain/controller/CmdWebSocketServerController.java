@@ -31,7 +31,6 @@ public class CmdWebSocketServerController {
 	
 	@OnMessage
 	public void onMessage(Session session, String message) {
-		//System.out.printf(">>>>> [wsCmd.OnMessage] session.getId(): %s, message: %s, name: %s\n", session.getId(), message, this.workingData.getName());
 		System.out.printf(">>>>> [wsCmd.OnMessage] session.getId(): %s, message: %s\n", session.getId(), message);
 		if (Boolean.TRUE) {
 			this.parsingOfCommander.parsing(session, message);
