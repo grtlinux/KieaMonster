@@ -6,6 +6,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 
 import org.tain.data.WorkingData;
+import org.tain.data.parser.ParsingOfCommander;
 
 @ClientEndpoint
 public class WebSocketClient {

@@ -9,7 +9,6 @@ import javax.websocket.Session;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.tain.data.vo.Cmd;
 import org.tain.data.vo.Info;
 import org.tain.tools.node.MonJsonNode;
 import org.tain.tools.queue.MonQueue;
@@ -20,7 +19,7 @@ import lombok.Data;
 @Data
 public class WorkingData {
 
-	private String name = "########## WORKING DATA ############";
+	private String name = "########## COMMANDER DATA ############";
 	
 	///////////////////////////////////////////////////////////////////////////
 	//
@@ -50,6 +49,7 @@ public class WorkingData {
 	
 	@Bean
 	public void setting() {
+		/*
 		if (Boolean.TRUE) {
 			this.info.setName("SVR01");
 			this.info.setDesc("description of SVR01");
@@ -60,5 +60,6 @@ public class WorkingData {
 			this.mapCmd.put("cmd0102", Cmd.builder().cmdPeriod("30").cmdArr("netstat -lntp").build());
 			this.mapCmd.put("cmd0103", Cmd.builder().cmdPeriod("10").cmdArr("vmstat -w 5").build());
 		}
+		*/
 	}
 }

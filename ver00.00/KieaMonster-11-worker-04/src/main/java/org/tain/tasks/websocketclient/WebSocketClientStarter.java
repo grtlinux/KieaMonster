@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.tain.data.WorkingData;
+import org.tain.data.parser.ParsingOfCommander;
 import org.tain.tools.node.MonJsonNode;
 import org.tain.tools.properties.ProjEnvUrl;
 import org.tain.utils.CurrentInfo;
@@ -41,6 +42,7 @@ public class WebSocketClientStarter {
 		log.info("KANG-20210615 >>>>> async_0102 START {} {}", param, CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
+			// try to connect to the websocket server
 			Sleep.run(2 * 1000);
 			for (int i=0; ; i++) {
 				try {
