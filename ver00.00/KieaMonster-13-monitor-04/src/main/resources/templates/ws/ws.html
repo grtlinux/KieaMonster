@@ -11,8 +11,9 @@
 <div id="d01">
 	<div class="row">
 		<form>
-			<input type="text" id="textWsUri" size="50" value='ws://localhost:8093/v0.1/wsBrw'>
-			<input type="text" id="textMessage">
+			<input type="text" id="textWsUri" size="30" value='ws://localhost:8093/v0.1/wsBrw' readonly>
+			<input type="text" id="textMessage" value="GRP0200" placeholder="GRP0200">
+			<input type="button" value="Connect" onclick="connect()">
 			<input type="button" value="Send" onclick="sendMessage()">
 			<input type="button" value="Disconnect" onclick="disconnect()">
 		</form>
@@ -21,26 +22,24 @@
 		<textarea rows="10" cols="80" id="messageTextArea"></textarea>
 	</div>
 	<script>
-	var wsUri = document.getElementById("textWsUri").value;
 	var messageTextArea = document.getElementById("messageTextArea");
+	var wsUri = $("#textWsUri").val();
 	
 	var webSocket = new WebSocket(wsUri);
 	webSocket.onopen = function(message) {
+		console.log(">>>>> [onOpen]");
 		messageTextArea.value += "* Server connect...\n";
-		var jsonData = JSON.stringify({
-			msgKey: "BRW001",
-			msgType: "REQ",
-			cmdCode: "SVR0400"
-		});
-		sendMessage(jsonData);
 	};
 	webSocket.onclose = function(message) {
+		console.log(">>>>> [onClose]");
 		messageTextArea.value += "* Server Disconnect...\n";
 	};
 	webSocket.onerror = function(message) {
+		console.log(">>>>> [onError]");
 		messageTextArea.value += "* error...\n";
 	};
 	webSocket.onmessage = function(message) {
+		console.log(">>>>> [onMessage]");
 		//var result = JSON.parse(message.data);
 		//messageTextArea.value = result.cmdResult;
 		console.log(">>>>> 1. message.data: ", message.data);
@@ -58,14 +57,52 @@
 			break;
 		}
 	};
-	
-	function sendMessage() {
-		var textMessage = document.getElementById("textMessage");
-		messageTextArea.value += "* Send to Server => " + textMessage.value + "\n";
-		webSocket.send(textMessage.value);
-		textMessage.value = "";
+	///////////////////////////////////////////////////////
+	function connect() {
+		/*
+		var wsUri = $("#textWsUri").val();
+		webSocket = new WebSocket(wsUri);
+		webSocket.onopen = function(message) {
+			console.log(">>>>> [onOpen]");
+			messageTextArea.value += "* Server connect...\n";
+		};
+		webSocket.onclose = function(message) {
+			console.log(">>>>> [onClose]");
+			messageTextArea.value += "* Server Disconnect...\n";
+		};
+		webSocket.onerror = function(message) {
+			console.log(">>>>> [onError]");
+			messageTextArea.value += "* error...\n";
+		};
+		webSocket.onmessage = function(message) {
+			console.log(">>>>> [onMessage]");
+			//var result = JSON.parse(message.data);
+			//messageTextArea.value = result.cmdResult;
+			console.log(">>>>> 1. message.data: ", message.data);
+			var objData = JSON.parse(message.data);
+			console.log(">>>>> 2. objData.msgKey: ", objData.msgKey);
+			switch (objData.msgKey) {
+			case 'BRW001':
+				$("#messageTextArea").val(JSON.stringify(objData, null, 2));
+				break;
+			case 'RET000':
+				var cmdResult = objData.cmdResult;
+				$("#messageTextArea").val(cmdResult);
+				break;
+			default:
+				break;
+			}
+		};
+		*/
 	}
-	function sendMessage(jsonData) {
+	function sendMessage() {
+		var cmdCode = $("#textMessage").val();
+		console.log(">>>>> [sendMessage] " + cmdCode);
+		var jsonData = JSON.stringify({
+			msgKey: "BRW001",
+			msgType: "REQ",
+			cmdCode: cmdCode
+		});
 		webSocket.send(jsonData);
 	}
 	function disconnect() {

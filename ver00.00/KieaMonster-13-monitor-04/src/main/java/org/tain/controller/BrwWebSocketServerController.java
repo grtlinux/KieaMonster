@@ -81,7 +81,7 @@ public class BrwWebSocketServerController {
 	}
 	
 	public void sendMessage(Session session, String message) {
-		System.out.printf(">>>>> [wsBrw.sendMessage]: %s, message: %s\n", session.getId(), message);
+		//System.out.printf(">>>>> [wsBrw.sendMessage]: %s, message: %s\n", session.getId(), message);
 		try {
 			session.getBasicRemote().sendText(message);
 		} catch (Exception e) {
