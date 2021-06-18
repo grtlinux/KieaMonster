@@ -39,8 +39,11 @@ public class ParsingOfBrowser {
 					if (Boolean.TRUE) {
 						// register to map
 						String sessId = session.getId();
-						String cmdCode = reqNode.getText("cmdCode");
-						Brw brw = Brw.builder().sessId(sessId).cmdCode(cmdCode).build();
+						Brw brw = Brw.builder()
+								.sessId(sessId)
+								.session(session)
+								.cmdCode(reqNode.getText("cmdCode"))
+								.build();
 						this.workingData.getMapBrw().put(sessId, brw);
 						log.info(">>>>> mapBrw = {}", this.workingData.getMapBrw());
 					}
@@ -50,7 +53,7 @@ public class ParsingOfBrowser {
 						resNode.put("msgType", "RES");
 						resNode.put("sessId", session.getId());
 						resNode.put("resCode", "000");
-						resNode.put("resMsg", "SUCCESS");
+						resNode.put("resMsg", "SUCCESS ON REGISTRATION OF BRW");
 						this.brwWebSocketServerController.sendMessage(session, resNode.toString());
 					}
 					break;

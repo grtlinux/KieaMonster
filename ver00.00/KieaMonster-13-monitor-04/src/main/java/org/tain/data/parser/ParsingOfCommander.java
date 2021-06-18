@@ -35,7 +35,8 @@ public class ParsingOfCommander {
 				switch (msgKey) {
 				default:
 					//throw new Exception("ERROR: couldn't parse the msgCode [" + msgCode + "]");
-					this.brwWebSocketServerController.broadCast(message);
+					//this.brwWebSocketServerController.broadCast(message);
+					this.brwWebSocketServerController.broadCast(node);
 					break;
 				}
 				

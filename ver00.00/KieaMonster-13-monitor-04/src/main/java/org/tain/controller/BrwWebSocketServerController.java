@@ -1,5 +1,7 @@
 package org.tain.controller;
 
+import java.util.Map;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.tain.config.websocket.CustomSpringConfig;
 import org.tain.data.WorkingData;
 import org.tain.data.parser.ParsingOfBrowser;
+import org.tain.data.vo.Brw;
+import org.tain.tools.node.MonJsonNode;
 
 @Controller
 @ServerEndpoint(value = "/wsBrw", configurator = CustomSpringConfig.class)
@@ -54,11 +58,26 @@ public class BrwWebSocketServerController {
 	
 	///////////////////////////////////////////////////////////////////////////
 	
-	public void broadCast(String message) {
-		System.out.println(">>>>> [wsBrw.broadCast]: ");
-		this.workingData.getBrwSessions().forEach(session -> {
-			this.sendMessage(session, message);
-		});
+	public void broadCast(MonJsonNode node) {
+		//System.out.println(">>>>> [wsBrw.broadCast]: " + node.toString());
+		if (!Boolean.TRUE) {
+			this.workingData.getBrwSessions().forEach(session -> {
+				this.sendMessage(session, node.toString());
+			});
+		}
+		if (Boolean.TRUE) {
+			String cmdCode = node.getText("cmdCode");
+			for(Map.Entry<String,Brw> entry : this.workingData.getMapBrw().entrySet()) {
+				String sessId = entry.getKey();
+				Brw brw = entry.getValue();
+				if (cmdCode.equals(brw.getCmdCode())) {
+					this.sendMessage(brw.getSession(), node.toString());
+					System.out.printf(">>>>> [wsBrw.broadCast]: %s %s %s\n", sessId, cmdCode, node.toString());
+				} else {
+					System.out.printf(">>>>> [wsBrw.broadCast]: %s SKIP\n", sessId);
+				}
+			}
+		}
 	}
 	
 	public void sendMessage(Session session, String message) {
