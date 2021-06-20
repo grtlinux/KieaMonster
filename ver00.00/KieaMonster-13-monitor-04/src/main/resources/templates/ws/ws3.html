@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+	<title>WebSocket First</title>
+	<link rel="shortcut icon" href="#">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<!-- ################################################################################### -->
+<div id="d01">
+	<div class="row">
+		<form>
+			<input type="text" id="textWsUri" size="30" value='ws://localhost:8093/v0.1/wsBrw' readonly>
+			<input type="text" id="cmdCode" value="GRP0200" readonly>
+			<input type="button" value="Send" onclick="sendMessage()">
+			<input type="button" value="Disconnect" onclick="disconnect()">
+		</form>
+	</div><br/>
+	<div class="row">
+		<textarea rows="10" cols="80" id="message"></textarea>
+	</div>
+	<script>
+	var dlgId1 = "#d01";
+	//$(dlgId1 + " #message").val("Hello1 of " + dlgId1);
+	
+	var ws1 = new WebSocket($(dlgId1 + " #textWsUri").val());
+	ws1.onopen = function(message) {
+		console.log(">>>>> [onOpen]");
+		$(dlgId1 + " #message").val("* Server connect...");
+		sendMessage1();
+	};
+	ws1.onclose = function(message) {
+		console.log(">>>>> [onClose]");
+		$(dlgId1 + " #message").val("* Server Disconnect...");
+	};
+	ws1.onerror = function(message) {
+		console.log(">>>>> [onError]");
+		$(dlgId1 + " #message").val("* error...");
+	};
+	ws1.onmessage = function(message) {
+		console.log(">>>>> [onMessage]", message.data);
+		var objData = JSON.parse(message.data);
+		switch (objData.msgKey) {
+		case 'BRW001':
+			$(dlgId1 + " #message").val(JSON.stringify(objData, null, 2));
+			break;
+		case 'RET000':
+			var cmdResult = objData.cmdResult;
+			$(dlgId1 + " #message").val(cmdResult);
+			break;
+		default:
+			break;
+		}
+	};
+	///////////////////////////////////////////////////////
+	function sendMessage1() {
+		var cmdCode = $(dlgId1 + " #cmdCode").val();
+		console.log(">>>>> [sendMessage] " + cmdCode);
+		var jsonData = JSON.stringify({
+			msgKey: "BRW001",
+			msgType: "REQ",
+			cmdCode: cmdCode
+		});
+		ws1.send(jsonData);
+	}
+	function disconnect1() {
+		ws1.close();
+	}
+	</script>
+</div>
+<!-- ################################################################################### -->
+<div id="d02">
+	<div class="row">
+		<form>
+			<input type="text" id="textWsUri" size="30" value='ws://localhost:8093/v0.1/wsBrw' readonly>
+			<input type="text" id="cmdCode" value="SVR0300">
+			<input type="button" value="Send" onclick="sendMessage()">
+			<input type="button" value="Disconnect" onclick="disconnect()">
+		</form>
+	</div><br/>
+	<div class="row">
+		<textarea rows="10" cols="80" id="message"></textarea>
+	</div>
+	<script>
+	var dlgId2 = "#d02";
+	//$(dlgId2 + " #message").val("Hello2 of " + dlgId2);
+	
+	var ws2 = new WebSocket($(dlgId2 + " #textWsUri").val());
+	ws2.onopen = function(message) {
+		console.log(">>>>> [onOpen]");
+		$(dlgId2 + " #message").val("* Server connect...");
+		sendMessage2();
+	};
+	ws2.onclose = function(message) {
+		console.log(">>>>> [onClose]");
+		$(dlgId2 + " #message").val("* Server Disconnect...");
+	};
+	ws2.onerror = function(message) {
+		console.log(">>>>> [onError]");
+		$(dlgId2 + " #message").val("* error...");
+	};
+	ws2.onmessage = function(message) {
+		console.log(">>>>> [onMessage]", message.data);
+		var objData = JSON.parse(message.data);
+		switch (objData.msgKey) {
+		case 'BRW001':
+			$(dlgId2 + " #message").val(JSON.stringify(objData, null, 2));
+			break;
+		case 'RET000':
+			var cmdResult = objData.cmdResult;
+			$(dlgId2 + " #message").val(cmdResult);
+			break;
+		default:
+			break;
+		}
+	};
+	///////////////////////////////////////////////////////
+	function sendMessage2() {
+		var cmdCode = $(dlgId2 + " #cmdCode").val();
+		console.log(">>>>> [sendMessage] " + cmdCode);
+		var jsonData = JSON.stringify({
+			msgKey: "BRW001",
+			msgType: "REQ",
+			cmdCode: cmdCode
+		});
+		ws2.send(jsonData);
+	}
+	function disconnect2() {
+		ws2.close();
+	}
+	</script>
+</div>
+<!-- ################################################################################### -->
+<div id="d03">
+	<div class="row">
+		<form>
+			<input type="text" id="textWsUri" size="30" value='ws://localhost:8093/v0.1/wsBrw' readonly>
+			<input type="text" id="cmdCode" value="SVR0401">
+			<input type="button" value="Send" onclick="sendMessage3()">
+			<input type="button" value="Disconnect" onclick="disconnect3()">
+		</form>
+	</div><br/>
+	<div class="row">
+		<textarea rows="10" cols="80" id="message"></textarea>
+	</div>
+	<script>
+	var dlgId3 = "#d03";
+	//$(dlgId3 + " #message").val("Hello3 of " + dlgId3);
+	
+	var ws3 = new WebSocket($(dlgId3 + " #textWsUri").val());
+	ws3.onopen = function(message) {
+		console.log(">>>>> [onOpen]");
+		$(dlgId3 + " #message").val("* Server connect...");
+		sendMessage3();
+	};
+	ws3.onclose = function(message) {
+		console.log(">>>>> [onClose]");
+		$(dlgId3 + " #message").val("* Server Disconnect...");
+	};
+	ws3.onerror = function(message) {
+		console.log(">>>>> [onError]");
+		$(dlgId3 + " #message").val("* error...");
+	};
+	ws3.onmessage = function(message) {
+		console.log(">>>>> [onMessage]", message.data);
+		var objData = JSON.parse(message.data);
+		switch (objData.msgKey) {
+		case 'BRW001':
+			$(dlgId3 + " #message").val(JSON.stringify(objData, null, 2));
+			break;
+		case 'RET000':
+			var cmdResult = objData.cmdResult;
+			$(dlgId3 + " #message").val(cmdResult);
+			break;
+		default:
+			break;
+		}
+	};
+	///////////////////////////////////////////////////////
+	function sendMessage3() {
+		var cmdCode = $(dlgId3 + " #cmdCode").val();
+		console.log(">>>>> [sendMessage] " + cmdCode);
+		var jsonData = JSON.stringify({
+			msgKey: "BRW001",
+			msgType: "REQ",
+			cmdCode: cmdCode
+		});
+		ws3.send(jsonData);
+	}
+	function disconnect3() {
+		ws3.close();
+	}
+	</script>
+</div>
+
+</body>
+<script>
+//
+</script>
+</html>

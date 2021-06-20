@@ -25,4 +25,9 @@ public class IndexController {
 	public String ws2() {
 		return "ws/ws2";
 	}
+
+	@GetMapping("/ws3")
+	public String ws3() {
+		return "ws/ws3";
+	}
 }
