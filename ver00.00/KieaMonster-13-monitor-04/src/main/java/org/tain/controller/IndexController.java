@@ -16,8 +16,13 @@ public class IndexController {
 		return "dash1";
 	}
 
-	@GetMapping("/ws")
-	public String ws() {
-		return "ws/ws";
+	@GetMapping("/ws1")
+	public String ws1() {
+		return "ws/ws1";
+	}
+
+	@GetMapping("/ws2")
+	public String ws2() {
+		return "ws/ws2";
 	}
 }
