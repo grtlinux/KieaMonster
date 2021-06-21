@@ -191,7 +191,7 @@ body {
 	//
 	function wsObj(idx, code) {
 		var ws = new WebSocket("ws://localhost:8093/v0.1/wsBrw");
-		ws.onopen = function(evt) {
+		ws.onopen = (evt) => {
 			console.log(">>>>> [onOpen]-" + idx);
 			ws.send(JSON.stringify({
 				msgKey: "BRW001",
@@ -221,10 +221,10 @@ body {
 				break;
 			}
 		};
-		ws.onerror = function(message) {
+		ws.onerror = (evt) => {
 			console.log(">>>>> [onError]-" + idx);
 		};
-		ws.onclose = function(evt) {
+		ws.onclose = (evt) => {
 			console.log(">>>>> [onClose]-" + idx);
 		};
 	}
