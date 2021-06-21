@@ -3,7 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>Home.html</title>
+	<link rel="shortcut icon" href="#">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<!--
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<link rel="stylesheet" href="/v0.1/css/dash1.css"/>
 	-->
 <style type="text/css">
@@ -134,7 +137,7 @@ body {
     }
     .item:nth-child(1) {
       grid-column: 1/150;
-      grid-row: 1/40;
+      grid-row: 1/30;
     }
     .item:nth-child(2) {
       grid-column: 1/80;
@@ -142,11 +145,11 @@ body {
     }
     .item:nth-child(3) {
       grid-column: 1/90;
-      grid-row: 40/120;
+      grid-row: 30/120;
     }
     .item:nth-child(4) {
       grid-column: 90/150;
-      grid-row: 40/120;
+      grid-row: 30/120;
     }
     .item:nth-child(5) {
       grid-column: 80/150;
@@ -162,7 +165,7 @@ body {
     }
     .item:nth-child(1) {
       grid-column: 1/150;
-      grid-row: 1/40;
+      grid-row: 1/30;
     }
     .item:nth-child(2) {
       grid-column: 150/183;
@@ -170,11 +173,11 @@ body {
     }
     .item:nth-child(3) {
       grid-column: 1/90;
-      grid-row: 40/120;
+      grid-row: 30/120;
     }
     .item:nth-child(4) {
       grid-column: 90/150;
-      grid-row: 40/120;
+      grid-row: 30/120;
     }
     .item:nth-child(5) {
       grid-column: 150/183;
@@ -182,6 +185,50 @@ body {
     }
 }
 </style>
+
+
+<script>
+	//
+	function wsObj(idx, code) {
+		var ws = new WebSocket("ws://localhost:8093/v0.1/wsBrw");
+		ws.onopen = function(evt) {
+			console.log(">>>>> [onOpen]-" + idx);
+			ws.send(JSON.stringify({
+				msgKey: "BRW001",
+				msgType: "REQ",
+				cmdCode: code
+			}));
+		};
+		ws.onmessage = function(message) {
+			console.log(">>>>> [onMessage]-" + idx, message.data);
+			var objData = JSON.parse(message.data);
+			switch (objData.msgKey) {
+			case 'BRW001':
+				$("#message" + idx).val(JSON.stringify(objData, null, 2));
+				break;
+			case 'RET000':
+				var svrCode = objData.svrCode;
+				var cmdResult = objData.cmdResult;
+				$("#message" + idx).val(svrCode + ": " + cmdResult);
+				if (idx == 2) {
+					var no = svrCode.charAt(4);
+					$("#svrCd" + no).val(svrCode);
+					$("#svrMsg" + no).val(cmdResult);
+				}
+				break;
+			default:
+				console.log(">>>>> [onMessage]-" + idx, "DEFAULT");
+				break;
+			}
+		};
+		ws.onerror = function(message) {
+			console.log(">>>>> [onError]-" + idx);
+		};
+		ws.onclose = function(evt) {
+			console.log(">>>>> [onClose]-" + idx);
+		};
+	}
+</script>
 
 </head>
 <body>
@@ -191,13 +238,18 @@ body {
       <input type="button" class="start" id="startbtn1" value="Start">
       <input type="button" class="stop" id="stopbtn1" value="Stop" style="padding-left:10px;">
       </div>
-    <textarea name="content" class="txt" style="margin-right: 5px">text area</textarea>
+    <textarea id="message1" name="content" class="txt" style="margin-right: 5px">text area</textarea>
+    <!-- 
     <textarea name="content" class="txt" style="margin-left: 5px;">text area</textarea>
+    -->
     <input type="number" class="x" id="x1" min="1" max="183" placeholder="X :">
     <input type="number" class="y" id="y1" min="1" max="183" placeholder="Y :">
     <input type="number" class="w" id="w1" min="2" max="99" placeholder="W :">
     <input type="number" class="h" id="h1" min="2" max="99" placeholder="H :">
     <input type="button" class="apply" id="applybtn1" value="Apply">
+	<script>
+		wsObj(1, "SVR0401");
+	</script>
   </div>
   
   <div class="item">
@@ -220,51 +272,33 @@ body {
     </div>
     <div class="txts">
       <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area1</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area1</textarea>
+        <textarea id="svrCd1"  class="txt2" style="margin-right: 5px">text area1</textarea>
+        <textarea id="svrMsg1" class="txt3" style="margin-bottom: 5px">text area1</textarea>
       </div>
       <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area2</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area2</textarea>
+        <textarea id="svrCd2"  class="txt2" style="margin-right: 5px">text area2</textarea>
+        <textarea id="svrMsg2" class="txt3" style="margin-bottom: 5px">text area2</textarea>
       </div>
       <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area3</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area3</textarea>
+        <textarea id="svrCd3"  class="txt2" style="margin-right: 5px">text area3</textarea>
+        <textarea id="svrMsg3" class="txt3" style="margin-bottom: 5px">text area3</textarea>
       </div>
       <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area4</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area4</textarea>
+        <textarea id="svrCd4"  class="txt2" style="margin-right: 5px">text area4</textarea>
+        <textarea id="svrMsg4" class="txt3" style="margin-bottom: 5px">text area4</textarea>
       </div>
-      <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area5</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area5</textarea>
-      </div>
-      <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area6</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area6</textarea>
-      </div>
-      <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area7</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area7</textarea>
-      </div>
-      <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area8</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area8</textarea>
-      </div>
-      <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area9</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area9</textarea>
-      </div>
-      <div style="display:flex">
-        <textarea name="content" class="txt2" style="margin-right: 5px">text area10</textarea>
-        <textarea name="content" class="txt3" style="margin-bottom: 5px">text area10</textarea>
-      </div>
+      <!-- 
+      <textarea id="message2" class="txt3" style="margin-right: 5px">text area</textarea>
+       -->
     </div>
     <input type="number" class="x" id="x3" min="1" max="19" placeholder="X :">
     <input type="number" class="y" id="y3" min="1" max="19" placeholder="Y :">
     <input type="number" class="w" id="w3" min="2" max="12" placeholder="W :">
     <input type="number" class="h" id="h3" min="2" max="12" placeholder="H :">
     <input type="button" class="apply" id="applybtn3" value="Apply">
+	<script>
+		wsObj(2, "GRP0200");
+	</script>
   </div>
   
   <div class="item">
@@ -335,7 +369,6 @@ body {
   </div>
 </div>
 </body>
-<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 	$('#applybtn1').click(function(){
 	  $('.item:nth-child(1)').css('grid-column-start', $('#x1').val());
