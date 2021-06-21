@@ -126,7 +126,7 @@ proj-env:
     char-set: utf-8
     #test-flag: true
     test-flag: false
-    svr-code: TEST03
+    svr-code: SVR01
     async-size: 10
 
 ---

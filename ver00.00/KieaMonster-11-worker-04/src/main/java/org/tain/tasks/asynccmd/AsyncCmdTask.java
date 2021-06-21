@@ -78,6 +78,7 @@ public class AsyncCmdTask {
 				nodeResult.put("msgKey", "RET000");
 				nodeResult.put("msgType", "RET");
 				nodeResult.put("mstCode", cmd.getMstCode());
+				nodeResult.put("svrCode", this.workingData.getInfo().getSvrCode());
 				nodeResult.put("cmdCode", cmd.getCmdCode());
 				nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
 				nodeResult.put("cmdArr", cmd.getCmdArr());
@@ -123,6 +124,7 @@ public class AsyncCmdTask {
 					nodeResult.put("msgKey", "RET000");
 					nodeResult.put("msgType", "RET");
 					nodeResult.put("mstCode", cmd.getMstCode());
+					nodeResult.put("svrCode", this.workingData.getInfo().getSvrCode());
 					nodeResult.put("cmdCode", cmd.getCmdCode());
 					nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
 					nodeResult.put("cmdArr", cmd.getCmdArr());

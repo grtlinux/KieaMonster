@@ -38,12 +38,13 @@ public class WorkingData {
 	
 	@Bean
 	public void setting() {
-		/*
 		if (Boolean.TRUE) {
-			this.info.setName("SVR01");
-			this.info.setDesc("description of SVR01");
+			this.info.setSvrCode("SVR01");
+			this.info.setName("server 01");
+			this.info.setDesc("description of server 01");
 		}
 		
+		/*
 		if (Boolean.TRUE) {
 			this.mapCmd.put("cmd0101", Cmd.builder().cmdPeriod("60").cmdArr("ps -ef").build());
 			this.mapCmd.put("cmd0102", Cmd.builder().cmdPeriod("30").cmdArr("netstat -lntp").build());
