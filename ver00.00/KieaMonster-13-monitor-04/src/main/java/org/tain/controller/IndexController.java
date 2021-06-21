@@ -11,6 +11,11 @@ public class IndexController {
 		return "redirect:/home";
 	}
 
+	@GetMapping("/dash_org")
+	public String dash_org() {
+		return "dash_org";
+	}
+
 	@GetMapping("/dash1")
 	public String dash1() {
 		return "dash1";

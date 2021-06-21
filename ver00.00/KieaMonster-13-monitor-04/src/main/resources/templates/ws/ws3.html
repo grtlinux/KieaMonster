@@ -46,8 +46,9 @@
 			$(dlgId1 + " #message").val(JSON.stringify(objData, null, 2));
 			break;
 		case 'RET000':
+			var svrCode = objData.svrCode;
 			var cmdResult = objData.cmdResult;
-			$(dlgId1 + " #message").val(cmdResult);
+			$(dlgId1 + " #message").val(svrCode + ": " + cmdResult);
 			break;
 		default:
 			break;

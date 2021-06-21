@@ -3,10 +3,12 @@ package org.tain.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.tain.data.vo.Info;
 import org.tain.tools.node.MonJsonNode;
+import org.tain.tools.properties.ProjEnvBase;
 import org.tain.tools.queue.MonQueue;
 
 import lombok.Data;
@@ -36,10 +38,13 @@ public class WorkingData {
 	///////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 	
+	@Autowired
+	private ProjEnvBase projEnvBase;
+	
 	@Bean
 	public void setting() {
 		if (Boolean.TRUE) {
-			this.info.setSvrCode("SVR01");
+			this.info.setSvrCode(this.projEnvBase.getSvrCode());
 			this.info.setName("server 01");
 			this.info.setDesc("description of server 01");
 		}
