@@ -45,7 +45,7 @@ public class CmdRestController {
 	///////////////////////////////////////////////////////////////////////////
 	//
 	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
-	@GetMapping({"/cmd/list"})
+	@GetMapping({"/cmd/_list"})
 	public ResponseEntity<?> selectAll(HttpEntity<String> httpEntity) {
 		if (Boolean.TRUE) {
 			HttpHeaders headers = httpEntity.getHeaders();
@@ -228,6 +228,32 @@ public class CmdRestController {
 			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
 		}
 		return new ResponseEntity<>(mapRes, headers, HttpStatus.OK);
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	// LIST
+	@CrossOrigin(origins="*", methods = {RequestMethod.GET, RequestMethod.POST}, maxAge = 3600)
+	@GetMapping({"/cmd/list"})
+	public ResponseEntity<?> listCommands(HttpEntity<String> httpEntity) {
+		if (Boolean.TRUE) {
+			HttpHeaders headers = httpEntity.getHeaders();
+			String body = httpEntity.getBody();
+			log.info(">>>>> ip.info: " + IpPrint.get());
+			log.info(">>>>> request.headers: " + headers.toString());
+			log.info(">>>>> request.body: " + body);
+		}
+		
+		Map<String,Object> mapCmd = null;
+		if (Boolean.TRUE) {
+			mapCmd = this.workingData.getMapCmd();
+		}
+		
+		MultiValueMap<String,String> headers = null;
+		if (Boolean.TRUE) {
+			headers = new LinkedMultiValueMap<>();
+			headers.add(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+		}
+		return new ResponseEntity<>(mapCmd, headers, HttpStatus.OK);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
