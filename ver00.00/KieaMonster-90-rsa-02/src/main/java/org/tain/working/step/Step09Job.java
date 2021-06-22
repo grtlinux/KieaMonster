@@ -8,7 +8,7 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CurrentInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step09Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String imsiKeyPath = null;
 	private String workingPath = null;
@@ -28,8 +28,8 @@ public class Step09Job {
 		log.info("KANG-20210405 -----> FI0072(1000): recv MO_OTK.b64 <- MO");
 		
 		if (Boolean.TRUE) {
-			this.imsiKeyPath = this.projEnvParamProperties.getImsiKeyPath();
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+			this.imsiKeyPath = this.projEnvParam.getImsiKeyPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> imsiKeyPath. {}", this.imsiKeyPath);
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
@@ -45,9 +45,9 @@ public class Step09Job {
 		Path srcFile = null;
 		Path dstFile = null;
 		if (Boolean.TRUE) {
-			srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParamProperties.getMoOtkB64());
+			srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParam.getMoOtkB64());
 			//srcFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwOtkB64());
-			dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getMoOtkB64());
+			dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getMoOtkB64());
 			
 			Files.copy(srcFile, dstFile, StandardCopyOption.REPLACE_EXISTING);
 			log.info("KANG-20210405 -----> (IMSI) file copy. {} {}", srcFile, dstFile);

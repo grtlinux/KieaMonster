@@ -7,7 +7,7 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CipherUtils;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.StringTools;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step00Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String imsiKeyPath = null;
 	private String workingPath = null;
@@ -28,8 +28,8 @@ public class Step00Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.imsiKeyPath = this.projEnvParamProperties.getImsiKeyPath();
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+			this.imsiKeyPath = this.projEnvParam.getImsiKeyPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> imsiKeyPath. {}", this.imsiKeyPath);
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
@@ -215,8 +215,8 @@ public class Step00Job {
 		String b64File = null;
 		String binFile = null;
 		if (Boolean.TRUE) {
-			b64File = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPubkeyB64();
-			binFile = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPubkeyBin();
+			b64File = this.imsiKeyPath + File.separator + this.projEnvParam.getHwPubkeyB64();
+			binFile = this.imsiKeyPath + File.separator + this.projEnvParam.getHwPubkeyBin();
 		}
 		
 		if (Boolean.TRUE) {
@@ -236,8 +236,8 @@ public class Step00Job {
 		String b64File = null;
 		String binFile = null;
 		if (Boolean.TRUE) {
-			b64File = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPrikeyB64();
-			binFile = this.imsiKeyPath + File.separator + this.projEnvParamProperties.getHwPrikeyBin();
+			b64File = this.imsiKeyPath + File.separator + this.projEnvParam.getHwPrikeyB64();
+			binFile = this.imsiKeyPath + File.separator + this.projEnvParam.getHwPrikeyBin();
 		}
 		
 		if (Boolean.TRUE) {

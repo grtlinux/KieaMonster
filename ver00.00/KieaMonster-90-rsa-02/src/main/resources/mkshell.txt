@@ -1,0 +1,52 @@
+	-Dproj-env.param.key-path=/KEY \
+	-Dproj-env.param.work-path=/WORK \
+	-Dproj-env.param.conf-path=/CONF \
+	-Dproj-env.param.today-path=/YYYYMMDD \
+
+
+	-Dproj-env.param.hw-prikey-bin=HW_PriKey.bin \
+	-Dproj-env.param.hw-prikey-b64=HW_PriKey.b64 \
+	-Dproj-env.param.hw-pubkey-bin=HW_PubKey.bin \
+	-Dproj-env.param.hw-pubkey-b64=HW_PubKey.b64 \
+	-Dproj-env.param.hw-otk-bin=HW_OTK.bin \
+	-Dproj-env.param.hw-otk-enc=HW_OTK.enc \
+	-Dproj-env.param.hw-otk-b64=HW_OTK.b64 \
+	-Dproj-env.param.mo-pubkey-bin=MO_PubKey.bin \
+	-Dproj-env.param.mo-pubkey-b64=MO_PubKey.b64 \
+	-Dproj-env.param.mo-otk-bin=MO_OTK.bin \
+	-Dproj-env.param.mo-otk-enc=MO_OTK.enc \
+	-Dproj-env.param.mo-otk-b64=MO_OTK.b64 \
+	-Dproj-env.param.mo-af71-b64=AF71.b64 \
+	-Dproj-env.param.mo-af71-gz= AF71.gz \
+	-Dproj-env.param.mo-af71-enc=AF71.enc \
+	-Dproj-env.param.mo-af71-dat=AF71.dat \
+
+	-Dproj-env.param.step01-flag=true \
+	-Dproj-env.param.step02-flag=true \
+	-Dproj-env.param.step03-flag=true \
+	-Dproj-env.param.step04-flag=true \
+	-Dproj-env.param.step05-flag=true \
+	-Dproj-env.param.step06-flag=true \
+	-Dproj-env.param.step07-flag=true \
+	-Dproj-env.param.step08-flag=true \
+	-Dproj-env.param.step09-flag=true \
+	-Dproj-env.param.step10-flag=true \
+	-Dproj-env.param.step11-flag=true \
+
+# step01=작업폴더를 생성한다.
+# step02=Key 없으면 생성한다. KeyPair
+# step03=Key를 작업폴더에 복사한다.
+# step04=KeyPair에 BASE64 처리
+# step05=FI0000(1000) HW공개키 송신
+# step06=FI0001(1000) MO공개키 수신
+# step07=변환=HW_OTK.b64 생성 using MO_PubKey.bin
+# step08=FI0071(1000:300:AF71) 요구정보 수신
+# step09=FI0072(1000) OTK 수신
+# step10=변환:
+# step11=변환:
+#
+# step12=FI0076(400) 제공정보 송신
+# step13=FI0077(1000) OTK 송신
+# step14=FI1100(1000) PubKey 에러 수신
+# step15=FI1176(400) 제공정보 에러 수신
+	

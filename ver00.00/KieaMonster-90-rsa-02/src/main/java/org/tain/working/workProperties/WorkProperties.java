@@ -3,11 +3,11 @@ package org.tain.working.workProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.tain.node.MonJsonNode;
-import org.tain.properties.ProjEnvBaseProperties;
-import org.tain.properties.ProjEnvJobProperties;
-import org.tain.properties.ProjEnvJsonProperties;
-import org.tain.properties.ProjEnvParamProperties;
-import org.tain.properties.ProjEnvUrlProperties;
+import org.tain.properties.ProjEnvBase;
+import org.tain.properties.ProjEnvJob;
+import org.tain.properties.ProjEnvJson;
+import org.tain.properties.ProjEnvParam;
+import org.tain.properties.ProjEnvUrl;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.Flag;
 
@@ -18,19 +18,19 @@ import lombok.extern.slf4j.Slf4j;
 public class WorkProperties {
 
 	@Autowired
-	private ProjEnvBaseProperties projEnvBaseProperties;
+	private ProjEnvBase projEnvBaseProperties;
 	
 	@Autowired
-	private ProjEnvJobProperties projEnvJobProperties;
+	private ProjEnvJob projEnvJobProperties;
 	
 	@Autowired
-	private ProjEnvJsonProperties projEnvJsonProperties;
+	private ProjEnvJson projEnvJsonProperties;
 	
 	@Autowired
-	private ProjEnvUrlProperties projEnvUrlProperties;
+	private ProjEnvUrl projEnvUrlProperties;
 	
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParamProperties;
 	
 	public void print() throws Exception {
 		log.info("KANG-20210405 >>>>> {} {}", CurrentInfo.get());

@@ -8,7 +8,7 @@ import lombok.Data;
 @Component
 @ConfigurationProperties(prefix = "proj-env.json")
 @Data
-public class ProjEnvJsonProperties {
+public class ProjEnvJson {
 
 	private String name;  // default
 	

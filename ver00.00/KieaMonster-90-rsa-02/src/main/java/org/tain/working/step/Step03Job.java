@@ -8,7 +8,7 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CurrentInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step03Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String configPath = null;
 	private String workingPath = null;
@@ -27,8 +27,8 @@ public class Step03Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.configPath = this.projEnvParamProperties.getConfigPath();
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+			this.configPath = this.projEnvParam.getConfigPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> configPath. {}", this.configPath);
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
@@ -45,8 +45,8 @@ public class Step03Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParamProperties.getHwPrikeyBin());
-			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwPrikeyBin());
+			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParam.getHwPrikeyBin());
+			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getHwPrikeyBin());
 			
 			if (!Files.exists(dstFile.getParent())) {
 				Files.createDirectories(dstFile.getParent());
@@ -57,8 +57,8 @@ public class Step03Job {
 		}
 		
 		if (Boolean.TRUE) {
-			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParamProperties.getHwPubkeyBin());
-			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyBin());
+			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParam.getHwPubkeyBin());
+			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getHwPubkeyBin());
 			
 			if (!Files.exists(dstFile.getParent())) {
 				Files.createDirectories(dstFile.getParent());
@@ -73,8 +73,8 @@ public class Step03Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParamProperties.getHwOtkBin());
-			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwOtkBin());
+			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParam.getHwOtkBin());
+			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getHwOtkBin());
 			
 			if (!Files.exists(dstFile.getParent())) {
 				Files.createDirectories(dstFile.getParent());
@@ -89,8 +89,8 @@ public class Step03Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParamProperties.getMoPubkeyBin());
-			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getMoPubkeyBin());
+			Path srcFile = Paths.get(this.configPath + File.separator + this.projEnvParam.getMoPubkeyBin());
+			Path dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getMoPubkeyBin());
 			
 			if (!Files.exists(srcFile)) {
 				log.info("KANG-20210405 -----> file couldn't copy. {} not exist {}", srcFile);

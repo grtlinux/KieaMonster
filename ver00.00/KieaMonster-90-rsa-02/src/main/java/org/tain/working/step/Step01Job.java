@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CurrentInfo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step01Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	public void doing() throws Exception {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
@@ -29,7 +29,7 @@ public class Step01Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			String dirName = this.projEnvParamProperties.getConfigPath();
+			String dirName = this.projEnvParam.getConfigPath();
 			
 			File dir = new File(dirName);
 			if (!dir.exists()) {
@@ -45,7 +45,7 @@ public class Step01Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			String dirName = this.projEnvParamProperties.getWorkingPath();
+			String dirName = this.projEnvParam.getWorkingPath();
 			
 			File dir = new File(dirName);
 			if (!dir.exists()) {

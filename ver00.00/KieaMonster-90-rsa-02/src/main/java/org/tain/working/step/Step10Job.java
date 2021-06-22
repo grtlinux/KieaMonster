@@ -6,7 +6,7 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CipherUtils;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.StringTools;
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step10Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String workingPath = null;
 	
@@ -26,7 +26,7 @@ public class Step10Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
 		
@@ -48,7 +48,7 @@ public class Step10Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.hwPriKeyB64Path = this.workingPath + File.separator + this.projEnvParamProperties.getHwPrikeyB64();
+			this.hwPriKeyB64Path = this.workingPath + File.separator + this.projEnvParam.getHwPrikeyB64();
 			this.hwPriKey = CipherUtils.getPrivateKeyFromBase64(StringTools.bytesFromFile(this.hwPriKeyB64Path));
 		}
 	}
@@ -65,9 +65,9 @@ public class Step10Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.moOtkB64File = this.workingPath + File.separator + this.projEnvParamProperties.getMoOtkB64();
-			this.moOtkEncFile = this.workingPath + File.separator + this.projEnvParamProperties.getMoOtkEnc();
-			this.moOtkBinFile = this.workingPath + File.separator + this.projEnvParamProperties.getMoOtkBin();
+			this.moOtkB64File = this.workingPath + File.separator + this.projEnvParam.getMoOtkB64();
+			this.moOtkEncFile = this.workingPath + File.separator + this.projEnvParam.getMoOtkEnc();
+			this.moOtkBinFile = this.workingPath + File.separator + this.projEnvParam.getMoOtkBin();
 		}
 	}
 	

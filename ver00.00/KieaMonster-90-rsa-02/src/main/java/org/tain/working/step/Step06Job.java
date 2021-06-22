@@ -9,7 +9,7 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.StringTools;
 
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step06Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String imsiKeyPath = null;
 	private String workingPath = null;
@@ -29,15 +29,15 @@ public class Step06Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		log.info("KANG-20210405 -----> FI0001(1000): recv MO_PubKey.b64 <- MO");
 		
-		if (Boolean.TRUE) {
-			this.imsiKeyPath = this.projEnvParamProperties.getImsiKeyPath();
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+		if (!Boolean.TRUE) {
+			this.imsiKeyPath = this.projEnvParam.getImsiKeyPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> imsiKeyPath. {}", this.imsiKeyPath);
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
 		
-		if (Boolean.TRUE) doingImsi();  // TODO: to be comment in the success future.
-		if (Boolean.TRUE) doingB64DecodingOfMoPubKeyB64();
+		if (!Boolean.TRUE) doingImsi();  // TODO: to be comment in the success future.
+		if (!Boolean.TRUE) doingB64DecodingOfMoPubKeyB64();
 		
 		log.info("");
 	}
@@ -48,9 +48,9 @@ public class Step06Job {
 		Path srcFile = null;
 		Path dstFile = null;
 		if (Boolean.TRUE) {
-			srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParamProperties.getMoPubkeyB64());
+			srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParam.getMoPubkeyB64());
 			//srcFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyB64());
-			dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getMoPubkeyB64());
+			dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getMoPubkeyB64());
 			
 			Files.copy(srcFile, dstFile, StandardCopyOption.REPLACE_EXISTING);
 			log.info("KANG-20210405 -----> (IMSI) file copy. {} {}", srcFile, dstFile);
@@ -63,8 +63,8 @@ public class Step06Job {
 		String b64File = null;
 		String binFile = null;
 		if (Boolean.TRUE) {
-			b64File = this.workingPath + File.separator + this.projEnvParamProperties.getMoPubkeyB64();
-			binFile = this.workingPath + File.separator + this.projEnvParamProperties.getMoPubkeyBin();
+			b64File = this.workingPath + File.separator + this.projEnvParam.getMoPubkeyB64();
+			binFile = this.workingPath + File.separator + this.projEnvParam.getMoPubkeyBin();
 		}
 		
 		if (Boolean.TRUE) {

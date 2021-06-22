@@ -8,7 +8,7 @@ import lombok.Data;
 @Component
 @ConfigurationProperties(prefix = "proj-env.base")
 @Data
-public class ProjEnvBaseProperties {
+public class ProjEnvBase {
 
 	private String name;  // default
 	

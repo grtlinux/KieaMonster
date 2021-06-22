@@ -2,7 +2,7 @@ package org.tain.working;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.working.step.Step00Job;
 import org.tain.working.step.Step01Job;
 import org.tain.working.step.Step02Job;
@@ -36,7 +36,7 @@ public class Working {
 	///////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParamProperties;
 	
 	@Autowired private Step00Job step00Job;
 	@Autowired private Step01Job step01Job;

@@ -82,12 +82,12 @@ spring:
 proj-env:
   param:
     name: PARAM (air)
-    # home: /Users/kang-air
-    home: /Users/kangmac
+    home: /Users/kang-air
+    # home: /Users/kangmac
     base: /KANG/monster/20210320
-    key-path: /KEY
-    work-path: /WORK
-    conf-path: /CONF
+    key-path: /Users/kang-air/KANG/monster/20210320/KEY
+    work-path: /Users/kang-air/KANG/monster/20210320/WORK
+    conf-path: /MOHW_CONF
     today-path: /YYYYMMDD
 
     hw-prikey-bin: HW_PriKey.bin
@@ -114,17 +114,17 @@ proj-env:
 
     #step00-flag: true   # 기타 작업
     
-    step01-flag: true   # 작업폴더를 생성한다.
-    step02-flag: true   # Key 없으면 생성한다. KeyPair
-    step03-flag: true   # Key를 작업폴더에 복사한다.
+    step01-flag: false   # 작업폴더를 생성한다.
+    step02-flag: false   # Key 없으면 생성한다. KeyPair
+    step03-flag: false   # Key를 작업폴더에 복사한다.
     step04-flag: true   # KeyPair에 BASE64 처리
-    step05-flag: true   # FI0000(1000) HW공개키 송신
-    step06-flag: true   # FI0001(1000) MO공개키 수신
-    step07-flag: true   # 변환: HW_OTK.b64 생성 using MO_PubKey.bin
-    step08-flag: true   # FI0071(1000:300:AF71) 요구정보 수신
-    step09-flag: true   # FI0072(1000) OTK 수신
-    step10-flag: true   # 변환:
-    step11-flag: true   # 변환:
+    step05-flag: false   # FI0000(1000) HW공개키 송신
+    step06-flag: false   # FI0001(1000) MO공개키 수신
+    step07-flag: false   # 변환: HW_OTK.b64 생성 using MO_PubKey.bin
+    step08-flag: false   # FI0071(1000:300:AF71) 요구정보 수신
+    step09-flag: false   # FI0072(1000) OTK 수신
+    step10-flag: false   # 변환:
+    step11-flag: false   # 변환:
     
     #step12-flag: true   # FI0076(400) 제공정보 송신
     #step13-flag: true   # FI0077(1000) OTK 송신

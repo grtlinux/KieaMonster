@@ -10,7 +10,7 @@ import lombok.Data;
 @Component
 @ConfigurationProperties(prefix = "proj-env.param")
 @Data
-public class ProjEnvParamProperties {
+public class ProjEnvParam {
 
 	private String name;  // default
 
@@ -70,8 +70,11 @@ public class ProjEnvParamProperties {
 	public void init() throws Exception {
 		this.todayPath = String.format("/%s", StringTools.getYYYYMMDD());
 
-		this.imsiKeyPath = this.home + this.base + this.keyPath;
-		this.workingPath = this.home + this.base + this.workPath + this.todayPath;
-		this.configPath = this.home + this.base + this.workPath + this.confPath;
+		//this.imsiKeyPath = this.home + this.base + this.keyPath;
+		this.imsiKeyPath = this.keyPath;
+		//this.workingPath = this.home + this.base + this.workPath + this.todayPath;
+		this.workingPath = this.workPath + this.todayPath;
+		//this.configPath = this.home + this.base + this.workPath + this.confPath;
+		this.configPath = this.workPath + this.confPath;
 	}
 }

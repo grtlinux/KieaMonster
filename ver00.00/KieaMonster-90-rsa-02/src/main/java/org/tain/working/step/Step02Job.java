@@ -9,7 +9,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CipherUtils;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.StringTools;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step02Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	public void doing() throws Exception {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
@@ -39,8 +39,8 @@ public class Step02Job {
 		String hwPrikeyBinName = null;
 		String hwPubkeyBinName = null;
 		if (Boolean.TRUE) {
-			hwPrikeyBinName = this.projEnvParamProperties.getConfigPath() + File.separator + this.projEnvParamProperties.getHwPrikeyBin();
-			hwPubkeyBinName = this.projEnvParamProperties.getConfigPath() + File.separator + this.projEnvParamProperties.getHwPubkeyBin();
+			hwPrikeyBinName = this.projEnvParam.getConfigPath() + File.separator + this.projEnvParam.getHwPrikeyBin();
+			hwPubkeyBinName = this.projEnvParam.getConfigPath() + File.separator + this.projEnvParam.getHwPubkeyBin();
 			
 			File priFile = new File(hwPrikeyBinName);
 			File pubFile = new File(hwPubkeyBinName);
@@ -74,7 +74,7 @@ public class Step02Job {
 		
 		String hwOtkBinName = null;
 		if (Boolean.TRUE) {
-			hwOtkBinName = this.projEnvParamProperties.getConfigPath() + File.separator + this.projEnvParamProperties.getHwOtkBin();
+			hwOtkBinName = this.projEnvParam.getConfigPath() + File.separator + this.projEnvParam.getHwOtkBin();
 			
 			File file = new File(hwOtkBinName);
 			if (file.exists()) {
@@ -100,7 +100,7 @@ public class Step02Job {
 		
 		String hwPubkeyBinName = null;
 		if (Boolean.TRUE) {
-			hwPubkeyBinName = this.projEnvParamProperties.getConfigPath() + File.separator + this.projEnvParamProperties.getMoPubkeyBin();
+			hwPubkeyBinName = this.projEnvParam.getConfigPath() + File.separator + this.projEnvParam.getMoPubkeyBin();
 			
 			File file = new File(hwPubkeyBinName);
 			if (file.exists()) {

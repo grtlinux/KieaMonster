@@ -5,7 +5,7 @@ import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.StringTools;
 
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step04Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String workingPath = null;
 	
@@ -24,7 +24,7 @@ public class Step04Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
 		
@@ -40,8 +40,8 @@ public class Step04Job {
 		String binFile = null;
 		String b64File = null;
 		if (Boolean.TRUE) {
-			binFile = this.workingPath + File.separator + this.projEnvParamProperties.getHwPrikeyBin();
-			b64File = this.workingPath + File.separator + this.projEnvParamProperties.getHwPrikeyB64();
+			binFile = this.workingPath + File.separator + this.projEnvParam.getHwPrikeyBin();
+			b64File = this.workingPath + File.separator + this.projEnvParam.getHwPrikeyB64();
 		}
 		
 		if (Boolean.TRUE) {
@@ -58,8 +58,8 @@ public class Step04Job {
 		String binFile = null;
 		String b64File = null;
 		if (Boolean.TRUE) {
-			binFile = this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyBin();
-			b64File = this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyB64();
+			binFile = this.workingPath + File.separator + this.projEnvParam.getHwPubkeyBin();
+			b64File = this.workingPath + File.separator + this.projEnvParam.getHwPubkeyB64();
 		}
 		
 		if (Boolean.TRUE) {

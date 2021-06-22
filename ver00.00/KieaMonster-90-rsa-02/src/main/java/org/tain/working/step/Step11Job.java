@@ -10,7 +10,7 @@ import java.util.zip.GZIPInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.tain.properties.ProjEnvParamProperties;
+import org.tain.properties.ProjEnvParam;
 import org.tain.utils.CurrentInfo;
 import org.tain.utils.StringTools;
 
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Step11Job {
 
 	@Autowired
-	private ProjEnvParamProperties projEnvParamProperties;
+	private ProjEnvParam projEnvParam;
 	
 	private String workingPath = null;
 	
@@ -29,7 +29,7 @@ public class Step11Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.workingPath = this.projEnvParamProperties.getWorkingPath();
+			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> workingPath. {}", this.workingPath);
 		}
 		
@@ -52,10 +52,10 @@ public class Step11Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		
 		if (Boolean.TRUE) {
-			this.moAf71B64File = this.workingPath + File.separator + this.projEnvParamProperties.getMoAf71B64();
-			this.moAf71GzFile  = this.workingPath + File.separator + this.projEnvParamProperties.getMoAf71Gz();
-			this.moAf71EncFile = this.workingPath + File.separator + this.projEnvParamProperties.getMoAf71Enc();
-			this.moAf71DatFile = this.workingPath + File.separator + this.projEnvParamProperties.getMoAf71Dat();
+			this.moAf71B64File = this.workingPath + File.separator + this.projEnvParam.getMoAf71B64();
+			this.moAf71GzFile  = this.workingPath + File.separator + this.projEnvParam.getMoAf71Gz();
+			this.moAf71EncFile = this.workingPath + File.separator + this.projEnvParam.getMoAf71Enc();
+			this.moAf71DatFile = this.workingPath + File.separator + this.projEnvParam.getMoAf71Dat();
 		}
 	}
 	

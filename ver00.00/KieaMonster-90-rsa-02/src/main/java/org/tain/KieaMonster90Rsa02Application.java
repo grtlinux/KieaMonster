@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.tain.properties.ProjEnvBaseProperties;
+import org.tain.properties.ProjEnvBase;
 import org.tain.working.Working;
 
 @SpringBootApplication
@@ -19,7 +19,7 @@ public class KieaMonster90Rsa02Application implements CommandLineRunner {
 	///////////////////////////////////////////////////////////////////////////
 	
 	@Autowired
-	private ProjEnvBaseProperties projEnvBaseProperties;
+	private ProjEnvBase projEnvBaseProperties;
 	
 	@Autowired
 	private Working working;
