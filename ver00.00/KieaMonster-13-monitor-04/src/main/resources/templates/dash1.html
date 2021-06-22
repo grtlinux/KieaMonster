@@ -188,45 +188,54 @@ body {
 
 
 <script>
+$(function() {
+	console.log(">>>>> init function.....");
+});
+</script>
+<script>
 	//
 	function wsObj(idx, code) {
-		var ws = new WebSocket("ws://localhost:8093/v0.1/wsBrw");
-		ws.onopen = (evt) => {
-			console.log(">>>>> [onOpen]-" + idx);
-			ws.send(JSON.stringify({
-				msgKey: "BRW001",
-				msgType: "REQ",
-				cmdCode: code
-			}));
-		};
-		ws.onmessage = function(message) {
-			console.log(">>>>> [onMessage]-" + idx, message.data);
-			var objData = JSON.parse(message.data);
-			switch (objData.msgKey) {
-			case 'BRW001':
-				$("#message" + idx).val(JSON.stringify(objData, null, 2));
-				break;
-			case 'RET000':
-				var svrCode = objData.svrCode;
-				var cmdResult = objData.cmdResult;
-				$("#message" + idx).val(svrCode + ": " + cmdResult);
-				if (idx == 2) {
-					var no = svrCode.charAt(4);
-					$("#svrCd" + no).val(svrCode);
-					$("#svrMsg" + no).val(cmdResult);
+		if ("WebSocket" in window) {
+			var ws = new WebSocket("ws://localhost:8093/v0.1/wsBrw");
+			ws.onopen = (evt) => {
+				console.log(">>>>> [onOpen]-" + idx);
+				ws.send(JSON.stringify({
+					msgKey: "BRW001",
+					msgType: "REQ",
+					cmdCode: code
+				}));
+			};
+			ws.onmessage = function(message) {
+				console.log(">>>>> [onMessage]-" + idx, message.data);
+				var objData = JSON.parse(message.data);
+				switch (objData.msgKey) {
+				case 'BRW001':
+					$("#message" + idx).val(JSON.stringify(objData, null, 2));
+					break;
+				case 'RET000':
+					var svrCode = objData.svrCode;
+					var cmdResult = objData.cmdResult;
+					$("#message" + idx).val(svrCode + ": " + cmdResult);
+					if (idx == 2) {
+						var no = svrCode.charAt(4);
+						$("#svrCd" + no).val(svrCode);
+						$("#svrMsg" + no).val(cmdResult);
+					}
+					break;
+				default:
+					console.log(">>>>> [onMessage]-" + idx, "DEFAULT");
+					break;
 				}
-				break;
-			default:
-				console.log(">>>>> [onMessage]-" + idx, "DEFAULT");
-				break;
-			}
-		};
-		ws.onerror = (evt) => {
-			console.log(">>>>> [onError]-" + idx);
-		};
-		ws.onclose = (evt) => {
-			console.log(">>>>> [onClose]-" + idx);
-		};
+			};
+			ws.onerror = (evt) => {
+				console.log(">>>>> [onError]-" + idx);
+			};
+			ws.onclose = (evt) => {
+				console.log(">>>>> [onClose]-" + idx);
+			};
+		} else {
+			alert(">>>>> WebSocket NOT supported by your Browser!!!");
+		}
 	}
 </script>
 
