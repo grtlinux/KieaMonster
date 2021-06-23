@@ -24,6 +24,8 @@ public class Cmd {
 	
 	private String cmdPeriod;
 	
+	private String cmdBufLine;
+	
 	private String cmdArr;
 	
 	private boolean flgAlive;
@@ -35,6 +37,7 @@ public class Cmd {
 			String mstType,
 			String cmdCode,
 			String cmdPeriod,
+			String cmdBufLine,
 			String cmdArr,
 			boolean flgAalive
 			) {
@@ -42,6 +45,7 @@ public class Cmd {
 		this.mstType = mstType;
 		this.cmdCode = cmdCode;
 		this.cmdPeriod = cmdPeriod;
+		this.cmdBufLine = cmdBufLine;
 		this.cmdArr = cmdArr;
 		this.flgAlive = flgAalive;
 	}

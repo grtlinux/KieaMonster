@@ -54,6 +54,9 @@ public class TbCmd {
 	@Column(name = "cmd_period", length = 8)
 	private String cmdPeriod;
 	
+	@Column(name = "cmd_buf_line", length = 8)
+	private String cmdBufLine;
+	
 	@Column(name = "cmd_type", length = 32)
 	private String cmdType;
 	
@@ -77,6 +80,7 @@ public class TbCmd {
 			String cmdName,
 			String cmdDesc,
 			String cmdPeriod,
+			String cmdBufLine,
 			String cmdType,
 			String cmdArr
 			) {
@@ -86,6 +90,7 @@ public class TbCmd {
 		this.cmdName = cmdName;
 		this.cmdDesc = cmdDesc;
 		this.cmdPeriod = cmdPeriod;
+		this.cmdBufLine = cmdBufLine;
 		this.cmdType = cmdType;
 		this.cmdArr = cmdArr;
 	}

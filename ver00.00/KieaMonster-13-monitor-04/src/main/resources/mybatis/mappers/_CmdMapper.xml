@@ -14,6 +14,7 @@
 			, cmd_name
 			, cmd_desc
 			, cmd_period
+			, cmd_buf_line
 			, cmd_type
 			, cmd_arr
 		from

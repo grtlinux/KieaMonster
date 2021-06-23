@@ -6,6 +6,7 @@
 		"cmdName": "date",
 		"cmdDesc": "",
 		"cmdPeriod": 60,
+		"cmdBufLine": 1,
 		"cmdType": "CMD_NORMAL",
 		"cmdArr": " date "
 	}

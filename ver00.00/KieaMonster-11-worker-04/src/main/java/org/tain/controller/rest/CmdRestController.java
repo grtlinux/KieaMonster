@@ -194,6 +194,7 @@ public class CmdRestController {
 					.mstType((String) lst.get(0).get("mstType"))
 					.cmdCode((String) lst.get(0).get("cmdCode"))
 					.cmdPeriod((String) lst.get(0).get("cmdPeriod"))
+					.cmdBufLine((String) lst.get(0).get("cmdBufLine"))
 					.cmdArr((String) lst.get(0).get("cmdArr"))
 					.flgAalive(true)
 					.build();

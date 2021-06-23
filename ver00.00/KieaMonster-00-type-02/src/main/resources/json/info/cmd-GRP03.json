@@ -6,6 +6,7 @@
 		"cmdName": "hostname",
 		"cmdDesc": "",
 		"cmdPeriod": 60,
+		"cmdBufLine": 1,
 		"cmdType": "CMD_NORMAL",
 		"cmdArr": " hostname "
 	}

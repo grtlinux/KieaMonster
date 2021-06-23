@@ -6,6 +6,7 @@
 		"cmdName": "java version",
 		"cmdDesc": "java version",
 		"cmdPeriod": 60,
+		"cmdBufLine": 1,
 		"cmdType": "CMD_NORMAL",
 		"cmdArr": "  java -version "
 	},{
@@ -15,6 +16,7 @@
 		"cmdName": "profile",
 		"cmdDesc": "profile",
 		"cmdPeriod": 60,
+		"cmdBufLine": 1,
 		"cmdType": "CMD_NORMAL",
 		"cmdArr": " cat ~/.profile "
 	}
