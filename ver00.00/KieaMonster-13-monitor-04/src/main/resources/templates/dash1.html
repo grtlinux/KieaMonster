@@ -29,16 +29,23 @@ body {
 }
 
 .title {
-  width: calc(100% - 15px);
+  width: 100%;
   height: 30px;
   background-color: #666679;
   box-sizing: border-box;
   border-radius: 5px 5px 0 0;
   position: absolute;
-  top: 5px;
+  top: 0;
   font-size: 15px;
   padding: 8px 15px;
   color: white;
+}
+
+.urltxt {
+  width: 300px;
+  position: absolute;
+  top: 5px;
+  right: 150px;
 }
 
 .start {
@@ -91,6 +98,7 @@ body {
   top: 44px;
   left: 20px;
 }
+
 .x {
   width: 40px;
   position: absolute;
@@ -244,8 +252,9 @@ $(function() {
 <div class="container">
   <div class="item">
     <div class="title">1번 제목
-      <input type="button" class="start" id="startbtn1" value="Start">
-      <input type="button" class="stop" id="stopbtn1" value="Stop" style="padding-left:10px;">
+      <input type="url" class="urltxt" id="urltxt1" value="http://localhost:8891/v0.1/rest/cmd/SVR0100">
+      <input type="button" class="start" id="startbtn1" value="Start" onclick="dlg01Start();">
+      <input type="button" class="stop" id="stopbtn1" value="Stop" style="padding-left:10px;" onclick="dlg01Stop();">
       </div>
     <textarea id="message1" name="content" class="txt" style="margin-right: 5px">text area</textarea>
     <!-- 
@@ -258,6 +267,50 @@ $(function() {
     <input type="button" class="apply" id="applybtn1" value="Apply">
 	<script>
 		wsObj(1, "SVR0100");
+		function dlg01Start() {
+			console.log(">>>>> dlg01 start.....");
+			//alert("dlg01 start...");
+			$.ajax({
+				//url: _contextPath_ + $('#modal_mapping').val(),
+				url: "http://localhost:8891/v0.1/rest/cmd/SVR0100" + "/start",
+				type: "GET",
+				//data: jsonData,
+				contentType: "application/json",
+				header: {
+					"Authorization": "Basic " + btoa("kiea" + ":" + "test")
+				},
+				dataType: "json",
+				success: function(data, status) {
+					console.log(">>>>> dlg01 start to success.....", JSON.stringify(data, null, 2));
+				},
+				error: function() {
+					alert('FAIL of CMD');
+				}
+			});
+			return false;
+		}
+		function dlg01Stop() {
+			console.log(">>>>> dlg01 stop.....");
+			//alert("dlg01 stop...");
+			$.ajax({
+				//url: _contextPath_ + $('#modal_mapping').val(),
+				url: "http://localhost:8891/v0.1/rest/cmd/SVR0100" + "/stop",
+				type: "GET",
+				//data: jsonData,
+				contentType: "application/json",
+				header: {
+					"Authorization": "Basic " + btoa("kiea" + ":" + "test")
+				},
+				dataType: "json",
+				success: function(data, status) {
+					console.log(">>>>> dlg01 stop to success.....", JSON.stringify(data, null, 2));
+				},
+				error: function() {
+					alert('FAIL of CMD');
+				}
+			});
+			return false;
+		}
 	</script>
   </div>
   
@@ -276,6 +329,7 @@ $(function() {
   
   <div class="item">
     <div class="title">3번 제목
+      <input type="url" class="urltxt" id="urltxt3">
       <input type="button" class="start" id="startbtn3" value="Start">
       <input type="button" class="stop" id="stopbtn3" value="Stop">
     </div>
@@ -312,6 +366,7 @@ $(function() {
   
   <div class="item">
     <div class="title">4번 제목
+      <input type="url" class="urltxt" id="urltxt4">
       <input type="button" class="start" id="startbtn4" value="Start">
       <input type="button" class="stop" id="stopbtn4" value="Stop">
     </div>

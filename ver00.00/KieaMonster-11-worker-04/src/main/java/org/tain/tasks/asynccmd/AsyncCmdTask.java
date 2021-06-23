@@ -2,6 +2,7 @@ package org.tain.tasks.asynccmd;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -118,7 +119,8 @@ public class AsyncCmdTask {
 				
 				if (Boolean.TRUE) {
 					@SuppressWarnings("unused")
-					int exitVal = process.waitFor();
+					//int exitVal = process.waitFor();
+					boolean bExit = process.waitFor(1, TimeUnit.SECONDS);
 					process.destroy();
 				}
 			}
@@ -174,7 +176,8 @@ public class AsyncCmdTask {
 				
 				if (Boolean.TRUE) {
 					@SuppressWarnings("unused")
-					int exitVal = process.waitFor();
+					//int exitVal = process.waitFor();
+					boolean bExit = process.waitFor(1, TimeUnit.SECONDS);
 					@SuppressWarnings("unused")
 					int len = sb.length();
 					process.destroy();
