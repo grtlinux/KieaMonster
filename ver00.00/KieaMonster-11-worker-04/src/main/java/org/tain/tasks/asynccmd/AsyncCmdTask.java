@@ -40,6 +40,12 @@ public class AsyncCmdTask {
 		
 		if (Boolean.TRUE) {
 			int period = Integer.parseInt(cmd.getCmdPeriod());
+			/*
+			 * cmdPeriod
+			 *     - : keep running
+			 *     0 : one run
+			 *     + : loop wait time
+			 */
 			if (period < 0) {
 				cmdKeepSingle(cmd);
 			} else {
@@ -81,20 +87,32 @@ public class AsyncCmdTask {
 				nodeResult.put("svrCode", this.workingData.getInfo().getSvrCode());
 				nodeResult.put("cmdCode", cmd.getCmdCode());
 				nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
+				nodeResult.put("cmdBufLine", cmd.getCmdBufLine());
 				nodeResult.put("cmdArr", cmd.getCmdArr());
 			}
 			
 			if (Boolean.TRUE) {
 				// run process and get the result
 				Process process = Runtime.getRuntime().exec(cmd.getCmdArr());
+				int bufLine = Integer.parseInt(cmd.getCmdBufLine());
+				int bufIdx = 0;
+				StringBuffer sb = new StringBuffer();
+				sb.setLength(0);
 				
 				BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"));
 				String line = null;
 				while ((line = br.readLine()) != null && cmd.isFlgAlive()) {
-					nodeResult.put("cmdResult", line + "\n");
-					if (Boolean.TRUE) {
-						this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
-						if (Boolean.TRUE) System.out.println(">>>>> queue.set.nodeResult: " + nodeResult.toPrettyString());
+					if (bufIdx < bufLine) {
+						sb.append(line).append("\n");
+						bufIdx ++;
+					} else {
+						nodeResult.put("cmdResult", sb.toString());
+						if (Boolean.TRUE) {
+							this.workingData.getQueueFromAsyncToCommander().set(nodeResult);
+							if (Boolean.TRUE) System.out.println(">>>>> queue.set.nodeResult: " + nodeResult.toPrettyString());
+						}
+						sb.setLength(0);
+						bufIdx = 0;
 					}
 				}
 				
@@ -127,6 +145,7 @@ public class AsyncCmdTask {
 					nodeResult.put("svrCode", this.workingData.getInfo().getSvrCode());
 					nodeResult.put("cmdCode", cmd.getCmdCode());
 					nodeResult.put("cmdPeriod", cmd.getCmdPeriod());
+					nodeResult.put("cmdBufLine", cmd.getCmdBufLine());
 					nodeResult.put("cmdArr", cmd.getCmdArr());
 				}
 				
