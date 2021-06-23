@@ -2,6 +2,7 @@ package org.tain.working;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.tain.tools.properties.ProjEnvBase;
 import org.tain.working.http.HttpWork;
 import org.tain.working.load.LoadTablesWork;
 import org.tain.working.load.test.TestLoadWork;
@@ -10,10 +11,13 @@ import org.tain.working.properties.PropertiesWork;
 @Component
 public class Work {
 
+	@Autowired
+	private ProjEnvBase projEnvBase;
+	
 	public void working() throws Exception {
 		if (Boolean.TRUE) propertiesWork();
 		if (!Boolean.TRUE) loadWork();  // load.test
-		if (!Boolean.TRUE) loadTablesWork();  // loadTablesWork
+		if (this.projEnvBase.isNewLoadFlag()) loadTablesWork();  // loadTablesWork
 		if (!Boolean.TRUE) httpWork();  // HttoWork
 	}
 	

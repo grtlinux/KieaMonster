@@ -18,6 +18,7 @@ public class ProjEnvBase {
 	
 	private String charSet;
 	private boolean testFlag;
+	private boolean newLoadFlag;
 	private String svrCode;
 	
 	/*

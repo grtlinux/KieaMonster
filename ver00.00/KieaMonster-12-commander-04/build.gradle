@@ -34,6 +34,9 @@ dependencies {
 	// Java-WebSocket
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
+	implementation 'org.eclipse.jetty.websocket:javax-websocket-client-impl'
+	implementation 'org.eclipse.jetty.websocket:websocket-common'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

@@ -2,31 +2,31 @@
 	{
 		"svrCode": "SVR01",
 		"svrName": "Server01",
-		"svrUrl": "http://%s:8080/v0.1/",
+		"svrUrl": "http://127.0.0.1:8891/v0.1/",
 		"svrDesc": "server 01",
 		"svrComment": "comment"
 	},{
 		"svrCode": "SVR02",
 		"svrName": "Server02",
-		"svrUrl": "http://%s:8080/v0.1/",
+		"svrUrl": "http://127.0.0.1:8892/v0.1/",
 		"svrDesc": "server 02",
 		"svrComment": "comment"
 	},{
 		"svrCode": "SVR03",
 		"svrName": "Server03",
-		"svrUrl": "http://%s:8080/v0.1/",
+		"svrUrl": "http://127.0.0.1:8893/v0.1/",
 		"svrDesc": "server 03",
 		"svrComment": "comment"
 	},{
 		"svrCode": "SVR04",
 		"svrName": "Server04",
-		"svrUrl": "http://%s:8080/v0.1/",
+		"svrUrl": "http://127.0.0.1:8894/v0.1/",
 		"svrDesc": "server 04",
 		"svrComment": "comment"
 	},{
 		"svrCode": "SVR05",
 		"svrName": "Server05",
-		"svrUrl": "http://%s:8080/v0.1/",
+		"svrUrl": "http://127.0.0.1:8895/v0.1/",
 		"svrDesc": "server 05",
 		"svrComment": "comment"
 	}

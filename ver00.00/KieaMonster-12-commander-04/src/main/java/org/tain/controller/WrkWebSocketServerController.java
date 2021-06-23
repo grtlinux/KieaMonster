@@ -1,9 +1,14 @@
 package org.tain.controller;
 
+import java.lang.reflect.Field;
+import java.net.InetSocketAddress;
+
+import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
+import javax.websocket.RemoteEndpoint;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
@@ -96,12 +101,45 @@ public class WrkWebSocketServerController {
 	///////////////////////////////////////////////////////////////////////////
 	
 	@OnOpen
-	public void onOpen(Session session) {
+	public void onOpen(Session session, EndpointConfig config) {
 		if (!Boolean.TRUE) {
 			//Async async = session.getAsyncRemote();
 			//InetSocketAddress addr = (InetSocketAddress) getFieldInstance(async, "base#sos#socketWrapper#socket#sc#remoteAddress");
 			//System.out.printf(">>>>> [OnOpen] session.getId(): %s, %s\n", session.getId(), addr);
 			//System.out.printf(">>>>> [OnOpen] session.getId(): %s, %s\n", session.getId(), session.getUserProperties().get("javax.websocket.endpoint.remoteAddress"));
+		}
+		
+		if (!Boolean.TRUE) {
+			/*
+			String ip = session.getUserProperties().get("javax.websocket.endpoint.remoteAddress").toString();  // Exception
+			System.out.printf(">>>>> [ OnOpen] session.getId(): %s, %s\n", session.getId(), ip);
+			*/
+		}
+		
+		if (!Boolean.TRUE) {
+			/*
+			JsrSession jsrSession = (JsrSession) session;  // import org.eclipse.jetty.websocket.jsr356.JsrSession;
+			WebSocketSession webSocketSession = jsrSession.getWebSocketSession();  // import org.eclipse.jetty.websocket.common.WebSocketSession;
+			String clientIPAddressString = webSocketSession.getRemoteAddress().getHostString();
+			System.out.printf(">>>>> [ OnOpen] session.getId(): %s, %s\n", session.getId(), clientIPAddressString);
+			*/
+		}
+		
+		if (!Boolean.TRUE) {
+			/*
+			Map<String,List<String>> map = session.getRequestParameterMap();
+			System.out.printf(">>>>> [ OnOpen] session.getId(): %s, %s\n", session.getId(), map);
+			*/
+		}
+		
+		if (Boolean.TRUE) {
+			RemoteEndpoint.Async async = session.getAsyncRemote();
+			InetSocketAddress addr = (InetSocketAddress) getFieldInstance(async, "base#sos#socketWrapper#socket#sc#remoteAddress");
+			if (addr == null) {
+				System.out.printf(">>>>> [OnOpen] session.getId(): %s, %s\n", session.getId(), "127.0.0.1");
+			} else {
+				System.out.printf(">>>>> [OnOpen] session.getId(): %s, %s\n", session.getId(), addr.getAddress().getHostAddress());
+			}
 		}
 		
 		if (Boolean.TRUE) {
@@ -113,6 +151,30 @@ public class WrkWebSocketServerController {
 		
 		System.out.printf(">>>>> [OnOpen] session.getId(): %s\n", session.getId());
 		this.workingData.getWrkSessions().add(session);
+	}
+	
+	private Object getFieldInstance(Object obj, String fieldPath) {
+		String fields[] = fieldPath.split("#");
+		for(String field : fields) {
+			obj = getField(obj, obj.getClass(), field);
+			if(obj == null) {
+				return null;
+			}
+		}
+		return obj;
+	}
+
+	private Object getField(Object obj, Class<?> clazz, String fieldName) {
+		for(;clazz != Object.class; clazz = clazz.getSuperclass()) {
+			try {
+				Field field;
+				field = clazz.getDeclaredField(fieldName);
+				field.setAccessible(true);
+				return field.get(obj);
+			} catch (Exception e) {
+			}
+		}
+		return null;
 	}
 	
 	@OnMessage

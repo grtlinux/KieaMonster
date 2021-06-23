@@ -3,12 +3,12 @@
 		"mstType": "CMD_SVR",
 		"mstCode": "SVR01",
 		"cmdCode": "SVR0100",
-		"cmdName": "java version",
-		"cmdDesc": "java version",
-		"cmdPeriod": 60,
-		"cmdBufLine": 1,
+		"cmdName": "ping",
+		"cmdDesc": "ping test",
+		"cmdPeriod": -1,
+		"cmdBufLine": 7,
 		"cmdType": "CMD_NORMAL",
-		"cmdArr": "  java -version "
+		"cmdArr": "  ping google.com "
 	},{
 		"mstType": "CMD_SVR",
 		"mstCode": "SVR01",

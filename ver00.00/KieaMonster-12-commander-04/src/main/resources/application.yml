@@ -129,6 +129,7 @@ proj-env:
     char-set: utf-8
     #test-flag: true
     test-flag: false
+    new-load-flag: true
     svr-code: COMMANDER
   param:
     name: PARAM (default)
