@@ -120,11 +120,11 @@ proj-env:
     step04-flag: false   # KeyPair에 BASE64 처리
     step05-flag: false   # FI0000(1000) HW공개키 송신
     step06-flag: false   # FI0001(1000) MO공개키 수신
-    step07-flag: true   # 변환: HW_OTK.b64 생성 using MO_PubKey.bin
+    step07-flag: false   # 변환: HW_OTK.b64 생성 using MO_PubKey.bin
     step08-flag: false   # FI0071(1000:300:AF71) 요구정보 수신
     step09-flag: false   # FI0072(1000) OTK 수신
     step10-flag: false   # 변환:
-    step11-flag: false   # 변환:
+    step11-flag: true   # 변환:
     
     #step12-flag: true   # FI0076(400) 제공정보 송신
     #step13-flag: true   # FI0077(1000) OTK 송신

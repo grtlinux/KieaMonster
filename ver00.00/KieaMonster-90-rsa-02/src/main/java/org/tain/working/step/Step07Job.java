@@ -85,7 +85,6 @@ public class Step07Job {
 			byte[] byteB64Text = Base64.getEncoder().encode(byteEncText);
 			StringTools.bytesToFile(byteB64Text, this.hwOtkB64File);
 		}
-		
 		log.info("KANG-20210405 -----> 1. transfer file: {}", this.hwOtkBinFile);
 		log.info("KANG-20210405 -----> 2. transfer file: {}", this.hwOtkEncFile);
 		log.info("KANG-20210405 -----> 3. transfer file: {}", this.hwOtkB64File);
