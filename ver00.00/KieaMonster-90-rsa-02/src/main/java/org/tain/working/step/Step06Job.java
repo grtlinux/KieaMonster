@@ -29,7 +29,7 @@ public class Step06Job {
 		log.info("KANG-20210405 {} {}", CurrentInfo.get());
 		log.info("KANG-20210405 -----> FI0001(1000): recv MO_PubKey.b64 <- MO");
 		
-		if (!Boolean.TRUE) {
+		if (Boolean.TRUE) {
 			this.imsiKeyPath = this.projEnvParam.getImsiKeyPath();
 			this.workingPath = this.projEnvParam.getWorkingPath();
 			log.info("KANG-20210405 -----> imsiKeyPath. {}", this.imsiKeyPath);
@@ -37,7 +37,7 @@ public class Step06Job {
 		}
 		
 		if (!Boolean.TRUE) doingImsi();  // TODO: to be comment in the success future.
-		if (!Boolean.TRUE) doingB64DecodingOfMoPubKeyB64();
+		if (Boolean.TRUE) doingB64DecodingOfMoPubKeyB64();
 		
 		log.info("");
 	}
@@ -48,8 +48,8 @@ public class Step06Job {
 		Path srcFile = null;
 		Path dstFile = null;
 		if (Boolean.TRUE) {
-			srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParam.getMoPubkeyB64());
-			//srcFile = Paths.get(this.workingPath + File.separator + this.projEnvParamProperties.getHwPubkeyB64());
+			//srcFile = Paths.get(this.imsiKeyPath + File.separator + this.projEnvParam.getMoPubkeyB64());
+			srcFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getHwPubkeyB64());
 			dstFile = Paths.get(this.workingPath + File.separator + this.projEnvParam.getMoPubkeyB64());
 			
 			Files.copy(srcFile, dstFile, StandardCopyOption.REPLACE_EXISTING);
@@ -65,11 +65,13 @@ public class Step06Job {
 		if (Boolean.TRUE) {
 			b64File = this.workingPath + File.separator + this.projEnvParam.getMoPubkeyB64();
 			binFile = this.workingPath + File.separator + this.projEnvParam.getMoPubkeyBin();
+			log.info(">>>>> b64File. {}", b64File);
+			log.info(">>>>> binFile. {}", binFile);
 		}
 		
 		if (Boolean.TRUE) {
 			byte[] b64Data = StringTools.bytesFromFile(b64File);
-			byte[] binData = Base64.getDecoder().decode(b64Data);
+			byte[] binData = Base64.getMimeDecoder().decode(b64Data);
 			StringTools.bytesToFile(binData, binFile);
 			log.info("KANG-20210405 -----> {} -> {}", b64File, binFile);
 		}

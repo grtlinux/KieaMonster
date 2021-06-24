@@ -117,10 +117,10 @@ proj-env:
     step01-flag: false   # 작업폴더를 생성한다.
     step02-flag: false   # Key 없으면 생성한다. KeyPair
     step03-flag: false   # Key를 작업폴더에 복사한다.
-    step04-flag: true   # KeyPair에 BASE64 처리
+    step04-flag: false   # KeyPair에 BASE64 처리
     step05-flag: false   # FI0000(1000) HW공개키 송신
     step06-flag: false   # FI0001(1000) MO공개키 수신
-    step07-flag: false   # 변환: HW_OTK.b64 생성 using MO_PubKey.bin
+    step07-flag: true   # 변환: HW_OTK.b64 생성 using MO_PubKey.bin
     step08-flag: false   # FI0071(1000:300:AF71) 요구정보 수신
     step09-flag: false   # FI0072(1000) OTK 수신
     step10-flag: false   # 변환:

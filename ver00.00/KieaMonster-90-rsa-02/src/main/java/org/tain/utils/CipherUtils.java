@@ -198,7 +198,8 @@ public class CipherUtils {
 	public static PublicKey getPublicKeyFromBase64(final byte[] byteKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		
-		X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(byteKey));
+		//X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(byteKey));
+		X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getMimeDecoder().decode(byteKey));
 		
 		return keyFactory.generatePublic(keySpecX509);
 	}
