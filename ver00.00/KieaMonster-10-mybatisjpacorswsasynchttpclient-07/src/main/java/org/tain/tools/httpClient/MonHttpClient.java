@@ -19,7 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.tain.tools.node.MonJsonNode;
 import org.tain.utils.CurrentInfo;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +29,78 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MonHttpClient {
 
+	///////////////////////////////////////////////////////////////////////////
+	// GET
+	public MonJsonNode get(String httpUrl, Map<String,String> mapReq) throws Exception {
+		log.info("KANG-20210320 >>>>> {} {}", CurrentInfo.get());
+		
+		HttpMethod httpMethod = HttpMethod.GET;
+		
+		// 1. parameter
+		MultiValueMap<String,String> mapParam = null;
+		if (Boolean.TRUE) {
+			mapParam = new LinkedMultiValueMap<>();
+			mapParam.setAll(mapReq);
+			log.info(">>>>> 1. REQ-mapParam: {}", mapParam);
+		}
+		
+		// 2. httpUrlParam
+		String httpUrlParam = null;
+		if (Boolean.TRUE) {
+			UriComponents builder = UriComponentsBuilder.fromHttpUrl(httpUrl)
+					.queryParams(mapParam)
+					.build(true);
+			httpUrlParam = builder.toString();
+			log.info(">>>>> 2. REQ-httpUrlParam: {}", httpUrlParam);
+		}
+		
+		// 3. header
+		HttpHeaders reqHeaders = null;
+		if (Boolean.TRUE) {
+			reqHeaders = new HttpHeaders();
+			reqHeaders.setContentType(MediaType.APPLICATION_JSON);
+			log.info(">>>>> 3. REQ-reqHeaders  = {}", reqHeaders);
+		}
+		
+		// 4. http entity
+		HttpEntity<String> reqHttpEntity = null;
+		if (Boolean.TRUE) {
+			reqHttpEntity = new HttpEntity<>(reqHeaders);
+			log.info(">>>>> 4. REQ-reqHttpEntity  = {}", reqHttpEntity);
+		}
+		
+		String resData = null;
+		if (Boolean.TRUE) {
+			ResponseEntity<String> response = null;
+			try {
+				response = getCustomRestTemplate().exchange(
+						httpUrlParam
+						, httpMethod
+						, reqHttpEntity
+						, String.class);
+				
+				resData = response.getBody();
+				
+				log.info(">>>>> 5. RES-getStatusCodeValue() = {}", response.getStatusCodeValue());
+				log.info(">>>>> 6. RES-getStatusCode()      = {}", response.getStatusCode());
+				log.info(">>>>> 7. RES-getBody()            = {}", resData);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return new MonJsonNode(resData);
+	}
+	
+	public String get(String httpUrl, String reqData) throws Exception {
+		log.info("KANG-20210320 >>>>> {} {}", CurrentInfo.get());
+		Map<String,String> mapReq = new ObjectMapper().readValue(reqData, new TypeReference<Map<String,String>>() {});
+		MonJsonNode node = get(httpUrl, mapReq);
+		return node.toString();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	// POST
 	public String post(String httpUrl, String reqData) throws Exception {
 		log.info("KANG-20210320 >>>>> {} {}", CurrentInfo.get());
 		
