@@ -203,4 +203,30 @@ public class CipherUtils {
 		
 		return keyFactory.generatePublic(keySpecX509);
 	}
+	
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	/*
+	 * 개인키 문자열로부터 PrivateKey객체를 얻는다.
+	 */
+	public static PrivateKey getPrivateKeyFromBin(final byte[] byteKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		
+		PKCS8EncodedKeySpec keySpecPKCS8 = new PKCS8EncodedKeySpec(byteKey);
+		
+		return keyFactory.generatePrivate(keySpecPKCS8);
+	}
+	
+	/*
+	 * 공용키키 문자열로부터 PublicKey객체를 얻는다.
+	 */
+	public static PublicKey getPublicKeyFromBin(final byte[] byteKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		
+		//X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(Base64.getDecoder().decode(byteKey));
+		X509EncodedKeySpec keySpecX509 = new X509EncodedKeySpec(byteKey);
+		
+		return keyFactory.generatePublic(keySpecX509);
+	}
 }

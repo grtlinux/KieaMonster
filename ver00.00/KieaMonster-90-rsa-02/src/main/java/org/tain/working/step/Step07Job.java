@@ -42,6 +42,7 @@ public class Step07Job {
 	///////////////////////////////////////////////////////////////////////////
 	
 	private String moPubKeyB64Path = null;
+	private String moPubKeyBinPath = null;
 	private PublicKey moPubKey = null;
 	
 	private void getMoPubKey() throws Exception {
@@ -49,7 +50,21 @@ public class Step07Job {
 		
 		if (Boolean.TRUE) {
 			this.moPubKeyB64Path = this.workingPath + File.separator + this.projEnvParam.getMoPubkeyB64();
-			this.moPubKey = CipherUtils.getPublicKeyFromBase64(StringTools.bytesFromFile(this.moPubKeyB64Path));
+			if (new File(this.moPubKeyB64Path).exists()) {
+				this.moPubKey = CipherUtils.getPublicKeyFromBase64(StringTools.bytesFromFile(this.moPubKeyB64Path));
+				log.error("KANG-20210405 -----> MoPubkeyB64: {}", this.moPubKeyB64Path);
+				return;
+			}
+			
+			this.moPubKeyBinPath = this.workingPath + File.separator + this.projEnvParam.getMoPubkeyBin();
+			if (new File(this.moPubKeyBinPath).exists()) {
+				this.moPubKey = CipherUtils.getPublicKeyFromBin(StringTools.bytesFromFile(this.moPubKeyBinPath));
+				log.error("KANG-20210405 -----> MoPubkeyBin: {}", this.moPubKeyBinPath);
+				return;
+			}
+			
+			log.error("KANG-20210405 -----> There's no Mo-Public Key.....");
+			System.exit(-1);
 		}
 	}
 	
