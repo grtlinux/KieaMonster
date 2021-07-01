@@ -3,10 +3,10 @@ package org.tain.files;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -14,39 +14,52 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.tain.utils.CurrentInfo;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
-public class FileSystemStorageService implements StorageService {
+public class UploadStorageService implements StorageService {
 
-	private final Path rootLocation = Paths.get("FILES");
+	@Value("${spring.servlet.multipart.location}")
+	private Path rootLocation;
 	
-	@Bean
-	public void start() throws Exception {
-		log.info("KANG-20210405 >>>>> START {}", CurrentInfo.get());
-		if (Boolean.TRUE) this.deleteAll();
-		if (Boolean.TRUE) this.init();
-		log.info("KANG-20210405 >>>>> END   {}", CurrentInfo.get());
+	@Bean("UploadStorageService_starter")
+	public void starter() throws Exception {
+		this.deleteAll();
+		this.init();
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	// init
+	@Override
+	public void deleteAll() throws Exception {
+		FileSystemUtils.deleteRecursively(this.rootLocation.toFile());
+	}
+
 	@Override
 	public void init() throws Exception {
 		Files.createDirectories(this.rootLocation);
 	}
 
+	///////////////////////////////////////////////////////////////////////////
+	// list
+	@Override
+	public Stream<Path> list() throws Exception {
+		return Files.walk(this.rootLocation, 1)
+				.filter(path -> !path.equals(this.rootLocation))
+				.map(path -> this.rootLocation.relativize(path));
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	// upload
 	@Override
 	public void store(MultipartFile file) throws Exception {
 		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		
 		if (file.isEmpty()) {
-			throw new Exception("File not found...");
+			throw new Exception("File not found....");
 		}
 		
 		if (filename.contains("..")) {
-			throw new Exception("Cannot store file...." + filename);
+			throw new Exception("Cannot store file..." + filename);
 		}
 		
 		try (InputStream inputStream = file.getInputStream()) {
@@ -54,13 +67,8 @@ public class FileSystemStorageService implements StorageService {
 		}
 	}
 
-	@Override
-	public Stream<Path> loadAll() throws Exception {
-		return Files.walk(this.rootLocation, 1)
-				.filter(path -> !path.equals(this.rootLocation))
-				.map(this.rootLocation::relativize);
-	}
-
+	///////////////////////////////////////////////////////////////////////////
+	// download
 	@Override
 	public Resource loadAsResource(String filename) throws Exception {
 		Path file = load(filename);
@@ -76,8 +84,4 @@ public class FileSystemStorageService implements StorageService {
 		return this.rootLocation.resolve(filename);
 	}
 
-	@Override
-	public void deleteAll() throws Exception {
-		FileSystemUtils.deleteRecursively(this.rootLocation.toFile());
-	}
 }

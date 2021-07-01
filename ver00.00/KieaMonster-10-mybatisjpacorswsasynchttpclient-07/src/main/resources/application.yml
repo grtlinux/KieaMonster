@@ -63,7 +63,7 @@ spring:
     suffix: .html
   servlet.multipart:
     enabled: true
-    #slocation: ~/FILES
+    location: FILES
     max-file-size: 5GB
     max-request-size: 5GB
   devtools:
