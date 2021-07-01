@@ -31,8 +31,6 @@ public class PropertiesWork {
 	private ProjEnvUrl projEnvUrl;
 	
 	public void working() throws Exception {
-		log.info(">>>>> {} {}", "- PARAM --", MonJsonNode.getPrettyJson(this.projEnvParam));
-		
 		if (Boolean.TRUE) {
 			log.info(">>>>> {} {}", "- BASE --", MonJsonNode.getPrettyJson(this.projEnvBase));
 			log.info(">>>>> {} {}", "- PARAM -", MonJsonNode.getPrettyJson(this.projEnvParam));
